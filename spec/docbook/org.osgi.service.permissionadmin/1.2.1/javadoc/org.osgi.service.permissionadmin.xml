@@ -1,0 +1,435 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.permissionadmin"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.permissionadmin">
+   <title>org.osgi.service.permissionadmin</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.permissionadmin-version">Version 1.2</releaseinfo>
+      <edition xml:id="org.osgi.service.permissionadmin-version.number">1.2</edition>
+   </info>
+   <para>
+Permission Admin Package Version 1.2.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.permissionadmin; version="[1.2,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.permissionadmin.PermissionAdmin">
+                  <code>PermissionAdmin</code>
+               </link> - 
+The Permission Admin service allows management agents to manage the
+ permissions of bundles.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.permissionadmin.PermissionInfo">
+                  <code>PermissionInfo</code>
+               </link> - 
+Permission representation used by the Permission Admin service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="PermissionAdmin"
+            role="class"
+            xml:id="org.osgi.service.permissionadmin.PermissionAdmin">
+      <title>public interface PermissionAdmin</title>
+      <para>
+The Permission Admin service allows management agents to manage the
+ permissions of bundles. There is at most one Permission Admin service present
+ in the OSGi environment.
+ </para>
+      <para>
+ Access to the Permission Admin service is protected by corresponding
+ <code>ServicePermission</code>. In addition <code>AdminPermission</code> is required to
+ actually set permissions.
+ 
+ </para>
+      <para>
+ Bundle permissions are managed using a permission table. A bundle's location
+ serves as the key into this permission table. The value of a table entry is
+ the set of permissions (of type <code>PermissionInfo</code>) granted to the bundle
+ named by the given location. A bundle may have an entry in the permission
+ table prior to being installed in the Framework.
+ 
+ </para>
+      <para>
+ The permissions specified in <code>setDefaultPermissions</code> are used as the
+ default permissions which are granted to all bundles that do not have an
+ entry in the permission table.
+ 
+ </para>
+      <para>
+ Any changes to a bundle's permissions in the permission table will take
+ effect no later than when bundle's <code>java.security.ProtectionDomain</code> is
+ next involved in a permission check, and will be made persistent.
+ 
+ </para>
+      <para>
+ Only permission classes on the system classpath or from an exported package
+ are considered during a permission check. Additionally, only permission
+ classes that are subclasses of <code>java.security.Permission</code> and define a
+ 2-argument constructor that takes a <emphasis>name </emphasis> string and an <emphasis>actions
+ </emphasis> string can be used.
+ </para>
+      <para>
+ Permissions implicitly granted by the Framework (for example, a bundle's
+ permission to access its persistent storage area) cannot be changed, and are
+ not reflected in the permissions returned by <code>getPermissions</code> and
+ <code>getDefaultPermissions</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getDefaultPermissions()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionAdmin.getDefaultPermissions--">
+         <title>public PermissionInfo[] getDefaultPermissions()</title>
+         <para role="description">
+Gets the default permissions.
+ 
+ </para>
+         <para>
+ These are the permissions granted to any bundle that does not have
+ permissions assigned to its location.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The default permissions, or <code>null</code> if no default
+         permissions are set.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLocations()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionAdmin.getLocations--">
+         <title>public String[] getLocations()</title>
+         <para role="description">
+Returns the bundle locations that have permissions assigned to them, that
+ is, bundle locations for which an entry exists in the permission table.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The locations of bundles that have been assigned any permissions,
+         or <code>null</code> if the permission table is empty.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPermissions(String)"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionAdmin.getPermissions-String-">
+         <title>public PermissionInfo[] getPermissions(String location)</title>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>The location of the bundle whose permissions are to be
+        returned.</para>
+         </formalpara>
+         <para role="description">
+Gets the permissions assigned to the bundle with the specified location.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The permissions assigned to the bundle with the specified
+         location, or <code>null</code> if that bundle has not been assigned
+         any permissions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setDefaultPermissions(PermissionInfo[])"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionAdmin.setDefaultPermissions-PermissionInfo---">
+         <title>public void setDefaultPermissions(PermissionInfo[] permissions)</title>
+         <formalpara role="parameter">
+            <title>permissions</title>
+            <para>The default permissions, or <code>null</code> if the
+        default permissions are to be removed from the permission table.</para>
+         </formalpara>
+         <para role="description">
+Sets the default permissions.
+ 
+ </para>
+         <para>
+ These are the permissions granted to any bundle that does not have
+ permissions assigned to its location.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AllPermission</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setPermissions(String,PermissionInfo[])"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionAdmin.setPermissions-String-PermissionInfo---">
+         <title>public void setPermissions(String location, PermissionInfo[] permissions)</title>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>The location of the bundle that will be assigned the
+        permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>permissions</title>
+            <para>The permissions to be assigned, or <code>null</code> if the
+        specified location is to be removed from the permission table.</para>
+         </formalpara>
+         <para role="description">
+Assigns the specified permissions to the bundle with the specified
+ location.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AllPermission</code>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="PermissionInfo"
+            role="class"
+            xml:id="org.osgi.service.permissionadmin.PermissionInfo">
+      <title>public class PermissionInfo</title>
+      <para>
+Permission representation used by the Permission Admin service.
+ 
+ </para>
+      <para>
+ This class encapsulates three pieces of information: a Permission <emphasis>type
+ </emphasis> (class name), which must be a subclass of
+ <code>java.security.Permission</code>, and the <emphasis>name</emphasis> and <emphasis>actions</emphasis>
+ arguments passed to its constructor.
+ 
+ </para>
+      <para>
+ In order for a permission represented by a <code>PermissionInfo</code> to be
+ instantiated and considered during a permission check, its Permission class
+ must be available from the system classpath or an exported package. This
+ means that the instantiation of a permission represented by a
+ <code>PermissionInfo</code> may be delayed until the package containing its
+ Permission class has been exported by a bundle.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="PermissionInfo(String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.PermissionInfo-String-String-String-">
+         <title>public  PermissionInfo(String type, String name, String actions)</title>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The fully qualified class name of the permission represented
+        by this <code>PermissionInfo</code>. The class must be a subclass of
+        <code>java.security.Permission</code> and must define a 2-argument
+        constructor that takes a <emphasis>name</emphasis> string and an <emphasis>actions</emphasis>
+        string.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The permission name that will be passed as the first argument
+        to the constructor of the <code>Permission</code> class identified by
+        <code>type</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>The permission actions that will be passed as the second
+        argument to the constructor of the <code>Permission</code> class
+        identified by <code>type</code>.</para>
+         </formalpara>
+         <para role="description">
+Constructs a <code>PermissionInfo</code> from the specified type, name, and
+ actions.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>NullPointerException</code>– If <code>type</code> is <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If <code>action</code> is not <code>null</code>
+         and <code>name</code> is <code>null</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="PermissionInfo(String)"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.PermissionInfo-String-">
+         <title>public  PermissionInfo(String encodedPermission)</title>
+         <formalpara role="parameter">
+            <title>encodedPermission</title>
+            <para>The encoded <code>PermissionInfo</code>.</para>
+         </formalpara>
+         <para role="description">
+Constructs a <code>PermissionInfo</code> object from the specified encoded
+ <code>PermissionInfo</code> string. White space in the encoded
+ <code>PermissionInfo</code> string is ignored.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified
+         <code>encodedPermission</code> is not properly formatted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.permissionadmin.PermissionInfo.getEncoded--">getEncoded()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to test for equality with this
+        <code>PermissionInfo</code> object.</para>
+         </formalpara>
+         <para role="description">
+Determines the equality of two <code>PermissionInfo</code> objects.
+ 
+ This method checks that specified object has the same type, name and
+ actions as this <code>PermissionInfo</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if <code>obj</code> is a <code>PermissionInfo</code>, and has
+         the same type, name and actions as this <code>PermissionInfo</code>
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getActions()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.getActions--">
+         <title>public final String getActions()</title>
+         <para role="description">
+Returns the actions of the permission represented by this
+ <code>PermissionInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The actions of the permission represented by this
+         <code>PermissionInfo</code>, or <code>null</code> if the permission does
+         not have any actions associated with it.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getEncoded()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.getEncoded--">
+         <title>public final String getEncoded()</title>
+         <para role="description">
+Returns the string encoding of this <code>PermissionInfo</code> in a form
+ suitable for restoring this <code>PermissionInfo</code>.
+ 
+ </para>
+         <para>
+ The encoded format is:
+ 
+ </para>
+         <programlisting> (type)</programlisting>
+         <para>
+ 
+ or
+ 
+ </para>
+         <programlisting> (type "name")</programlisting>
+         <para>
+ 
+ or
+ 
+ </para>
+         <programlisting> (type "name" "actions")</programlisting>
+         <para>
+ 
+ where <emphasis>name</emphasis> and <emphasis>actions</emphasis> are strings that must be encoded for
+ proper parsing. Specifically, the <code>"</code>,<code>\</code>, carriage return,
+ and line feed characters must be escaped using <code>\"</code>, <code>\\</code>,
+ <code>\r</code>, and <code>\n</code>, respectively.
+ 
+ </para>
+         <para>
+ The encoded string contains no leading or trailing whitespace characters.
+ A single space character is used between <emphasis>type</emphasis> and
+ "<emphasis>name</emphasis>" and between "<emphasis>name</emphasis>" and
+ "<emphasis>actions</emphasis>".</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The string encoding of this <code>PermissionInfo</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.getName--">
+         <title>public final String getName()</title>
+         <para role="description">
+Returns the name of the permission represented by this
+ <code>PermissionInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name of the permission represented by this
+         <code>PermissionInfo</code>, or <code>null</code> if the permission does
+         not have a name.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.getType--">
+         <title>public final String getType()</title>
+         <para role="description">
+Returns the fully qualified class name of the permission represented by
+ this <code>PermissionInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The fully qualified class name of the permission represented by
+         this <code>PermissionInfo</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code value for this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A hash code value for this object.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.permissionadmin.PermissionInfo.toString--">
+         <title>public String toString()</title>
+         <para role="description">
+Returns the string representation of this <code>PermissionInfo</code>. The
+ string is created by calling the <code>getEncoded</code> method on this
+ <code>PermissionInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The string representation of this <code>PermissionInfo</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+</section>

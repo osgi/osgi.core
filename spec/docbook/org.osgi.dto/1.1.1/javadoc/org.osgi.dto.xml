@@ -1,0 +1,87 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.dto">
+   <title>org.osgi.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.dto-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.dto-version.number">1.1</edition>
+   </info>
+   <para>
+OSGi Data Transfer Object Package Version 1.1.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.dto; version="[1.1,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.dto; version="[1.1,1.2)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dto.DTO">
+                  <code>DTO</code>
+               </link> - 
+Super type for Data Transfer Objects.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="DTO" role="class" xml:id="org.osgi.dto.DTO">
+      <title>public abstract class DTO</title>
+      <para>
+Super type for Data Transfer Objects.
+ </para>
+      <para>
+ A Data Transfer Object (DTO) is easily serializable having only public fields
+ of primitive types and their wrapper classes, String, enums, Version, and
+ DTOs. List, Set, Map, and array aggregates may also be used. The aggregates
+ must only hold objects of the listed types or aggregates. The types for Map
+ keys are limited to primitive wrapper classes, String, enums, and Version.
+ </para>
+      <para>
+ The object graph from a Data Transfer Object must be a tree to simplify
+ serialization and deserialization.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="DTO()" role="method" xml:id="org.osgi.dto.DTO.DTO--">
+         <title>public  DTO()</title>
+         <para/>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.dto.DTO.toString--">
+         <title>public String toString()</title>
+         <para role="description">
+Return a string representation of this DTO suitable for use when
+ debugging.
+ </para>
+         <para>
+ The format of the string representation is not specified and subject to
+ change.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A string representation of this DTO suitable for use when
+         debugging.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+</section>

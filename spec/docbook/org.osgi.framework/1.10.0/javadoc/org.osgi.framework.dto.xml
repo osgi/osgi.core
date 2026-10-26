@@ -1,0 +1,308 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.dto">
+   <title>org.osgi.framework.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.dto-version">Version 1.8</releaseinfo>
+      <edition xml:id="org.osgi.framework.dto-version.number">1.8</edition>
+   </info>
+   <para>
+OSGi Data Transfer Object Framework Package Version 1.8.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.dto; version="[1.8,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.dto; version="[1.8,1.9)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.dto.BundleDTO">
+                  <code>BundleDTO</code>
+               </link> - 
+Data Transfer Object for a Bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.dto.FrameworkDTO">
+                  <code>FrameworkDTO</code>
+               </link> - 
+Data Transfer Object for a Framework.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">
+                  <code>ServiceReferenceDTO</code>
+               </link> - 
+Data Transfer Object for a ServiceReference.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleDTO"
+            role="class"
+            xml:id="org.osgi.framework.dto.BundleDTO">
+      <title>public class BundleDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Bundle.
+ 
+ </para>
+      <para>
+ A Bundle can be adapted to provide a <code>BundleDTO</code> for the Bundle.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.framework.dto.BundleDTO.id">
+         <title>public long id</title>
+         <para>
+The bundle's unique identifier.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getBundleId--">Bundle.getBundleId()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="lastModified"
+               role="field"
+               xml:id="org.osgi.framework.dto.BundleDTO.lastModified">
+         <title>public long lastModified</title>
+         <para>
+The time when the bundle was last modified.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getLastModified--">Bundle.getLastModified()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="state"
+               role="field"
+               xml:id="org.osgi.framework.dto.BundleDTO.state">
+         <title>public int state</title>
+         <para>
+The bundle's state.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getState--">Bundle.getState()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="symbolicName"
+               role="field"
+               xml:id="org.osgi.framework.dto.BundleDTO.symbolicName">
+         <title>public String symbolicName</title>
+         <para>
+The bundle's symbolic name.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getSymbolicName--">Bundle.getSymbolicName()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="version"
+               role="field"
+               xml:id="org.osgi.framework.dto.BundleDTO.version">
+         <title>public String version</title>
+         <para>
+The bundle's version.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getVersion--">Bundle.getVersion()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="BundleDTO()"
+               role="method"
+               xml:id="org.osgi.framework.dto.BundleDTO.BundleDTO--">
+         <title>public  BundleDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FrameworkDTO"
+            role="class"
+            xml:id="org.osgi.framework.dto.FrameworkDTO">
+      <title>public class FrameworkDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Framework.
+ 
+ </para>
+      <para>
+ The System Bundle can be adapted to provide a <code>FrameworkDTO</code> for the
+ framework of the system bundle. A <code>FrameworkDTO</code> obtained from a
+ framework will contain only the launch properties of the framework. These
+ properties will not include the System properties.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="bundles"
+               role="field"
+               xml:id="org.osgi.framework.dto.FrameworkDTO.bundles">
+         <title>public List&lt;BundleDTO&gt; bundles</title>
+         <para>
+The bundles that are installed in the framework.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleContext.getBundles--">BundleContext.getBundles()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.framework.dto.FrameworkDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The launch properties of the framework.
+ 
+ The value type must be a numerical type, Boolean, String, DTO or an array
+ of any of the former.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleContext.getProperty-String-">BundleContext.getProperty(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="services"
+               role="field"
+               xml:id="org.osgi.framework.dto.FrameworkDTO.services">
+         <title>public List&lt;ServiceReferenceDTO&gt; services</title>
+         <para>
+The services that are registered in the framework.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleContext.getServiceReferences-String-String-">BundleContext.getServiceReferences(String, String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FrameworkDTO()"
+               role="method"
+               xml:id="org.osgi.framework.dto.FrameworkDTO.FrameworkDTO--">
+         <title>public  FrameworkDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ServiceReferenceDTO"
+            role="class"
+            xml:id="org.osgi.framework.dto.ServiceReferenceDTO">
+      <title>public class ServiceReferenceDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a ServiceReference.
+ </para>
+      <para>
+         <code>ServiceReferenceDTO</code>s for all registered services can be obtained from
+ a <link linkend="org.osgi.framework.dto.FrameworkDTO">FrameworkDTO</link>. A <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> can be adapted to a
+ <code>ServiceReferenceDTO</code>. A started Bundle can be adapted to provide a
+ <code>ServiceReferenceDTO[]</code> of the services registered by the Bundle. A
+ <code>ServiceReferenceDTO</code> obtained from a framework must convert service
+ property values which are not valid value types for DTOs to type
+ <code>String</code> using <code>String.valueOf(Object)</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="bundle"
+               role="field"
+               xml:id="org.osgi.framework.dto.ServiceReferenceDTO.bundle">
+         <title>public long bundle</title>
+         <para>
+The id of the bundle that registered the service.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.ServiceReference.getBundle--">ServiceReference.getBundle()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.framework.dto.ServiceReferenceDTO.id">
+         <title>public long id</title>
+         <para>
+The id of the service.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_ID">Constants.SERVICE_ID</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.framework.dto.ServiceReferenceDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The properties for the service.
+ 
+ The value type must be a numerical type, Boolean, String, DTO or an array
+ of any of the former.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.ServiceReference.getProperty-String-">ServiceReference.getProperty(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="usingBundles"
+               role="field"
+               xml:id="org.osgi.framework.dto.ServiceReferenceDTO.usingBundles">
+         <title>public long[] usingBundles</title>
+         <para>
+The ids of the bundles that are using the service.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.ServiceReference.getUsingBundles--">ServiceReference.getUsingBundles()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="ServiceReferenceDTO()"
+               role="method"
+               xml:id="org.osgi.framework.dto.ServiceReferenceDTO.ServiceReferenceDTO--">
+         <title>public  ServiceReferenceDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

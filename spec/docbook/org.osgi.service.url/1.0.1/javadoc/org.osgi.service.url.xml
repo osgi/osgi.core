@@ -1,0 +1,496 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.url"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.url">
+   <title>org.osgi.service.url</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.url-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.url-version.number">1.0</edition>
+   </info>
+   <para>
+URL Stream and Content Handlers Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.url; version="[1.0,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.url.AbstractURLStreamHandlerService">
+                  <code>AbstractURLStreamHandlerService</code>
+               </link> - 
+Abstract implementation of the <code>URLStreamHandlerService</code> interface.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.url.URLConstants">
+                  <code>URLConstants</code>
+               </link> - 
+Defines standard names for property keys associated with
+ <link linkend="org.osgi.service.url.URLStreamHandlerService">URLStreamHandlerService</link> and <code>java.net.ContentHandler</code> services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.url.URLStreamHandlerService">
+                  <code>URLStreamHandlerService</code>
+               </link> - 
+Service interface with public versions of the protected
+ <code>java.net.URLStreamHandler</code> methods.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.url.URLStreamHandlerSetter">
+                  <code>URLStreamHandlerSetter</code>
+               </link> - 
+Interface used by <code>URLStreamHandlerService</code> objects to call the
+ <code>setURL</code> method on the proxy <code>URLStreamHandler</code> object.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AbstractURLStreamHandlerService"
+            role="class"
+            xml:id="org.osgi.service.url.AbstractURLStreamHandlerService">
+      <title>public abstract class AbstractURLStreamHandlerService<?line-break?> extends URLStreamHandler<?line-break?> implements URLStreamHandlerService</title>
+      <para>
+Abstract implementation of the <code>URLStreamHandlerService</code> interface. All
+ the methods simply invoke the corresponding methods on
+ <code>java.net.URLStreamHandler</code> except for <code>parseURL</code> and
+ <code>setURL</code>, which use the <code>URLStreamHandlerSetter</code> parameter.
+ Subclasses of this abstract class should not need to override the
+ <code>setURL</code> and <code>parseURL(URLStreamHandlerSetter,...)</code> methods.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="realHandler"
+               role="field"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.realHandler">
+         <title>protected volatile URLStreamHandlerSetter realHandler</title>
+         <para>
+The <code>URLStreamHandlerSetter</code> object passed to the parseURL method.
+   </para>
+      </section>
+      <section xreflabel="AbstractURLStreamHandlerService()"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.AbstractURLStreamHandlerService--">
+         <title>public  AbstractURLStreamHandlerService()</title>
+         <para/>
+      </section>
+      <section xreflabel="equals(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.equals-URL-URL-">
+         <title>public boolean equals(URL u1, URL u2)</title>
+         <para role="description">
+This method calls <code>super.equals(URL,URL)</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.equals(URL,URL)</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getDefaultPort()"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.getDefaultPort--">
+         <title>public int getDefaultPort()</title>
+         <para role="description">
+This method calls <code>super.getDefaultPort</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.getDefaultPort</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getHostAddress(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.getHostAddress-URL-">
+         <title>public InetAddress getHostAddress(URL u)</title>
+         <para role="description">
+This method calls <code>super.getHostAddress</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.getHostAddress</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="hashCode(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.hashCode-URL-">
+         <title>public int hashCode(URL u)</title>
+         <para role="description">
+This method calls <code>super.hashCode(URL)</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.hashCode(URL)</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="hostsEqual(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.hostsEqual-URL-URL-">
+         <title>public boolean hostsEqual(URL u1, URL u2)</title>
+         <para role="description">
+This method calls <code>super.hostsEqual</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.hostsEqual</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="openConnection(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.openConnection-URL-">
+         <title>public abstract URLConnection openConnection(URL u) throws IOException</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.openConnection</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="parseURL(URLStreamHandlerSetter,URL,String,int,int)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.parseURL-URLStreamHandlerSetter-URL-String-int-int-">
+         <title>public void parseURL(URLStreamHandlerSetter realHandler, URL u, String spec, int start, int limit)</title>
+         <formalpara role="parameter">
+            <title>realHandler</title>
+            <para>The object on which the <code>setURL</code> method must be
+        invoked for the specified URL.</para>
+         </formalpara>
+         <para role="description">
+Parse a URL using the <code>URLStreamHandlerSetter</code> object. This method
+ sets the <code>realHandler</code> field with the specified
+ <code>URLStreamHandlerSetter</code> object and then calls
+ <code>parseURL(URL,String,int,int)</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.parseURL</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="sameFile(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.sameFile-URL-URL-">
+         <title>public boolean sameFile(URL u1, URL u2)</title>
+         <para role="description">
+This method calls <code>super.sameFile</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.sameFile</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="setURL(URL,String,String,int,String,String)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.setURL-URL-String-String-int-String-String-">
+         <title>protected void setURL(URL u, String proto, String host, int port, String file, String ref)</title>
+         <para role="description">
+This method calls
+ <code>realHandler.setURL(URL,String,String,int,String,String)</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.setURL(URL,String,String,int,String,String)</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Deprecated</title>
+            <para>This method is only for compatibility with handlers written
+             for JDK 1.1.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="setURL(URL,String,String,int,String,String,String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.setURL-URL-String-String-int-String-String-String-String-String-">
+         <title>protected void setURL(URL u, String proto, String host, int port, String auth, String user, String path, String query, String ref)</title>
+         <para role="description">
+This method calls
+ <code>realHandler.setURL(URL,String,String,int,String,String,String,String)</code>
+ .
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.setURL(URL,String,String,int,String,String,String,String)</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="toExternalForm(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.AbstractURLStreamHandlerService.toExternalForm-URL-">
+         <title>public String toExternalForm(URL u)</title>
+         <para role="description">
+This method calls <code>super.toExternalForm</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.toExternalForm</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="URLConstants"
+            role="class"
+            xml:id="org.osgi.service.url.URLConstants">
+      <title>public interface URLConstants</title>
+      <para>
+Defines standard names for property keys associated with
+ <link linkend="org.osgi.service.url.URLStreamHandlerService">URLStreamHandlerService</link> and <code>java.net.ContentHandler</code> services.
+ 
+ </para>
+      <para>
+ The values associated with these keys are of type <code>java.lang.String[]</code>
+ or <code>java.lang.String</code>, unless otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="URL_CONTENT_MIMETYPE"
+               role="field"
+               xml:id="org.osgi.service.url.URLConstants.URL_CONTENT_MIMETYPE">
+         <title>public static final String URL_CONTENT_MIMETYPE = "url.content.mimetype"</title>
+         <para>
+Service property naming the MIME types serviced by a
+ java.net.ContentHandler. The property's value is a MIME type or an array
+ of MIME types.
+   </para>
+      </section>
+      <section xreflabel="URL_HANDLER_PROTOCOL"
+               role="field"
+               xml:id="org.osgi.service.url.URLConstants.URL_HANDLER_PROTOCOL">
+         <title>public static final String URL_HANDLER_PROTOCOL = "url.handler.protocol"</title>
+         <para>
+Service property naming the protocols serviced by a
+ URLStreamHandlerService. The property's value is a protocol name or an
+ array of protocol names.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="URLStreamHandlerService"
+            role="class"
+            xml:id="org.osgi.service.url.URLStreamHandlerService">
+      <title>public interface URLStreamHandlerService</title>
+      <para>
+Service interface with public versions of the protected
+ <code>java.net.URLStreamHandler</code> methods.
+ </para>
+      <para>
+ The important differences between this interface and the
+ <code>URLStreamHandler</code> class are that the <code>setURL</code> method is absent
+ and the <code>parseURL</code> method takes a <link linkend="org.osgi.service.url.URLStreamHandlerSetter">URLStreamHandlerSetter</link> object
+ as the first argument. Classes implementing this interface must call the
+ <code>setURL</code> method on the <code>URLStreamHandlerSetter</code> object received
+ in the <code>parseURL</code> method instead of <code>URLStreamHandler.setURL</code> to
+ avoid a <code>SecurityException</code>.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.url.AbstractURLStreamHandlerService">AbstractURLStreamHandlerService</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="equals(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.equals-URL-URL-">
+         <title>public boolean equals(URL u1, URL u2)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.equals(URL, URL)</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDefaultPort()"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.getDefaultPort--">
+         <title>public int getDefaultPort()</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.getDefaultPort</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getHostAddress(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.getHostAddress-URL-">
+         <title>public InetAddress getHostAddress(URL u)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.getHostAddress</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.hashCode-URL-">
+         <title>public int hashCode(URL u)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.hashCode(URL)</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="hostsEqual(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.hostsEqual-URL-URL-">
+         <title>public boolean hostsEqual(URL u1, URL u2)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.hostsEqual</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="openConnection(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.openConnection-URL-">
+         <title>public URLConnection openConnection(URL u) throws IOException</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.openConnection</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="parseURL(URLStreamHandlerSetter,URL,String,int,int)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.parseURL-URLStreamHandlerSetter-URL-String-int-int-">
+         <title>public void parseURL(URLStreamHandlerSetter realHandler, URL u, String spec, int start, int limit)</title>
+         <formalpara role="parameter">
+            <title>realHandler</title>
+            <para>The object on which <code>setURL</code> must be invoked for
+        this URL.</para>
+         </formalpara>
+         <para role="description">
+Parse a URL. This method is called by the <code>URLStreamHandler</code> proxy,
+ instead of <code>java.net.URLStreamHandler.parseURL</code>, passing a
+ <code>URLStreamHandlerSetter</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.parseURL</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="sameFile(URL,URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.sameFile-URL-URL-">
+         <title>public boolean sameFile(URL u1, URL u2)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.sameFile</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="toExternalForm(URL)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerService.toExternalForm-URL-">
+         <title>public String toExternalForm(URL u)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.toExternalForm</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="URLStreamHandlerSetter"
+            role="class"
+            xml:id="org.osgi.service.url.URLStreamHandlerSetter">
+      <title>public interface URLStreamHandlerSetter</title>
+      <para>
+Interface used by <code>URLStreamHandlerService</code> objects to call the
+ <code>setURL</code> method on the proxy <code>URLStreamHandler</code> object.
+ 
+ </para>
+      <para>
+ Objects of this type are passed to the
+ <link linkend="org.osgi.service.url.URLStreamHandlerService.parseURL-URLStreamHandlerSetter-URL-String-int-int-">URLStreamHandlerService.parseURL(URLStreamHandlerSetter, URL, String, int, int)</link>
+ method. Invoking the <code>setURL</code> method on the
+ <code>URLStreamHandlerSetter</code> object will invoke the <code>setURL</code> method
+ on the proxy <code>URLStreamHandler</code> object that is actually registered with
+ <code>java.net.URL</code> for the protocol.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="setURL(URL,String,String,int,String,String)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerSetter.setURL-URL-String-String-int-String-String-">
+         <title>public void setURL(URL u, String protocol, String host, int port, String file, String ref)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.setURL(URL,String,String,int,String,String)</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Deprecated</title>
+            <para>This method is only for compatibility with handlers written
+             for JDK 1.1.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setURL(URL,String,String,int,String,String,String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.url.URLStreamHandlerSetter.setURL-URL-String-String-int-String-String-String-String-String-">
+         <title>public void setURL(URL u, String protocol, String host, int port, String authority, String userInfo, String path, String query, String ref)</title>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.net.URLStreamHandler.setURL(URL,String,String,int,String,String,String,String)</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

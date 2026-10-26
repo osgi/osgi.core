@@ -1,0 +1,461 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.startlevel"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.startlevel">
+   <title>org.osgi.framework.startlevel</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.startlevel-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.framework.startlevel-version.number">1.0</edition>
+   </info>
+   <para>
+Framework Start Level Package Version 1.0.
+ 
+ </para>
+   <para>
+ The Framework Start Level package allows management agents to manage a start
+ level assigned to each bundle and the active start level of the Framework.
+ This package is a replacement for the now deprecated
+ <code>org.osgi.service.startlevel</code> package.
+ 
+ </para>
+   <para>
+ A start level is defined to be a state of execution in which the Framework
+ exists. Start level values are defined as unsigned integers with 0 (zero)
+ being the state where the Framework is not launched. Progressively higher
+ integral values represent progressively higher start levels. For example, 2
+ is a higher start level than 1.
+ 
+ </para>
+   <para>
+      <code>AdminPermission</code> is required to modify start level information.
+ 
+ </para>
+   <para>
+ Start Level support in the Framework includes the ability to modify the
+ active start level of the Framework and to assign a specific start level to a
+ bundle. The beginning start level of a Framework is specified via the
+ <link linkend="org.osgi.framework.Constants.FRAMEWORK_BEGINNING_STARTLEVEL">org.osgi.framework.Constants.FRAMEWORK_BEGINNING_STARTLEVEL</link> framework
+ property when configuring a framework.
+ 
+ </para>
+   <para>
+ When the Framework is first started it must be at start level zero. In this
+ state, no bundles are running. This is the initial state of the Framework
+ before it is launched. When the Framework is launched, the Framework will
+ enter start level one and all bundles which are assigned to start level one
+ and whose autostart setting indicates the bundle should be started are
+ started as described in the <link linkend="org.osgi.framework.Bundle.start-int-">org.osgi.framework.Bundle.start(int)</link>
+ method. The Framework will continue to increase the start level, starting
+ bundles at each start level, until the Framework has reached a beginning
+ start level. At this point the Framework has completed starting bundles and
+ will then fire a Framework event of type
+ <link linkend="org.osgi.framework.FrameworkEvent.STARTED">org.osgi.framework.FrameworkEvent.STARTED</link> to announce it has
+ completed its launch.
+ 
+ </para>
+   <para>
+ Within a start level, bundles may be started in an order defined by the
+ Framework implementation. This may be something like ascending
+ <link linkend="org.osgi.framework.Bundle.getBundleId--">org.osgi.framework.Bundle.getBundleId()</link> order or an order based upon
+ dependencies between bundles. A similar but reversed order may be used when
+ stopping bundles within a start level.
+ 
+ </para>
+   <para>
+ The Framework Start Level package can be used by management bundles to alter
+ the active start level of the framework.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. For example:
+ 
+ </para>
+   <programlisting> Import-Package: org.osgi.framework.startlevel; version="[1.0,2.0)"</programlisting>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.BundleStartLevel">
+                  <code>BundleStartLevel</code>
+               </link> - 
+Query and modify the start level information for a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.FrameworkStartLevel">
+                  <code>FrameworkStartLevel</code>
+               </link> - 
+Query and modify the start level information for the framework.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleStartLevel"
+            role="class"
+            xml:id="org.osgi.framework.startlevel.BundleStartLevel">
+      <title>public interface BundleStartLevel<?line-break?> extends BundleReference</title>
+      <para>
+Query and modify the start level information for a bundle. The start level
+ object for a bundle can be obtained by calling <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt(BundleStartLevel.class)</link> on the bundle.
+ 
+ </para>
+      <para>
+ The bundle associated with this BundleStartLevel object can be obtained by
+ calling <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleReference.getBundle()</link>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getStartLevel()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.BundleStartLevel.getStartLevel--">
+         <title>public int getStartLevel()</title>
+         <para role="description">
+Return the assigned start level value for the bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The start level value of the bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the bundle has been uninstalled.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.BundleStartLevel.setStartLevel-int-">setStartLevel(int)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="isActivationPolicyUsed()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.BundleStartLevel.isActivationPolicyUsed--">
+         <title>public boolean isActivationPolicyUsed()</title>
+         <para role="description">
+Returns whether the bundle's autostart setting indicates that the
+ activation policy declared in the bundle manifest must be used.
+ </para>
+         <para>
+ The autostart setting of a bundle indicates whether the bundle's declared
+ activation policy is to be used when the bundle is started.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the bundle's autostart setting indicates the
+         activation policy declared in the manifest must be used.
+         <code>false</code> if the bundle must be eagerly activated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the bundle has been uninstalled.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.START_ACTIVATION_POLICY">Bundle.START_ACTIVATION_POLICY</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="isPersistentlyStarted()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.BundleStartLevel.isPersistentlyStarted--">
+         <title>public boolean isPersistentlyStarted()</title>
+         <para role="description">
+Returns whether the bundle's autostart setting indicates it must be
+ started.
+ </para>
+         <para>
+ The autostart setting of a bundle indicates whether the bundle is to be
+ started when its start level is reached.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the autostart setting of the bundle indicates it
+         is to be started. <code>false</code> otherwise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this bundle has been uninstalled.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.START_TRANSIENT">Bundle.START_TRANSIENT</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="setStartLevel(int)"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.BundleStartLevel.setStartLevel-int-">
+         <title>public void setStartLevel(int startlevel)</title>
+         <formalpara role="parameter">
+            <title>startlevel</title>
+            <para>The new start level for the bundle.</para>
+         </formalpara>
+         <para role="description">
+Assign a start level value to the bundle.
+ 
+ </para>
+         <para>
+ The bundle will be assigned the specified start level. The start level
+ value assigned to the bundle will be persistently recorded by the
+ Framework.
+ </para>
+         <para>
+ If the new start level for the bundle is lower than or equal to the
+ active start level of the Framework and the bundle's autostart setting
+ indicates this bundle must be started, the Framework will start the
+ bundle as described in the <link linkend="org.osgi.framework.Bundle.start-int-">Bundle.start(int)</link> method using the
+ <link linkend="org.osgi.framework.Bundle.START_TRANSIENT">Bundle.START_TRANSIENT</link> option. The
+ <link linkend="org.osgi.framework.Bundle.START_ACTIVATION_POLICY">Bundle.START_ACTIVATION_POLICY</link> option must also be used if
+ <link linkend="org.osgi.framework.startlevel.BundleStartLevel.isActivationPolicyUsed--">isActivationPolicyUsed()</link> returns <code>true</code>. The actual
+ starting of the bundle must occur asynchronously.
+ </para>
+         <para>
+ If the new start level for the bundle is higher than the active start
+ level of the Framework, the Framework will stop the bundle as described
+ in the <link linkend="org.osgi.framework.Bundle.stop-int-">Bundle.stop(int)</link> method using the
+ <link linkend="org.osgi.framework.Bundle.STOP_TRANSIENT">Bundle.STOP_TRANSIENT</link> option. The actual stopping of the bundle
+ must occur asynchronously.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified start level is less
+         than or equal to zero, or if the bundle is the system bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the bundle has been uninstalled.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AdminPermission[bundle,EXECUTE]</code> and the Java runtime
+         environment supports permissions.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FrameworkStartLevel"
+            role="class"
+            xml:id="org.osgi.framework.startlevel.FrameworkStartLevel">
+      <title>public interface FrameworkStartLevel<?line-break?> extends BundleReference</title>
+      <para>
+Query and modify the start level information for the framework. The start
+ level object for the framework can be obtained by calling
+ <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt(FrameworkStartLevel.class)</link> on the
+ system bundle. Only the system bundle can be adapted to a FrameworkStartLevel
+ object.
+ 
+ </para>
+      <para>
+ The system bundle associated with this FrameworkStartLevel object can be
+ obtained by calling <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleReference.getBundle()</link>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getInitialBundleStartLevel()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.FrameworkStartLevel.getInitialBundleStartLevel--">
+         <title>public int getInitialBundleStartLevel()</title>
+         <para role="description">
+Return the initial start level value that is assigned to a Bundle when it
+ is first installed.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The initial start level value for Bundles.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.FrameworkStartLevel.setInitialBundleStartLevel-int-">setInitialBundleStartLevel(int)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getStartLevel()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.FrameworkStartLevel.getStartLevel--">
+         <title>public int getStartLevel()</title>
+         <para role="description">
+Return the active start level value of the Framework.
+ 
+ If the Framework is in the process of changing the start level this
+ method must return the active start level if this differs from the
+ requested start level.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The active start level value of the Framework.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setInitialBundleStartLevel(int)"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.FrameworkStartLevel.setInitialBundleStartLevel-int-">
+         <title>public void setInitialBundleStartLevel(int startlevel)</title>
+         <formalpara role="parameter">
+            <title>startlevel</title>
+            <para>The initial start level for newly installed bundles.</para>
+         </formalpara>
+         <para role="description">
+Set the initial start level value that is assigned to a Bundle when it is
+ first installed.
+ 
+ </para>
+         <para>
+ The initial bundle start level will be set to the specified start level.
+ The initial bundle start level value will be persistently recorded by the
+ Framework.
+ 
+ </para>
+         <para>
+ When a Bundle is installed via <code>BundleContext.installBundle</code>, it is
+ assigned the initial bundle start level value.
+ 
+ </para>
+         <para>
+ The default initial bundle start level value is 1 unless this method has
+ been called to assign a different initial bundle start level value.
+ 
+ </para>
+         <para>
+ This method does not change the start level values of installed bundles.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified start level is less
+         than or equal to zero.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AdminPermission[System Bundle,STARTLEVEL]</code> and the Java
+         runtime environment supports permissions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setStartLevel(int,FrameworkListener...)"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.FrameworkStartLevel.setStartLevel-int-FrameworkListener...-">
+         <title>public void setStartLevel(int startlevel, FrameworkListener... listeners)</title>
+         <formalpara role="parameter">
+            <title>startlevel</title>
+            <para>The requested start level for the Framework.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>Zero or more listeners to be notified when the start
+        level change has been completed. The specified listeners do not
+        need to be otherwise registered with the framework. If a specified
+        listener is already registered with the framework, it will be
+        notified twice.</para>
+         </formalpara>
+         <para role="description">
+Modify the active start level of the Framework and notify when complete.
+ 
+ </para>
+         <para>
+ The Framework will move to the requested start level. This method will
+ return immediately to the caller and the start level change will occur
+ asynchronously on another thread. The specified <code>FrameworkListener</code>
+ s are notified, in the order specified, when the start level change is
+ complete. When the start level change completes normally, each specified
+ <code>FrameworkListener</code> will be called with a Framework event of type
+ <code>FrameworkEvent.STARTLEVEL_CHANGED</code>. If the start level change does
+ not complete normally, each specified <code>FrameworkListener</code> will be
+ called with a Framework event of type <code>FrameworkEvent.ERROR</code>.
+ 
+ </para>
+         <para>
+ If the specified start level is higher than the active start level, the
+ Framework will continue to increase the start level until the Framework
+ has reached the specified start level.
+ 
+ At each intermediate start level value on the way to and including the
+ target start level, the Framework must:
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>Change the active start level to the intermediate start level value.</para>
+            </listitem>
+            <listitem>
+               <para>Start bundles at the intermediate start level whose autostart setting
+ indicate they must be started. They are started as described in the
+ <link linkend="org.osgi.framework.Bundle.start-int-">Bundle.start(int)</link> method using the <link linkend="org.osgi.framework.Bundle.START_TRANSIENT">Bundle.START_TRANSIENT</link>
+ option. The <link linkend="org.osgi.framework.Bundle.START_ACTIVATION_POLICY">Bundle.START_ACTIVATION_POLICY</link> option must also be
+ used if <link linkend="org.osgi.framework.startlevel.BundleStartLevel.isActivationPolicyUsed--">BundleStartLevel.isActivationPolicyUsed()</link> returns
+ <code>true</code> for the bundle.</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ When this process completes after the specified start level is reached,
+ the Framework will fire a Framework event of type
+ <code>FrameworkEvent.STARTLEVEL_CHANGED</code> to announce it has moved to the
+ specified start level.
+ 
+ </para>
+         <para>
+ If the specified start level is lower than the active start level, the
+ Framework will continue to decrease the start level until the Framework
+ has reached the specified start level.
+ 
+ At each intermediate start level value on the way to and including the
+ specified start level, the framework must:
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>Stop bundles at the intermediate start level as described in the
+ <link linkend="org.osgi.framework.Bundle.stop-int-">Bundle.stop(int)</link> method using the <link linkend="org.osgi.framework.Bundle.STOP_TRANSIENT">Bundle.STOP_TRANSIENT</link>
+ option.</para>
+            </listitem>
+            <listitem>
+               <para>Change the active start level to the intermediate start level value.</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ When this process completes after the specified start level is reached,
+ the Framework will fire a Framework event of type
+ <code>FrameworkEvent.STARTLEVEL_CHANGED</code> to announce it has moved to the
+ specified start level.
+ 
+ </para>
+         <para>
+ If the specified start level is equal to the active start level, then no
+ bundles are started or stopped, however, the Framework must fire a
+ Framework event of type <code>FrameworkEvent.STARTLEVEL_CHANGED</code> to
+ announce it has finished moving to the specified start level. This event
+ may arrive before this method returns.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified start level is less
+         than or equal to zero.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AdminPermission[System Bundle,STARTLEVEL]</code> and the Java
+         runtime environment supports permissions.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

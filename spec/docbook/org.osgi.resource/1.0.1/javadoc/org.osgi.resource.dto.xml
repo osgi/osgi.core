@@ -1,0 +1,595 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.resource.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.resource.dto">
+   <title>org.osgi.resource.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.resource.dto-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.resource.dto-version.number">1.0</edition>
+   </info>
+   <para>
+OSGi Data Transfer Object Resource Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.resource.dto; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.resource.dto; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.CapabilityDTO">
+                  <code>CapabilityDTO</code>
+               </link> - 
+Data Transfer Object for a Capability.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.CapabilityRefDTO">
+                  <code>CapabilityRefDTO</code>
+               </link> - 
+Data Transfer Object for a reference to a Capability.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.RequirementDTO">
+                  <code>RequirementDTO</code>
+               </link> - 
+Data Transfer Object for a Requirement.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.RequirementRefDTO">
+                  <code>RequirementRefDTO</code>
+               </link> - 
+Data Transfer Object for a reference to a Requirement.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO">
+                  <code>ResourceDTO</code>
+               </link> - 
+Data Transfer Object for a Resource.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.WireDTO">
+                  <code>WireDTO</code>
+               </link> - 
+Data Transfer Object for a Wire.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.dto.WiringDTO">
+                  <code>WiringDTO</code>
+               </link> - 
+Data Transfer Object for a Wiring node.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="CapabilityDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.CapabilityDTO">
+      <title>public class CapabilityDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Capability.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="attributes"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.attributes">
+         <title>public Map&lt;String, Object&gt; attributes</title>
+         <para>
+The attributes for the capability.
+ 
+ </para>
+         <para>
+ The value type must be a numerical type, Boolean, String, DTO or an array
+ of any of the former.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Capability.getAttributes--">Capability.getAttributes()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="directives"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.directives">
+         <title>public Map&lt;String, String&gt; directives</title>
+         <para>
+The directives for the capability.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Capability.getDirectives--">Capability.getDirectives()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.id">
+         <title>public int id</title>
+         <para>
+The unique identifier of the capability.
+ 
+ </para>
+         <para>
+ This identifier is transiently assigned and may vary across restarts.</para>
+      </section>
+      <section xreflabel="namespace"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.namespace">
+         <title>public String namespace</title>
+         <para>
+The namespace for the capability.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Capability.getNamespace--">Capability.getNamespace()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resource"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.resource">
+         <title>public int resource</title>
+         <para>
+The identifier of the resource declaring the capability.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>, <link linkend="org.osgi.resource.Capability.getResource--">Capability.getResource()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="CapabilityDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.CapabilityDTO.CapabilityDTO--">
+         <title>public  CapabilityDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="CapabilityRefDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.CapabilityRefDTO">
+      <title>public class CapabilityRefDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a reference to a Capability.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="capability"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityRefDTO.capability">
+         <title>public int capability</title>
+         <para>
+The identifier of the capability in the resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.CapabilityDTO.id">CapabilityDTO.id</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resource"
+               role="field"
+               xml:id="org.osgi.resource.dto.CapabilityRefDTO.resource">
+         <title>public int resource</title>
+         <para>
+The identifier of the resource declaring the capability.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="CapabilityRefDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.CapabilityRefDTO.CapabilityRefDTO--">
+         <title>public  CapabilityRefDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequirementDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.RequirementDTO">
+      <title>public class RequirementDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Requirement.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="attributes"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementDTO.attributes">
+         <title>public Map&lt;String, Object&gt; attributes</title>
+         <para>
+The attributes for the requirement.
+ 
+ </para>
+         <para>
+ The value type must be a numerical type, Boolean, String, DTO or an array
+ of any of the former.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Requirement.getAttributes--">Requirement.getAttributes()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="directives"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementDTO.directives">
+         <title>public Map&lt;String, String&gt; directives</title>
+         <para>
+The directives for the requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Requirement.getDirectives--">Requirement.getDirectives()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementDTO.id">
+         <title>public int id</title>
+         <para>
+The unique identifier of the requirement.
+ 
+ </para>
+         <para>
+ This identifier is transiently assigned and may vary across restarts.</para>
+      </section>
+      <section xreflabel="namespace"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementDTO.namespace">
+         <title>public String namespace</title>
+         <para>
+The namespace for the requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Requirement.getNamespace--">Requirement.getNamespace()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resource"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementDTO.resource">
+         <title>public int resource</title>
+         <para>
+The identifier of the resource declaring the requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>, <link linkend="org.osgi.resource.Requirement.getResource--">Requirement.getResource()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="RequirementDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.RequirementDTO.RequirementDTO--">
+         <title>public  RequirementDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequirementRefDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.RequirementRefDTO">
+      <title>public class RequirementRefDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a reference to a Requirement.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="requirement"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementRefDTO.requirement">
+         <title>public int requirement</title>
+         <para>
+The identifier of the requirement in the resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.RequirementDTO.id">RequirementDTO.id</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resource"
+               role="field"
+               xml:id="org.osgi.resource.dto.RequirementRefDTO.resource">
+         <title>public int resource</title>
+         <para>
+The identifier of the resource declaring the requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="RequirementRefDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.RequirementRefDTO.RequirementRefDTO--">
+         <title>public  RequirementRefDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ResourceDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.ResourceDTO">
+      <title>public class ResourceDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Resource.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="capabilities"
+               role="field"
+               xml:id="org.osgi.resource.dto.ResourceDTO.capabilities">
+         <title>public List&lt;CapabilityDTO&gt; capabilities</title>
+         <para>
+The capabilities of the resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Resource.getCapabilities-String-">Resource.getCapabilities(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.resource.dto.ResourceDTO.id">
+         <title>public int id</title>
+         <para>
+The unique identifier of the resource.
+ 
+ </para>
+         <para>
+ This identifier is transiently assigned and may vary across restarts.</para>
+      </section>
+      <section xreflabel="requirements"
+               role="field"
+               xml:id="org.osgi.resource.dto.ResourceDTO.requirements">
+         <title>public List&lt;RequirementDTO&gt; requirements</title>
+         <para>
+The requirements of the resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Resource.getRequirements-String-">Resource.getRequirements(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="ResourceDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.ResourceDTO.ResourceDTO--">
+         <title>public  ResourceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="WireDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.WireDTO">
+      <title>public class WireDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Wire.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="capability"
+               role="field"
+               xml:id="org.osgi.resource.dto.WireDTO.capability">
+         <title>public CapabilityRefDTO capability</title>
+         <para>
+Reference to the Capability for the wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wire.getCapability--">Wire.getCapability()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="provider"
+               role="field"
+               xml:id="org.osgi.resource.dto.WireDTO.provider">
+         <title>public int provider</title>
+         <para>
+The identifier of the provider resource for the wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>, <link linkend="org.osgi.resource.Wire.getProvider--">Wire.getProvider()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="requirement"
+               role="field"
+               xml:id="org.osgi.resource.dto.WireDTO.requirement">
+         <title>public RequirementRefDTO requirement</title>
+         <para>
+Reference to the Requirement for the wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wire.getRequirement--">Wire.getRequirement()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="requirer"
+               role="field"
+               xml:id="org.osgi.resource.dto.WireDTO.requirer">
+         <title>public int requirer</title>
+         <para>
+The identifier of the requiring resource for the wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>, <link linkend="org.osgi.resource.Wire.getRequirer--">Wire.getRequirer()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WireDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.WireDTO.WireDTO--">
+         <title>public  WireDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="WiringDTO"
+            role="class"
+            xml:id="org.osgi.resource.dto.WiringDTO">
+      <title>public class WiringDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a Wiring node.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="capabilities"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.capabilities">
+         <title>public List&lt;CapabilityRefDTO&gt; capabilities</title>
+         <para>
+The references to the capabilities for the wiring node.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wiring.getResourceCapabilities-String-">Wiring.getResourceCapabilities(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.id">
+         <title>public int id</title>
+         <para>
+The unique identifier of the wiring node.
+ 
+ </para>
+         <para>
+ This identifier is transiently assigned and may vary across restarts.</para>
+      </section>
+      <section xreflabel="providedWires"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.providedWires">
+         <title>public List&lt;WireDTO&gt; providedWires</title>
+         <para>
+The provided wires for the wiring node.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wiring.getProvidedResourceWires-String-">Wiring.getProvidedResourceWires(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="requiredWires"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.requiredWires">
+         <title>public List&lt;WireDTO&gt; requiredWires</title>
+         <para>
+The required wires for the wiring node.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wiring.getRequiredResourceWires-String-">Wiring.getRequiredResourceWires(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="requirements"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.requirements">
+         <title>public List&lt;RequirementRefDTO&gt; requirements</title>
+         <para>
+The references to the requirements for the wiring node.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Wiring.getResourceRequirements-String-">Wiring.getResourceRequirements(String)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resource"
+               role="field"
+               xml:id="org.osgi.resource.dto.WiringDTO.resource">
+         <title>public int resource</title>
+         <para>
+The identifier of the resource associated with the wiring node.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.ResourceDTO.id">ResourceDTO.id</link>, <link linkend="org.osgi.resource.Wiring.getResource--">Wiring.getResource()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="WiringDTO()"
+               role="method"
+               xml:id="org.osgi.resource.dto.WiringDTO.WiringDTO--">
+         <title>public  WiringDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

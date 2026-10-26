@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.osgi</groupId>
+		<artifactId>osgi.core.reactor</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<groupId>org.osgi.spec</groupId>
+	<artifactId>osgi.core</artifactId>
+	<packaging>pom</packaging>
+	<name>OSGi Core Specification</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.osgi-technology.build.tools.maven</groupId>
+				<artifactId>osgi-docbook-maven-plugin</artifactId>
+				<configuration>
+					<!-- The chapters and their javadoc: the DocBook of the
+					     specification repositories at the versions of the reactor,
+					     from the Maven repositories, or else from docbook/:
+					     the DocBook of Core Release 8 (tag r8-core-final of the
+					     monorepo), which was never deployed. The book itself (title
+					     page, licence, introduction, chapter order) is book/. -->
+					<docbooks>
+						<docbook>org.osgi.spec:org.osgi.annotation.bundle:${org.osgi.annotation.bundle.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.annotation.versioning:${org.osgi.annotation.versioning.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.dto:${org.osgi.dto.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.framework:${org.osgi.framework.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.resource:${org.osgi.resource.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.condition:${org.osgi.service.condition.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.condpermadmin:${org.osgi.service.condpermadmin.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.log:${org.osgi.service.log.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.permissionadmin:${org.osgi.service.permissionadmin.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.resolver:${org.osgi.service.resolver.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.startlevel:${org.osgi.service.startlevel.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.url:${org.osgi.service.url.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.tracker:${org.osgi.util.tracker.version}</docbook>
+					</docbooks>
+					<bookSource>${project.basedir}/book/book.xml</bookSource>
+					<docbookFallback>${project.basedir}/docbook</docbookFallback>
+					<!-- final as the published Core Release 8: <draftMode>no</draftMode> -->
+					<releaseVersion>${parsedVersion.majorVersion}</releaseVersion>
+					<!-- as the published Core Release 8: references to the
+					     Compendium are text -->
+					<externalLinks>false</externalLinks>
+					<!-- the HTML pages as the published book: index.html is the
+					     licence, the images are PNG images named after their
+					     chapter (002-delegation-model.png) -->
+					<rootFilename>toc</rootFilename>
+					<chapterImageNames>true</chapterImageNames>
+					<rasterizeImages>true</rasterizeImages>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- PDF and HTML only: the chapters belong to the
+						     DocBook of the specification repositories -->
+						<id>spec-docbook</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,382 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.wiring.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.wiring.dto">
+   <title>org.osgi.framework.wiring.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.wiring.dto-version">Version 1.3</releaseinfo>
+      <edition xml:id="org.osgi.framework.wiring.dto-version.number">1.3</edition>
+   </info>
+   <para>
+OSGi Data Transfer Object Framework Wiring Package Version 1.3.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.wiring.dto; version="[1.3,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.wiring.dto; version="[1.3,1.4)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.dto.BundleRevisionDTO">
+                  <code>BundleRevisionDTO</code>
+               </link> - 
+Data Transfer Object for a BundleRevision.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.dto.BundleWireDTO">
+                  <code>BundleWireDTO</code>
+               </link> - 
+Data Transfer Object for a BundleWire.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.dto.BundleWiringDTO">
+                  <code>BundleWiringDTO</code>
+               </link> - 
+Data Transfer Object for a BundleWiring graph.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO">
+                  <code>BundleWiringDTO.NodeDTO</code>
+               </link> - 
+Data Transfer Object for a BundleWiring node.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.dto.FrameworkWiringDTO">
+                  <code>FrameworkWiringDTO</code>
+               </link> - 
+Data Transfer Object for the wiring graph of the framework.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleRevisionDTO"
+            role="class"
+            xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO">
+      <title>public class BundleRevisionDTO<?line-break?> extends ResourceDTO</title>
+      <para>
+Data Transfer Object for a BundleRevision.
+ 
+ </para>
+      <para>
+ An installed Bundle can be adapted to provide a <code>BundleRevisionDTO</code> for
+ the current revision of the Bundle. <code>BundleRevisionDTO</code> objects for all
+ in use revisions of the Bundle can be obtained by adapting the bundle to
+ <code>BundleRevisionDTO[]</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="bundle"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO.bundle">
+         <title>public long bundle</title>
+         <para>
+The id of the bundle associated with the bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleRevision.getBundle()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="symbolicName"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO.symbolicName">
+         <title>public String symbolicName</title>
+         <para>
+The symbolic name of the bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision.getSymbolicName--">BundleRevision.getSymbolicName()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="type"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO.type">
+         <title>public int type</title>
+         <para>
+The type of the bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision.getTypes--">BundleRevision.getTypes()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="version"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO.version">
+         <title>public String version</title>
+         <para>
+The version of the bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision.getVersion--">BundleRevision.getVersion()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="BundleRevisionDTO()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.dto.BundleRevisionDTO.BundleRevisionDTO--">
+         <title>public  BundleRevisionDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BundleWireDTO"
+            role="class"
+            xml:id="org.osgi.framework.wiring.dto.BundleWireDTO">
+      <title>public class BundleWireDTO<?line-break?> extends WireDTO</title>
+      <para>
+Data Transfer Object for a BundleWire.
+ 
+ </para>
+      <para>
+         <code>BundleWireDTO</code>s are referenced <link linkend="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO">BundleWiringDTO.NodeDTO</link>s.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="providerWiring"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWireDTO.providerWiring">
+         <title>public int providerWiring</title>
+         <para>
+The identifier of the provider wiring for the bundle wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.WiringDTO.id">WiringDTO.id</link>, <link linkend="org.osgi.framework.wiring.BundleWire.getProviderWiring--">BundleWire.getProviderWiring()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="requirerWiring"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWireDTO.requirerWiring">
+         <title>public int requirerWiring</title>
+         <para>
+The identifier of the requiring wiring for the bundle wire.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.WiringDTO.id">WiringDTO.id</link>, <link linkend="org.osgi.framework.wiring.BundleWire.getRequirerWiring--">BundleWire.getRequirerWiring()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="BundleWireDTO()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.dto.BundleWireDTO.BundleWireDTO--">
+         <title>public  BundleWireDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BundleWiringDTO"
+            role="class"
+            xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO">
+      <title>public class BundleWiringDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a BundleWiring graph.
+ 
+ </para>
+      <para>
+ An installed Bundle can be adapted to provide a <code>BundleWiringDTO</code> for
+ the current wiring Bundle. <code>BundleWiringDTO</code> objects for all in use
+ wirings of the Bundle can be obtained by adapting the bundle to
+ <code>BundleWiringDTO[]</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="bundle"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.bundle">
+         <title>public long bundle</title>
+         <para>
+The id of the bundle associated with the bundle wiring graph.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleWiring.getBundle()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="nodes"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.nodes">
+         <title>public Set&lt;BundleWiringDTO.NodeDTO&gt; nodes</title>
+         <para>
+The set of wiring nodes referenced by the wiring graph.
+ 
+ </para>
+         <para>
+ All wiring nodes referenced by wiring node identifiers in the wiring
+ graph are contained in this set.</para>
+      </section>
+      <section xreflabel="resources"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.resources">
+         <title>public Set&lt;BundleRevisionDTO&gt; resources</title>
+         <para>
+The set of resources referenced by the wiring graph.
+ 
+ </para>
+         <para>
+ All resources referenced by resource identifiers in the wiring graph are
+ contained in this set.</para>
+      </section>
+      <section xreflabel="root"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.root">
+         <title>public int root</title>
+         <para>
+The identifier of the root wiring node of the bundle wiring graph.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.dto.WiringDTO.id">WiringDTO.id</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="BundleWiringDTO()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.BundleWiringDTO--">
+         <title>public  BundleWiringDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BundleWiringDTO.NodeDTO"
+            role="class"
+            xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO">
+      <title>public static class BundleWiringDTO.NodeDTO<?line-break?> extends WiringDTO</title>
+      <para>
+Data Transfer Object for a BundleWiring node.
+ 
+ </para>
+      <para>
+ The <link linkend="org.osgi.resource.dto.WiringDTO.providedWires">providedWires</link> field must contain an
+ array of <link linkend="org.osgi.framework.wiring.dto.BundleWireDTO">BundleWireDTO</link>s. The <link linkend="org.osgi.resource.dto.WiringDTO.requiredWires">requiredWires</link> field must contain an array of <link linkend="org.osgi.framework.wiring.dto.BundleWireDTO">BundleWireDTO</link>s.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="current"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO.current">
+         <title>public boolean current</title>
+         <para>
+The current state of the bundle wiring. The bundle wiring's current
+ setting indicates that the bundle wiring is the current bundle wiring
+ for the bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.isCurrent--">BundleWiring.isCurrent()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="inUse"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO.inUse">
+         <title>public boolean inUse</title>
+         <para>
+The bundle wiring's in use setting indicates that the bundle wiring
+ is in use.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">BundleWiring.isInUse()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="NodeDTO()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.dto.BundleWiringDTO.NodeDTO.NodeDTO--">
+         <title>public  NodeDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FrameworkWiringDTO"
+            role="class"
+            xml:id="org.osgi.framework.wiring.dto.FrameworkWiringDTO">
+      <title>public class FrameworkWiringDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for the wiring graph of the framework.
+ </para>
+      <para>
+ The system bundle can be adapted to provide the <code>FrameworkWiringDTO</code>.
+ Only the system bundle can be adapted to a <code>FrameworkWiringDTO</code> object</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="resources"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.FrameworkWiringDTO.resources">
+         <title>public Set&lt;BundleRevisionDTO&gt; resources</title>
+         <para>
+The set of resources referenced by the wiring graph of the framework.
+ </para>
+         <para>
+ All resources referenced by resource identifiers in the wiring graph are
+ contained in this set.</para>
+      </section>
+      <section xreflabel="wirings"
+               role="field"
+               xml:id="org.osgi.framework.wiring.dto.FrameworkWiringDTO.wirings">
+         <title>public Set&lt;BundleWiringDTO.NodeDTO&gt; wirings</title>
+         <para>
+The set of wiring nodes referenced by the wiring graph of the framework.
+ </para>
+         <para>
+ All wiring nodes referenced by wiring node identifiers in the wiring
+ graph are contained in this set.</para>
+      </section>
+      <section xreflabel="FrameworkWiringDTO()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.dto.FrameworkWiringDTO.FrameworkWiringDTO--">
+         <title>public  FrameworkWiringDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

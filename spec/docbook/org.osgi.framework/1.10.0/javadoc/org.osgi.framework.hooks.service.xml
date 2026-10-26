@@ -1,0 +1,390 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.hooks.service"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.hooks.service">
+   <title>org.osgi.framework.hooks.service</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.hooks.service-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.framework.hooks.service-version.number">1.1</edition>
+   </info>
+   <para>
+Framework Service Hooks Package Version 1.1.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.hooks.service; version="[1.1,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.service.EventHook">
+                  <code>EventHook</code>
+               </link> - 
+OSGi Framework Service Event Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.service.EventListenerHook">
+                  <code>EventListenerHook</code>
+               </link> - 
+OSGi Framework Service Event Listener Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.service.FindHook">
+                  <code>FindHook</code>
+               </link> - 
+OSGi Framework Service Find Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.service.ListenerHook">
+                  <code>ListenerHook</code>
+               </link> - 
+OSGi Framework Service Listener Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo">
+                  <code>ListenerHook.ListenerInfo</code>
+               </link> - 
+Information about a Service Listener.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="EventHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.service.EventHook">
+      <title>public interface EventHook</title>
+      <para>
+OSGi Framework Service Event Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during framework service
+ (register, modify, and unregister service) operations.</para>
+      <formalpara role="parameter">
+         <title>Deprecated</title>
+         <para>As of 1.1. Replaced by <link linkend="org.osgi.framework.hooks.service.EventListenerHook">EventListenerHook</link>.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="event(ServiceEvent,Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.EventHook.event-ServiceEvent-Collection-">
+         <title>public void event(ServiceEvent event, Collection&lt;BundleContext&gt; contexts)</title>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The service event to be delivered.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>contexts</title>
+            <para>A collection of Bundle Contexts for bundles which have
+        listeners to which the specified event will be delivered. The
+        implementation of this method may remove bundle contexts from the
+        collection to prevent the event from being delivered to the
+        associated bundles. The collection supports all the optional
+        <code>Collection</code> operations except <code>add</code> and
+        <code>addAll</code>. Attempting to add to the collection will result in
+        an <code>UnsupportedOperationException</code>. The collection is not
+        synchronized.</para>
+         </formalpara>
+         <para role="description">
+Event hook method. This method is called prior to service event delivery
+ when a publishing bundle registers, modifies or unregisters a service.
+ This method can filter the bundles which receive the event.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="EventListenerHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.service.EventListenerHook">
+      <title>public interface EventListenerHook</title>
+      <para>
+OSGi Framework Service Event Listener Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during framework service
+ (register, modify, and unregister service) operations.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="event(ServiceEvent,Map)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.EventListenerHook.event-ServiceEvent-Map-">
+         <title>public void event(ServiceEvent event, Map&lt;BundleContext, Collection&lt;ListenerHook.ListenerInfo&gt;&gt; listeners)</title>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The service event to be delivered.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>A map of Bundle Contexts to a collection of Listener
+        Infos for the bundle's listeners to which the specified event will
+        be delivered. The implementation of this method may remove bundle
+        contexts from the map and listener infos from the collection
+        values to prevent the event from being delivered to the associated
+        listeners. The map supports all the optional <code>Map</code>
+        operations except <code>put</code> and <code>putAll</code>. Attempting to
+        add to the map will result in an
+        <code>UnsupportedOperationException</code>. The collection values in
+        the map supports all the optional <code>Collection</code> operations
+        except <code>add</code> and <code>addAll</code>. Attempting to add to a
+        collection will result in an <code>UnsupportedOperationException</code>
+        . The map and the collections are not synchronized.</para>
+         </formalpara>
+         <para role="description">
+Event listener hook method. This method is called prior to service event
+ delivery when a publishing bundle registers, modifies or unregisters a
+ service. This method can filter the listeners which receive the event.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="FindHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.service.FindHook">
+      <title>public interface FindHook</title>
+      <para>
+OSGi Framework Service Find Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during framework service find
+ (get service references) operations.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="find(BundleContext,String,String,boolean,Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.FindHook.find-BundleContext-String-String-boolean-Collection-">
+         <title>public void find(BundleContext context, String name, String filter, boolean allServices, Collection&lt;ServiceReference&lt;?&gt;&gt; references)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The bundle context of the bundle performing the find
+        operation.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The class name of the services to find or <code>null</code> to
+        find all services.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>The filter criteria of the services to find or <code>null</code>
+        for no filter criteria.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>allServices</title>
+            <para>
+               <code>true</code> if the find operation is the result of a
+        call to
+        <link linkend="org.osgi.framework.BundleContext.getAllServiceReferences-String-String-">BundleContext.getAllServiceReferences(String, String)</link>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>references</title>
+            <para>A collection of Service References to be returned as a
+        result of the find operation. The implementation of this method
+        may remove service references from the collection to prevent the
+        references from being returned to the bundle performing the find
+        operation. The collection supports all the optional
+        <code>Collection</code> operations except <code>add</code> and
+        <code>addAll</code>. Attempting to add to the collection will result in
+        an <code>UnsupportedOperationException</code>. The collection is not
+        synchronized.</para>
+         </formalpara>
+         <para role="description">
+Find hook method. This method is called during the service find operation
+ (for example, <link linkend="org.osgi.framework.BundleContext.getServiceReferences-String-String-">BundleContext.getServiceReferences(String, String)</link>
+ ). This method can filter the result of the find operation.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ListenerHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.service.ListenerHook">
+      <title>public interface ListenerHook</title>
+      <para>
+OSGi Framework Service Listener Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during service listener
+ addition and removal.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="added(Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.added-Collection-">
+         <title>public void added(Collection&lt;ListenerHook.ListenerInfo&gt; listeners)</title>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>A collection of <link linkend="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo">ListenerInfo</link>s for newly added
+        service listeners which are now listening to service events.
+        Attempting to add to or remove from the collection will result in
+        an <code>UnsupportedOperationException</code>. The collection is not
+        synchronized.</para>
+         </formalpara>
+         <para role="description">
+Added listeners hook method. This method is called to provide the hook
+ implementation with information on newly added service listeners. This
+ method will be called as service listeners are added while this hook is
+ registered. Also, immediately after registration of this hook, this
+ method will be called to provide the current collection of service
+ listeners which had been added prior to the hook being registered.
+   </para>
+      </section>
+      <section xreflabel="removed(Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.removed-Collection-">
+         <title>public void removed(Collection&lt;ListenerHook.ListenerInfo&gt; listeners)</title>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>A collection of <link linkend="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo">ListenerInfo</link>s for newly removed
+        service listeners which are no longer listening to service events.
+        Attempting to add to or remove from the collection will result in
+        an <code>UnsupportedOperationException</code>. The collection is not
+        synchronized.</para>
+         </formalpara>
+         <para role="description">
+Removed listeners hook method. This method is called to provide the hook
+ implementation with information on newly removed service listeners. This
+ method will be called as service listeners are removed while this hook is
+ registered.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ListenerHook.ListenerInfo"
+            role="class"
+            xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo">
+      <title>public static interface ListenerHook.ListenerInfo</title>
+      <para>
+Information about a Service Listener. This interface describes the bundle
+ which added the Service Listener and the filter with which it was added.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to compare against this <code>ListenerInfo</code>.</para>
+         </formalpara>
+         <para role="description">
+Compares this <code>ListenerInfo</code> to another <code>ListenerInfo</code>.
+ Two <code>ListenerInfo</code>s are equals if they refer to the same
+ listener for a given addition and removal life cycle. If the same
+ listener is added again, it must have a different
+ <code>ListenerInfo</code> which is not equal to this <code>ListenerInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the other object is a <code>ListenerInfo</code>
+         object and both objects refer to the same listener for a
+         given addition and removal life cycle.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getBundleContext()"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo.getBundleContext--">
+         <title>public BundleContext getBundleContext()</title>
+         <para role="description">
+Return the context of the bundle which added the listener.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The context of the bundle which added the listener.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFilter()"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo.getFilter--">
+         <title>public String getFilter()</title>
+         <para role="description">
+Return the filter string with which the listener was added.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter string with which the listener was added. This may
+         be <code>null</code> if the listener was added without a filter.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code for this <code>ListenerInfo</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The hash code of this <code>ListenerInfo</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="isRemoved()"
+               role="method"
+               xml:id="org.osgi.framework.hooks.service.ListenerHook.ListenerInfo.isRemoved--">
+         <title>public boolean isRemoved()</title>
+         <para role="description">
+Return the state of the listener for this addition and removal life
+ cycle. Initially this method will return <code>false</code> indicating the
+ listener has been added but has not been removed. After the listener
+ has been removed, this method must always return <code>true</code>.
+ 
+ </para>
+         <para>
+ There is an extremely rare case in which removed notification to
+ <link linkend="org.osgi.framework.hooks.service.ListenerHook">ListenerHook</link>s can be made before added notification if two
+ threads are racing to add and remove the same service listener.
+ Because <link linkend="org.osgi.framework.hooks.service.ListenerHook">ListenerHook</link>s are called synchronously during service
+ listener addition and removal, the Framework cannot guarantee
+ in-order delivery of added and removed notification for a given
+ service listener. This method can be used to detect this rare
+ occurrence.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>false</code> if the listener has not been removed,
+         <code>true</code> otherwise.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

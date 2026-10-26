@@ -1,0 +1,215 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.annotation.versioning"
+         version="5"
+         role="package"
+         xml:id="org.osgi.annotation.versioning">
+   <title>org.osgi.annotation.versioning</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.annotation.versioning-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.annotation.versioning-version.number">1.1</edition>
+   </info>
+   <para>
+OSGi Versioning Annotations Package Version 1.1.
+ </para>
+   <para>
+ This package is not used at runtime.</para>
+   <formalpara role="parameter">
+      <title>See Also</title>
+      <para>
+         <link xmlns:xlink="http://www.w3.org/1999/xlink"
+               xlink:href="https://docs.osgi.org/whitepaper/semantic-versioning/">
+      Semantic Versioning</link>
+      </para>
+   </formalpara>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.versioning.ConsumerType">
+                  <code>ConsumerType</code>
+               </link> - 
+A type implemented by, or extended by, the Consumer Role.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.versioning.ProviderType">
+                  <code>ProviderType</code>
+               </link> - 
+A type implemented by, or extended by, the Provider Role.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.versioning.Version">
+                  <code>Version</code>
+               </link> - 
+Specify the version of a package.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ConsumerType"
+            role="class"
+            xml:id="org.osgi.annotation.versioning.ConsumerType">
+      <title>@ConsumerType</title>
+      <para>
+A type implemented by, or extended by, the Consumer Role.
+ </para>
+      <para>
+ A non-binary-compatible change to a consumer type or a binary-compatible
+ change to a consumer type affecting an abstract method normally requires
+ incrementing the major version of the type's package. This change will
+ require all providers and all consumers to be updated to handle the change
+ since consumers that implement or extend the consumer type and all providers
+ must understand the change in the consumer type.
+ </para>
+      <para>
+ A binary-compatible change to a consumer type not affecting an abstract
+ method normally requires incrementing the minor version of the type's
+ package. This change will require all providers to be updated to handle the
+ change, but consumers will not require changes since no abstract methods
+ requiring implementation by the consumer are affected.
+ </para>
+      <para>
+ A type can be marked <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link> but not
+ both. A type is assumed to be <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> if it is not marked either
+ <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>.
+ </para>
+      <para>
+ A package can be marked <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>. In this case, all types in the
+ package are considered to be a provider type regardless of whether they are
+ marked <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ understand the semantic version of a package. When a bundle implements a
+ consumer type from an imported package, then the bundle's import range for
+ that package must require the exact major version and a minor version greater
+ than or equal to the package's version.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="https://docs.osgi.org/whitepaper/semantic-versioning/">
+      Semantic Versioning</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="ProviderType"
+            role="class"
+            xml:id="org.osgi.annotation.versioning.ProviderType">
+      <title>@ProviderType</title>
+      <para>
+A type implemented by, or extended by, the Provider Role.
+ </para>
+      <para>
+ A non-binary-compatible change to a provider type normally requires
+ incrementing the major version of the type's package. This change will
+ require all providers and all consumers to be updated to handle the change.
+ However, a non-binary-compatible change affecting a <code>protected</code> access
+ member only requires incrementing the minor version of the type's package.
+ This change will require all providers to be updated to handle the change,
+ but consumers will not require changes since they only use, and do not
+ extend, the provider type and thus could not access <code>protected</code> access
+ members of the provider type.
+ </para>
+      <para>
+ A binary-compatible change to a provider type normally requires incrementing
+ the minor version of the type's package. This change will require all
+ providers to be updated to handle the change, but consumers will not require
+ changes since they only use, and do not implement or extend, the provider
+ type.
+ </para>
+      <para>
+ A type can be marked <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link> but not
+ both. A type is assumed to be <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> if it is not marked either
+ <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>.
+ </para>
+      <para>
+ A package can be marked <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>. In this case, all types in the
+ package are considered to be a provider type regardless of whether they are
+ marked <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link> or <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ understand the semantic version of a package. When a bundle implements a
+ provider type from an imported package, then the bundle's import range for
+ that package must require the package's exact major and minor version.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="https://docs.osgi.org/whitepaper/semantic-versioning/">
+      Semantic Versioning</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="Version"
+            role="class"
+            xml:id="org.osgi.annotation.versioning.Version">
+      <title>@Version</title>
+      <para>
+Specify the version of a package.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests or otherwise process the version of a package.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="https://docs.osgi.org/whitepaper/semantic-versioning/">
+      Semantic Versioning</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.versioning.Version.value--">
+         <title>String value</title>
+         <para role="description">
+The version of the annotated package.
+ 
+ </para>
+         <para>
+ The version must be a valid OSGi version string.</para>
+      </section>
+   </section>
+</section>

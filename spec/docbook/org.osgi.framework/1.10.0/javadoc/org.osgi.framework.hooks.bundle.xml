@@ -1,0 +1,253 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.hooks.bundle"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.hooks.bundle">
+   <title>org.osgi.framework.hooks.bundle</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.hooks.bundle-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.framework.hooks.bundle-version.number">1.1</edition>
+   </info>
+   <para>
+Framework Bundle Hooks Package Version 1.1.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.hooks.bundle; version="[1.1,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.bundle.CollisionHook">
+                  <code>CollisionHook</code>
+               </link> - 
+OSGi Framework Bundle Collision Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.bundle.EventHook">
+                  <code>EventHook</code>
+               </link> - 
+OSGi Framework Bundle Event Hook Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.hooks.bundle.FindHook">
+                  <code>FindHook</code>
+               </link> - 
+OSGi Framework Bundle Context Hook Service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="CollisionHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.bundle.CollisionHook">
+      <title>public interface CollisionHook</title>
+      <para>
+OSGi Framework Bundle Collision Hook Service.
+ 
+ </para>
+      <para>
+ If the framework was launched with the <link linkend="org.osgi.framework.Constants.FRAMEWORK_BSNVERSION">org.osgi.framework.bsnversion</link> framework launching property set to
+ <link linkend="org.osgi.framework.Constants.FRAMEWORK_BSNVERSION_MANAGED">managed</link>, then all registered
+ collision hook services will be called during framework bundle install and
+ update operations to determine if an install or update operation will result
+ in a bundle symbolic name and version collision.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="INSTALLING"
+               role="field"
+               xml:id="org.osgi.framework.hooks.bundle.CollisionHook.INSTALLING">
+         <title>public static final int INSTALLING = 1</title>
+         <para>
+Specifies a bundle install operation is being performed.
+   </para>
+      </section>
+      <section xreflabel="UPDATING"
+               role="field"
+               xml:id="org.osgi.framework.hooks.bundle.CollisionHook.UPDATING">
+         <title>public static final int UPDATING = 2</title>
+         <para>
+Specifies a bundle update operation is being performed.
+   </para>
+      </section>
+      <section xreflabel="filterCollisions(int,Bundle,Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.bundle.CollisionHook.filterCollisions-int-Bundle-Collection-">
+         <title>public void filterCollisions(int operationType, Bundle target, Collection&lt;Bundle&gt; collisionCandidates)</title>
+         <formalpara role="parameter">
+            <title>operationType</title>
+            <para>The operation type. Must be the value of
+        <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.INSTALLING">installing</link> or <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.UPDATING">updating</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para>The target bundle used to determine what collision
+        candidates to filter.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>collisionCandidates</title>
+            <para>The collection of collision candidates. The
+        collection supports all the optional <code>Collection</code> operations
+        except <code>add</code> and <code>addAll</code>. Attempting to add to the
+        collection will result in an <code>UnsupportedOperationException</code>
+        . The collection is not synchronized.</para>
+         </formalpara>
+         <para role="description">
+Filter bundle collisions hook method. This method is called during the
+ install or update operation. The operation type will be
+ <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.INSTALLING">installing</link> or <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.UPDATING">updating</link>. Depending
+ on the operation type the target bundle and the collision candidate
+ collection are the following:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.INSTALLING">installing</link> - The target is the bundle associated
+ with the <link linkend="org.osgi.framework.BundleContext">BundleContext</link> used to call one of the
+ <link linkend="org.osgi.framework.BundleContext.installBundle-String-">install</link> methods. The
+ collision candidate collection contains the existing bundles installed
+ which have the same symbolic name and version as the bundle being
+ installed.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.framework.hooks.bundle.CollisionHook.UPDATING">updating</link> - The target is the bundle used to call
+ one of the <link linkend="org.osgi.framework.Bundle.update--">update</link> methods. The collision
+ candidate collection contains the existing bundles installed which have
+ the same symbolic name and version as the content the target bundle is
+ being updated to.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ This method can filter the collection of collision candidates by removing
+ potential collisions. For the specified operation to succeed, the
+ collection of collision candidates must be empty after all registered
+ collision hook services have been called.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="EventHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.bundle.EventHook">
+      <title>public interface EventHook</title>
+      <para>
+OSGi Framework Bundle Event Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during framework lifecycle
+ (install, start, stop, update, and uninstall bundle) operations.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="event(BundleEvent,Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.bundle.EventHook.event-BundleEvent-Collection-">
+         <title>public void event(BundleEvent event, Collection&lt;BundleContext&gt; contexts)</title>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event to be delivered</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>contexts</title>
+            <para>A collection of Bundle Contexts for bundles which have
+        listeners to which the specified event will be delivered. The
+        implementation of this method may remove bundle contexts from the
+        collection to prevent the event from being delivered to the
+        associated bundles. The collection supports all the optional
+        <code>Collection</code> operations except <code>add</code> and
+        <code>addAll</code>. Attempting to add to the collection will result in
+        an <code>UnsupportedOperationException</code>. The collection is not
+        synchronized.</para>
+         </formalpara>
+         <para role="description">
+Bundle event hook method. This method is called prior to bundle event
+ delivery when a bundle is installed, resolved, started, stopped,
+ unresolved, or uninstalled. This method can filter the bundles which
+ receive the event.
+ </para>
+         <para>
+ This method must be called by the framework one and only one time for
+ each bundle event generated, this included bundle events which are
+ generated when there are no bundle listeners registered. This method must
+ be called on the same thread that is performing the action which
+ generated the specified event. The specified collection includes bundle
+ contexts with synchronous and asynchronous bundle listeners registered
+ with them.</para>
+      </section>
+   </section>
+   <section xreflabel="FindHook"
+            role="class"
+            xml:id="org.osgi.framework.hooks.bundle.FindHook">
+      <title>public interface FindHook</title>
+      <para>
+OSGi Framework Bundle Context Hook Service.
+ 
+ </para>
+      <para>
+ Bundles registering this service will be called during framework bundle find
+ (get bundles) operations.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="find(BundleContext,Collection)"
+               role="method"
+               xml:id="org.osgi.framework.hooks.bundle.FindHook.find-BundleContext-Collection-">
+         <title>public void find(BundleContext context, Collection&lt;Bundle&gt; bundles)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The bundle context of the bundle performing the find
+        operation.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>A collection of Bundles to be returned as a result of the
+        find operation. The implementation of this method may remove
+        bundles from the collection to prevent the bundles from being
+        returned to the bundle performing the find operation. The
+        collection supports all the optional <code>Collection</code> operations
+        except <code>add</code> and <code>addAll</code>. Attempting to add to the
+        collection will result in an <code>UnsupportedOperationException</code>
+        . The collection is not synchronized.</para>
+         </formalpara>
+         <para role="description">
+Find hook method. This method is called for the following:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Bundle find operations using <link linkend="org.osgi.framework.BundleContext.getBundle-long-">BundleContext.getBundle(long)</link>
+ and <link linkend="org.osgi.framework.BundleContext.getBundles--">BundleContext.getBundles()</link> methods. The find method can
+ filter the result of the find operation. Note that a find operation using
+ the <link linkend="org.osgi.framework.BundleContext.getBundle-String-">BundleContext.getBundle(String)</link> method does not cause the
+ find method to be called.</para>
+            </listitem>
+            <listitem>
+               <para>Bundle install operations when an existing bundle is already
+ installed at a given location. In this case, the find method is called to
+ determine if the context performing the install operation is able to find
+ the bundle. If the context cannot find the existing bundle then the
+ install operation must fail with a
+ <link linkend="org.osgi.framework.BundleException.REJECTED_BY_HOOK">BundleException.REJECTED_BY_HOOK</link> exception.</para>
+            </listitem>
+         </itemizedlist>
+      </section>
+   </section>
+</section>

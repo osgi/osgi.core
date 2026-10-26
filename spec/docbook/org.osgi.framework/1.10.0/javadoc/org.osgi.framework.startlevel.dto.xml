@@ -1,0 +1,185 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.startlevel.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.startlevel.dto">
+   <title>org.osgi.framework.startlevel.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.startlevel.dto-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.framework.startlevel.dto-version.number">1.0</edition>
+   </info>
+   <para>
+OSGi Data Transfer Object Framework Start Level Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.startlevel.dto; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.startlevel.dto; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.dto.BundleStartLevelDTO">
+                  <code>BundleStartLevelDTO</code>
+               </link> - 
+Data Transfer Object for a BundleStartLevel.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO">
+                  <code>FrameworkStartLevelDTO</code>
+               </link> - 
+Data Transfer Object for a FrameworkStartLevel.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleStartLevelDTO"
+            role="class"
+            xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO">
+      <title>public class BundleStartLevelDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a BundleStartLevel.
+ 
+ </para>
+      <para>
+ An installed Bundle can be adapted to provide a <code>BundleStartLevelDTO</code>
+ for the Bundle.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="activationPolicyUsed"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO.activationPolicyUsed">
+         <title>public boolean activationPolicyUsed</title>
+         <para>
+The bundle's autostart setting indicates that the activation policy
+ declared in the bundle manifest must be used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.BundleStartLevel.isActivationPolicyUsed--">BundleStartLevel.isActivationPolicyUsed()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="bundle"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO.bundle">
+         <title>public long bundle</title>
+         <para>
+The id of the bundle associated with this start level.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleStartLevel.getBundle()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="persistentlyStarted"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO.persistentlyStarted">
+         <title>public boolean persistentlyStarted</title>
+         <para>
+The bundle's autostart setting indicates it must be started.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.BundleStartLevel.isPersistentlyStarted--">BundleStartLevel.isPersistentlyStarted()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="startLevel"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO.startLevel">
+         <title>public int startLevel</title>
+         <para>
+The assigned start level value for the bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.BundleStartLevel.getStartLevel--">BundleStartLevel.getStartLevel()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="BundleStartLevelDTO()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.dto.BundleStartLevelDTO.BundleStartLevelDTO--">
+         <title>public  BundleStartLevelDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FrameworkStartLevelDTO"
+            role="class"
+            xml:id="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO">
+      <title>public class FrameworkStartLevelDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a FrameworkStartLevel.
+ 
+ </para>
+      <para>
+ The System Bundle can be adapted to provide a <code>FrameworkStartLevelDTO</code>
+ for the framework of the Bundle.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="initialBundleStartLevel"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO.initialBundleStartLevel">
+         <title>public int initialBundleStartLevel</title>
+         <para>
+The initial start level value that is assigned to a bundle when it is
+ first installed.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.FrameworkStartLevel.getInitialBundleStartLevel--">FrameworkStartLevel.getInitialBundleStartLevel()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="startLevel"
+               role="field"
+               xml:id="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO.startLevel">
+         <title>public int startLevel</title>
+         <para>
+The active start level value for the framework.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.startlevel.FrameworkStartLevel.getStartLevel--">FrameworkStartLevel.getStartLevel()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FrameworkStartLevelDTO()"
+               role="method"
+               xml:id="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO.FrameworkStartLevelDTO--">
+         <title>public  FrameworkStartLevelDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

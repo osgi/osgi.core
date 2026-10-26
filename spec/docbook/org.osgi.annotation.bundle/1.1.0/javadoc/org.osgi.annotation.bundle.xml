@@ -1,0 +1,950 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.annotation.bundle"
+         version="5"
+         role="package"
+         xml:id="org.osgi.annotation.bundle">
+   <title>org.osgi.annotation.bundle</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.annotation.bundle-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.annotation.bundle-version.number">1.1</edition>
+   </info>
+   <para>
+OSGi Bundle Annotations Package Version 1.1.
+ </para>
+   <para>
+ This package is not used at runtime.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Attribute">
+                  <code>Attribute</code>
+               </link> - 
+Mark an annotation element as an attribute.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Capabilities">
+                  <code>Capabilities</code>
+               </link> - 
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Capability">Capability</link> annotations.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Capability">
+                  <code>Capability</code>
+               </link> - 
+Define a capability for a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Directive">
+                  <code>Directive</code>
+               </link> - 
+Mark an annotation element as a directive.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Export">
+                  <code>Export</code>
+               </link> - 
+Mark a package to be exported from its bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Export.Substitution">
+                  <code>Export.Substitution</code>
+               </link> - 
+Substitution policy for this package.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Header">
+                  <code>Header</code>
+               </link> - 
+Define a manifest header for a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Headers">
+                  <code>Headers</code>
+               </link> - 
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Header">Header</link> annotations.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Referenced">
+                  <code>Referenced</code>
+               </link> - 
+Mark types as referenced.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Requirement">
+                  <code>Requirement</code>
+               </link> - 
+Define a requirement for a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Requirement.Cardinality">
+                  <code>Requirement.Cardinality</code>
+               </link> - 
+Cardinality for this requirement.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Requirement.Resolution">
+                  <code>Requirement.Resolution</code>
+               </link> - 
+Resolution for this requirement.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.annotation.bundle.Requirements">
+                  <code>Requirements</code>
+               </link> - 
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> annotations.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Attribute"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Attribute">
+      <title>@Attribute</title>
+      <para>
+Mark an annotation element as an attribute.
+ </para>
+      <para>
+ This is used when applying <link linkend="org.osgi.annotation.bundle.Capability">Capability</link> or <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> as a
+ meta annotation to an annotation declaration. The value of the annotation
+ element annotated with <code>Attribute</code> is used as the value of an attribute
+ in the generated capability or requirement clause. For example:
+ 
+ </para>
+      <programlisting> @Capability(namespace = "my.namespace")
+ public @interface MyCapability {
+   @Attribute("attr")
+   String value() default "";
+ }
+ 
+ @MyCapability("foo")
+ public MyClass {}</programlisting>
+      <para>
+ 
+ The use of the <code>MyCapability</code> annotation, which is meta annotated with
+ the <code>Capability</code> and <code>Attribute</code> annotations, will result in a
+ capability in the namespace <code>my.namespace</code> with the attribute
+ <code>attr=foo</code>.
+ </para>
+      <para>
+ If the element annotated with <code>Attribute</code> is unspecified when applied,
+ then the attribute must not be generated in the generated capability or
+ requirement clause. For example:
+ 
+ </para>
+      <programlisting> @MyCapability
+ public MyClass {}</programlisting>
+      <para>
+ 
+ will not have the <code>attr</code> attribute in the generated capability.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Attribute.value--">
+         <title>String value default ""</title>
+         <para role="description">
+The name of the attribute.
+ </para>
+         <para>
+ If not specified, the name of the annotated element is used as the name
+ of the attribute.</para>
+      </section>
+   </section>
+   <section xreflabel="Capabilities"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Capabilities">
+      <title>@Capabilities</title>
+      <para>
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Capability">Capability</link> annotations.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capabilities.value--">
+         <title>Capability[] value</title>
+         <para role="description">
+Repeated <link linkend="org.osgi.annotation.bundle.Capability">Capability</link> annotations.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Capability"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Capability">
+      <title>@Capability</title>
+      <para>
+Define a capability for a bundle.
+ </para>
+      <para>
+ For example:
+ 
+ </para>
+      <programlisting> @Capability(namespace=ExtenderNamespace.EXTENDER_NAMESPACE,
+             name="osgi.component", version="1.3.0")</programlisting>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests or otherwise process the type or package.
+ </para>
+      <para>
+ This annotation can be used to annotate an annotation</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="namespace"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.namespace--">
+         <title>String namespace</title>
+         <para role="description">
+The namespace of this capability.
+   </para>
+      </section>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The name of this capability within the namespace.
+ </para>
+         <para>
+ If specified, adds an attribute with the name of the namespace and the
+ value of the specified name to the capability clause.</para>
+      </section>
+      <section xreflabel="version"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.version--">
+         <title>String version default ""</title>
+         <para role="description">
+The version of this capability.
+ </para>
+         <para>
+ If specified, adds an attribute with the name and type of
+ <code>version:Version</code> and the value of the specified version to the
+ capability clause.
+ </para>
+         <para>
+ The specified version must be a valid OSGi version string.</para>
+      </section>
+      <section xreflabel="uses"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.uses--">
+         <title>Class&lt;?&gt;[] uses default {}</title>
+         <para role="description">
+A list of classes whose packages are inspected to calculate the
+ <code>uses</code> directive for this capability.
+ </para>
+         <para>
+ If not specified, the <code>uses</code> directive is omitted from the
+ capability clause.</para>
+      </section>
+      <section xreflabel="effective"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.effective--">
+         <title>String effective default "resolve"</title>
+         <para role="description">
+The effective time of this capability.
+ </para>
+         <para>
+ Specifies the time the capability is available. The OSGi framework
+ resolver only considers capabilities without an effective directive or
+ effective:=resolve. Capabilities with other values for the effective
+ directive can be considered by an external agent.
+ </para>
+         <para>
+ If not specified, the <code>effective</code> directive is omitted from the
+ capability clause.</para>
+      </section>
+      <section xreflabel="attribute"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Capability.attribute--">
+         <title>String[] attribute default {}</title>
+         <para role="description">
+A list of attribute or directive names and values.
+ </para>
+         <para>
+ Each string should be specified in the form:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>"name=value"</code> for attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:type=value"</code> for typed attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:=value"</code> for directives.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ These are added, separated by semicolons, to the capability clause.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Directive"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Directive">
+      <title>@Directive</title>
+      <para>
+Mark an annotation element as a directive.
+ </para>
+      <para>
+ This is used when applying <link linkend="org.osgi.annotation.bundle.Capability">Capability</link> or <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> as a
+ meta annotation to an annotation declaration. The value of the annotation
+ element annotated with <code>Directive</code> is used as the value of a directive
+ in the generated capability or requirement clause. For example:
+ 
+ </para>
+      <programlisting> @Capability(namespace = "my.namespace")
+ public @interface MyCapability {
+   @Directive("resource")
+   String value() default "";
+ }
+ 
+ @MyCapability("foo")
+ public MyClass {}</programlisting>
+      <para>
+ 
+ The use of the <code>MyCapability</code> annotation, which is meta annotated with
+ the <code>Capability</code> and <code>Directive</code> annotations, will result in a
+ capability in the namespace <code>my.namespace</code> with the directive
+ <code>resource:=foo</code>.
+ </para>
+      <para>
+ If the element annotated with <code>Directive</code> is unspecified when applied,
+ then the directive must not be generated in the generated capability or
+ requirement clause. For example:
+ 
+ </para>
+      <programlisting> @MyCapability
+ public MyClass {}</programlisting>
+      <para>
+ 
+ will not have the <code>resource</code> directive in the generated capability.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Directive.value--">
+         <title>String value default ""</title>
+         <para role="description">
+The name of the directive.
+ </para>
+         <para>
+ If not specified, the name of the annotated element is used as the name
+ of the directive.</para>
+      </section>
+   </section>
+   <section xreflabel="Export"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Export">
+      <title>@Export</title>
+      <para>
+Mark a package to be exported from its bundle.
+ </para>
+      <para>
+ The package must also be annotation with the <link linkend="org.osgi.annotation.versioning.Version">Version</link> annotation to
+ specify the export version of the package.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests or otherwise process the package.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="uses"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Export.uses--">
+         <title>String[] uses default {}</title>
+         <para role="description">
+A list of package names that are used by this package.
+ </para>
+         <para>
+ If the <code>uses</code> directive must be omitted from the export package
+ clause for this package, the empty value <code>{}</code> must
+ be specified.
+ </para>
+         <para>
+ If not specified, the <code>uses</code> directive for the export package
+ clause is calculated by inspection of the classes in this package.</para>
+      </section>
+      <section xreflabel="attribute"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Export.attribute--">
+         <title>String[] attribute default {}</title>
+         <para role="description">
+A list of attribute or directive names and values.
+ </para>
+         <para>
+ Each string should be specified in the form:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>"name=value"</code> for attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:type=value"</code> for typed attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:=value"</code> for directives.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ These are added, separated by semicolons, to the export package clause.
+   </para>
+      </section>
+      <section xreflabel="substitution"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Export.substitution--">
+         <title>Export.Substitution substitution default CALCULATED</title>
+         <para role="description">
+Specify the policy for substitutably importing this package.
+ </para>
+         <para>
+ Bundles that collaborate require the same class loader for types used in
+ the collaboration. If multiple bundles export packages with collaboration
+ types then they will have to be placed in disjoint class spaces, making
+ collaboration impossible. Collaboration is significantly improved when
+ bundles are willing to import exported packages; these imports will allow
+ a framework to substitute exports for imports.
+ </para>
+         <para>
+ If not specified, the <link linkend="org.osgi.annotation.bundle.Export.Substitution.CALCULATED">Substitution.CALCULATED</link> substitution
+ policy is used for this package.</para>
+      </section>
+   </section>
+   <section xreflabel="Export.Substitution"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Export.Substitution">
+      <title>enum Export.Substitution</title>
+      <para>
+Substitution policy for this package.
+   </para>
+      <section xreflabel="CONSUMER"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.CONSUMER">
+         <title>CONSUMER</title>
+         <para>
+Use a consumer type version range for the import package clause when
+ substitutably importing a package.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.annotation.versioning.ConsumerType">ConsumerType</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PROVIDER"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.PROVIDER">
+         <title>PROVIDER</title>
+         <para>
+Use a provider type version range for the import package clause when
+ substitutably importing a package.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.annotation.versioning.ProviderType">ProviderType</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="NOIMPORT"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.NOIMPORT">
+         <title>NOIMPORT</title>
+         <para>
+The package must not be substitutably imported.
+   </para>
+      </section>
+      <section xreflabel="CALCULATED"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.CALCULATED">
+         <title>CALCULATED</title>
+         <para>
+The policy value is calculated by inspection of the classes in the
+ package.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.valueOf-String-">
+         <title>public static Export.Substitution valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Export.Substitution.values--">
+         <title>public static Export.Substitution[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Header"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Header">
+      <title>@Header</title>
+      <para>
+Define a manifest header for a bundle.
+ </para>
+      <para>
+ For example:
+ 
+ </para>
+      <programlisting> @Header(name=Constants.BUNDLE_CATEGORY, value="osgi")</programlisting>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Header.name--">
+         <title>String name</title>
+         <para role="description">
+The name of this header.
+   </para>
+      </section>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Header.value--">
+         <title>String value</title>
+         <para role="description">
+The value of this header.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Headers"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Headers">
+      <title>@Headers</title>
+      <para>
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Header">Header</link> annotations.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Headers.value--">
+         <title>Header[] value</title>
+         <para role="description">
+Repeated <link linkend="org.osgi.annotation.bundle.Header">Header</link> annotations.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Referenced"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Referenced">
+      <title>@Referenced</title>
+      <para>
+Mark types as referenced.
+ </para>
+      <para>
+ A reference can cause the package of a specified type to be imported if the
+ bundle does not contain the package.
+ </para>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Referenced.value--">
+         <title>Class&lt;?&gt;[] value</title>
+         <para role="description">
+A list of referenced classes.
+ </para>
+         <para>
+ Specifying a class in this annotation must be treated by tools as if the
+ annotated type has a code reference to the class which may result in an
+ import of the package of the class if the bundle does not contain that
+ package.</para>
+      </section>
+   </section>
+   <section xreflabel="Requirement"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Requirement">
+      <title>@Requirement</title>
+      <para>
+Define a requirement for a bundle.
+ </para>
+      <para>
+ For example:
+ 
+ </para>
+      <programlisting> @Requirement(namespace=ExtenderNamespace.EXTENDER_NAMESPACE,
+              name="osgi.component", version="1.3.0")</programlisting>
+      <para>
+ This annotation is not retained at runtime. It is for use by tools to
+ generate bundle manifests or otherwise process the a package.
+ </para>
+      <para>
+ This annotation can be used to annotate an annotation.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="namespace"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.namespace--">
+         <title>String namespace</title>
+         <para role="description">
+The namespace of this requirement.
+   </para>
+      </section>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The name of this requirement within the namespace.
+ </para>
+         <para>
+ If specified, adds an expression, using the <code>&amp;</code> operator with any
+ specified <link linkend="org.osgi.annotation.bundle.Requirement.filter--">filter()</link>, to the requirement's filter directive to
+ test that an attribute with the name of the namespace is equal to the
+ value of the specified name.</para>
+      </section>
+      <section xreflabel="version"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.version--">
+         <title>String version default ""</title>
+         <para role="description">
+The floor version of the version range for this requirement.
+ </para>
+         <para>
+ If specified, adds a version range expression, using the <code>&amp;</code>
+ operator with any specified <link linkend="org.osgi.annotation.bundle.Requirement.filter--">filter()</link>, to the requirement's
+ filter directive. The ceiling version of the version range is the next
+ major version from the floor version. For example, if the specified
+ version is <code>1.3</code>, then the version range expression is
+ <code>(&amp;(version&gt;=1.3)(!(version&gt;=2.0)))</code>.
+ </para>
+         <para>
+ The specified version must be a valid OSGi version string.</para>
+      </section>
+      <section xreflabel="filter"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.filter--">
+         <title>String filter default ""</title>
+         <para role="description">
+The filter expression of this requirement, if any.
+   </para>
+      </section>
+      <section xreflabel="effective"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.effective--">
+         <title>String effective default "resolve"</title>
+         <para role="description">
+The effective time of this requirement.
+ </para>
+         <para>
+ Specifies the time the requirement is available. The OSGi framework
+ resolver only considers requirement without an effective directive or
+ effective:=resolve. Requirements with other values for the effective
+ directive can be considered by an external agent.
+ </para>
+         <para>
+ If not specified, the <code>effective</code> directive is omitted from the
+ requirement clause.</para>
+      </section>
+      <section xreflabel="attribute"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.attribute--">
+         <title>String[] attribute default {}</title>
+         <para role="description">
+A list of attribute or directive names and values.
+ </para>
+         <para>
+ Each string should be specified in the form:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>"name=value"</code> for attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:type=value"</code> for typed attributes.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>"name:=value"</code> for directives.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ These are added, separated by semicolons, to the requirement clause.
+   </para>
+      </section>
+      <section xreflabel="cardinality"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.cardinality--">
+         <title>Requirement.Cardinality cardinality default SINGLE</title>
+         <para role="description">
+The cardinality of this requirement.
+ </para>
+         <para>
+ Indicates if this requirement can be wired a single time or multiple
+ times.
+ </para>
+         <para>
+ If not specified, the <code>cardinality</code> directive is omitted from the
+ requirement clause.</para>
+      </section>
+      <section xreflabel="resolution"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.resolution--">
+         <title>Requirement.Resolution resolution default MANDATORY</title>
+         <para role="description">
+The resolution policy of this requirement.
+ </para>
+         <para>
+ A mandatory requirement forbids the bundle to resolve when this
+ requirement is not satisfied; an optional requirement allows a bundle to
+ resolve even if this requirement is not satisfied.
+ </para>
+         <para>
+ If not specified, the <code>resolution</code> directive is omitted from the
+ requirement clause.</para>
+      </section>
+   </section>
+   <section xreflabel="Requirement.Cardinality"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Requirement.Cardinality">
+      <title>enum Requirement.Cardinality</title>
+      <para>
+Cardinality for this requirement.
+   </para>
+      <section xreflabel="SINGLE"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Requirement.Cardinality.SINGLE">
+         <title>SINGLE</title>
+         <para>
+Indicates if the requirement can only be wired a single time.
+   </para>
+      </section>
+      <section xreflabel="MULTIPLE"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Requirement.Cardinality.MULTIPLE">
+         <title>MULTIPLE</title>
+         <para>
+Indicates if the requirement can be wired multiple times.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Cardinality.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Cardinality.valueOf-String-">
+         <title>public static Requirement.Cardinality valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Cardinality.values--">
+         <title>public static Requirement.Cardinality[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Requirement.Resolution"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Requirement.Resolution">
+      <title>enum Requirement.Resolution</title>
+      <para>
+Resolution for this requirement.
+   </para>
+      <section xreflabel="MANDATORY"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Requirement.Resolution.MANDATORY">
+         <title>MANDATORY</title>
+         <para>
+A mandatory requirement forbids the bundle to resolve when the
+ requirement is not satisfied.
+   </para>
+      </section>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.annotation.bundle.Requirement.Resolution.OPTIONAL">
+         <title>OPTIONAL</title>
+         <para>
+An optional requirement allows a bundle to resolve even if the
+ requirement is not satisfied.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Resolution.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Resolution.valueOf-String-">
+         <title>public static Requirement.Resolution valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirement.Resolution.values--">
+         <title>public static Requirement.Resolution[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Requirements"
+            role="class"
+            xml:id="org.osgi.annotation.bundle.Requirements">
+      <title>@Requirements</title>
+      <para>
+Container annotation for repeated <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> annotations.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.annotation.bundle.Requirements.value--">
+         <title>Requirement[] value</title>
+         <para role="description">
+Repeated <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> annotations.
+   </para>
+      </section>
+   </section>
+</section>

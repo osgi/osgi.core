@@ -1,0 +1,872 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.resource"
+         version="5"
+         role="package"
+         xml:id="org.osgi.resource">
+   <title>org.osgi.resource</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.resource-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.resource-version.number">1.0</edition>
+   </info>
+   <para>
+Resource Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. For example:
+ 
+ </para>
+   <programlisting> Import-Package: org.osgi.resource; version="[1.0,2.0)"</programlisting>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Capability">
+                  <code>Capability</code>
+               </link> - 
+A capability that has been declared from a <link linkend="org.osgi.resource.Resource">Resource</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Namespace">
+                  <code>Namespace</code>
+               </link> - 
+Capability and Requirement Namespaces base class.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Requirement">
+                  <code>Requirement</code>
+               </link> - 
+A requirement that has been declared from a <link linkend="org.osgi.resource.Resource">Resource</link> .
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Resource">
+                  <code>Resource</code>
+               </link> - 
+A resource is the representation of a uniquely identified and typed data.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Wire">
+                  <code>Wire</code>
+               </link> - 
+A wire connecting a <link linkend="org.osgi.resource.Capability">Capability</link> to a <link linkend="org.osgi.resource.Requirement">Requirement</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.resource.Wiring">
+                  <code>Wiring</code>
+               </link> - 
+A wiring for a resource.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Capability"
+            role="class"
+            xml:id="org.osgi.resource.Capability">
+      <title>public interface Capability</title>
+      <para>
+A capability that has been declared from a <link linkend="org.osgi.resource.Resource">Resource</link>.
+ 
+ </para>
+      <para>
+ Instances of this type must be <emphasis>effectively immutable</emphasis>. That is, for a
+ given instance of this interface, the methods defined by this interface must
+ always return the same result.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.resource.Capability.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to compare against this <code>Capability</code>.</para>
+         </formalpara>
+         <para role="description">
+Compares this <code>Capability</code> to another <code>Capability</code>.
+ 
+ </para>
+         <para>
+ This <code>Capability</code> is equal to another <code>Capability</code> if they
+ have the same namespace, directives and attributes and are declared by
+ the same resource.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>Capability</code> is equal to the other
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getAttributes()"
+               role="method"
+               xml:id="org.osgi.resource.Capability.getAttributes--">
+         <title>public Map&lt;String, Object&gt; getAttributes()</title>
+         <para role="description">
+Returns the attributes of this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of attribute names to attribute values for
+         this capability, or an empty map if this capability has no
+         attributes.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDirectives()"
+               role="method"
+               xml:id="org.osgi.resource.Capability.getDirectives--">
+         <title>public Map&lt;String, String&gt; getDirectives()</title>
+         <para role="description">
+Returns the directives of this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of directive names to directive values for
+         this capability, or an empty map if this capability has no
+         directives.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getNamespace()"
+               role="method"
+               xml:id="org.osgi.resource.Capability.getNamespace--">
+         <title>public String getNamespace()</title>
+         <para role="description">
+Returns the namespace of this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The namespace of this capability.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.resource.Capability.getResource--">
+         <title>public Resource getResource()</title>
+         <para role="description">
+Returns the resource declaring this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource declaring this capability.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.resource.Capability.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hashCode of this <code>Capability</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The hashCode of this <code>Capability</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Namespace"
+            role="class"
+            xml:id="org.osgi.resource.Namespace">
+      <title>public abstract class Namespace</title>
+      <para>
+Capability and Requirement Namespaces base class.
+ 
+ </para>
+      <para>
+ This class is the common class shared by all OSGi defined namespaces. It
+ defines the names for the common attributes and directives for the OSGi
+ specified namespaces.
+ 
+ </para>
+      <para>
+ The OSGi Alliance reserves the right to extend the set of directives and
+ attributes which have specified semantics for all of the specified
+ namespaces.
+ 
+ </para>
+      <para>
+ The values associated with these keys are of type <code>String</code>, unless
+ otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CAPABILITY_EFFECTIVE_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">
+         <title>public static final String CAPABILITY_EFFECTIVE_DIRECTIVE = "effective"</title>
+         <para>
+The capability directive used to specify the effective time for the
+ capability. The default value is <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link>, <link linkend="org.osgi.resource.Namespace.EFFECTIVE_ACTIVE">active</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="CAPABILITY_USES_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.CAPABILITY_USES_DIRECTIVE">
+         <title>public static final String CAPABILITY_USES_DIRECTIVE = "uses"</title>
+         <para>
+The capability directive used to specify the comma separated list of
+ package names used by a capability.
+   </para>
+      </section>
+      <section xreflabel="CARDINALITY_MULTIPLE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.CARDINALITY_MULTIPLE">
+         <title>public static final String CARDINALITY_MULTIPLE = "multiple"</title>
+         <para>
+The directive value identifying a multiple
+ <link linkend="org.osgi.resource.Namespace.REQUIREMENT_CARDINALITY_DIRECTIVE">cardinality</link> type.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_CARDINALITY_DIRECTIVE">REQUIREMENT_CARDINALITY_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="CARDINALITY_SINGLE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.CARDINALITY_SINGLE">
+         <title>public static final String CARDINALITY_SINGLE = "single"</title>
+         <para>
+The directive value identifying a
+ <link linkend="org.osgi.resource.Namespace.REQUIREMENT_CARDINALITY_DIRECTIVE">cardinality</link> type of single.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_CARDINALITY_DIRECTIVE">REQUIREMENT_CARDINALITY_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="EFFECTIVE_ACTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.EFFECTIVE_ACTIVE">
+         <title>public static final String EFFECTIVE_ACTIVE = "active"</title>
+         <para>
+The directive value identifying a <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">capability</link> or <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">requirement</link> that
+ is effective at active time. Capabilities and requirements with an
+ effective time of active are ignored while resolving a resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">REQUIREMENT_EFFECTIVE_DIRECTIVE</link>, <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">CAPABILITY_EFFECTIVE_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="EFFECTIVE_RESOLVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">
+         <title>public static final String EFFECTIVE_RESOLVE = "resolve"</title>
+         <para>
+The directive value identifying a <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">capability</link> or <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">requirement</link> that
+ is effective at resolve time. Capabilities and requirements with an
+ effective time of resolve are the only capabilities which are processed
+ while resolving a resource.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">REQUIREMENT_EFFECTIVE_DIRECTIVE</link>, <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">CAPABILITY_EFFECTIVE_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="REQUIREMENT_CARDINALITY_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.REQUIREMENT_CARDINALITY_DIRECTIVE">
+         <title>public static final String REQUIREMENT_CARDINALITY_DIRECTIVE = "cardinality"</title>
+         <para>
+The requirement directive used to specify the cardinality for a
+ requirement. The default value is <link linkend="org.osgi.resource.Namespace.CARDINALITY_SINGLE">single</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.CARDINALITY_MULTIPLE">multiple</link>, <link linkend="org.osgi.resource.Namespace.CARDINALITY_SINGLE">single</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="REQUIREMENT_EFFECTIVE_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">
+         <title>public static final String REQUIREMENT_EFFECTIVE_DIRECTIVE = "effective"</title>
+         <para>
+The requirement directive used to specify the effective time for the
+ requirement. The default value is <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link>, <link linkend="org.osgi.resource.Namespace.EFFECTIVE_ACTIVE">active</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="REQUIREMENT_FILTER_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.REQUIREMENT_FILTER_DIRECTIVE">
+         <title>public static final String REQUIREMENT_FILTER_DIRECTIVE = "filter"</title>
+         <para>
+The requirement directive used to specify a capability filter. This
+ filter is used to match against a capability's attributes.
+   </para>
+      </section>
+      <section xreflabel="REQUIREMENT_RESOLUTION_DIRECTIVE"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.REQUIREMENT_RESOLUTION_DIRECTIVE">
+         <title>public static final String REQUIREMENT_RESOLUTION_DIRECTIVE = "resolution"</title>
+         <para>
+The requirement directive used to specify the resolution type for a
+ requirement. The default value is <link linkend="org.osgi.resource.Namespace.RESOLUTION_MANDATORY">mandatory</link>
+ .
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.RESOLUTION_MANDATORY">mandatory</link>, <link linkend="org.osgi.resource.Namespace.RESOLUTION_OPTIONAL">optional</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="RESOLUTION_MANDATORY"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.RESOLUTION_MANDATORY">
+         <title>public static final String RESOLUTION_MANDATORY = "mandatory"</title>
+         <para>
+The directive value identifying a mandatory requirement resolution type.
+ A mandatory resolution type indicates that the requirement must be
+ resolved when the resource is resolved. If such a requirement cannot be
+ resolved, the resource fails to resolve.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_RESOLUTION_DIRECTIVE">REQUIREMENT_RESOLUTION_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="RESOLUTION_OPTIONAL"
+               role="field"
+               xml:id="org.osgi.resource.Namespace.RESOLUTION_OPTIONAL">
+         <title>public static final String RESOLUTION_OPTIONAL = "optional"</title>
+         <para>
+The directive value identifying an optional requirement resolution type.
+ An optional resolution type indicates that the requirement is optional
+ and the resource may be resolved without the requirement being resolved.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.resource.Namespace.REQUIREMENT_RESOLUTION_DIRECTIVE">REQUIREMENT_RESOLUTION_DIRECTIVE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="Namespace()"
+               role="method"
+               xml:id="org.osgi.resource.Namespace.Namespace--">
+         <title>protected  Namespace()</title>
+         <para role="description">
+Protected constructor for Namespace sub-types.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Requirement"
+            role="class"
+            xml:id="org.osgi.resource.Requirement">
+      <title>public interface Requirement</title>
+      <para>
+A requirement that has been declared from a <link linkend="org.osgi.resource.Resource">Resource</link> .
+ 
+ </para>
+      <para>
+ Instances of this type must be <emphasis>effectively immutable</emphasis>. That is, for a
+ given instance of this interface, the methods defined by this interface must
+ always return the same result.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to compare against this <code>Requirement</code>.</para>
+         </formalpara>
+         <para role="description">
+Compares this <code>Requirement</code> to another <code>Requirement</code>.
+ 
+ </para>
+         <para>
+ This <code>Requirement</code> is equal to another <code>Requirement</code> if they
+ have the same namespace, directives and attributes and are declared by
+ the same resource.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>Requirement</code> is equal to the other
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getAttributes()"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.getAttributes--">
+         <title>public Map&lt;String, Object&gt; getAttributes()</title>
+         <para role="description">
+Returns the attributes of this requirement.
+ 
+ </para>
+         <para>
+ Requirement attributes have no specified semantics and are considered
+ extra user defined information.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of attribute names to attribute values for
+         this requirement, or an empty map if this requirement has no
+         attributes.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDirectives()"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.getDirectives--">
+         <title>public Map&lt;String, String&gt; getDirectives()</title>
+         <para role="description">
+Returns the directives of this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of directive names to directive values for
+         this requirement, or an empty map if this requirement has no
+         directives.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getNamespace()"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.getNamespace--">
+         <title>public String getNamespace()</title>
+         <para role="description">
+Returns the namespace of this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The namespace of this requirement.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.getResource--">
+         <title>public Resource getResource()</title>
+         <para role="description">
+Returns the resource declaring this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource declaring this requirement. This can be <code>null</code>
+         if this requirement is synthesized.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.resource.Requirement.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hashCode of this <code>Requirement</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The hashCode of this <code>Requirement</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Resource"
+            role="class"
+            xml:id="org.osgi.resource.Resource">
+      <title>public interface Resource</title>
+      <para>
+A resource is the representation of a uniquely identified and typed data. A
+ resource declares requirements that need to be satisfied by capabilities
+ before it can provide its capabilities.
+ 
+ </para>
+      <para>
+ Instances of this type must be <emphasis>effectively immutable</emphasis>. That is, for a
+ given instance of this interface, the methods defined by this interface must
+ always return the same result.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.resource.Resource.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to compare against this <code>Resource</code>.</para>
+         </formalpara>
+         <para role="description">
+Compares this <code>Resource</code> to another <code>Resource</code>.
+ 
+ </para>
+         <para>
+ This <code>Resource</code> is equal to another <code>Resource</code> if both have
+ the same content and come from the same location. Location may be defined
+ as the bundle location if the resource is an installed bundle or the
+ repository location if the resource is in a repository.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>Resource</code> is equal to the other
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.resource.Resource.getCapabilities-String-">
+         <title>public List&lt;Capability&gt; getCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared capabilities to return or
+        <code>null</code> to return the declared capabilities from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities declared by this resource.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared <link linkend="org.osgi.resource.Capability">Capability</link>s
+         from the specified namespace. The returned list will be empty if
+         this resource declares no capabilities in the specified
+         namespace.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirements(String)"
+               role="method"
+               xml:id="org.osgi.resource.Resource.getRequirements-String-">
+         <title>public List&lt;Requirement&gt; getRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared requirements to return or
+        <code>null</code> to return the declared requirements from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements declared by this bundle resource.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared <link linkend="org.osgi.resource.Requirement">Requirement</link>
+         s from the specified namespace. The returned list will be empty
+         if this resource declares no requirements in the specified
+         namespace.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.resource.Resource.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hashCode of this <code>Resource</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The hashCode of this <code>Resource</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Wire" role="class" xml:id="org.osgi.resource.Wire">
+      <title>public interface Wire</title>
+      <para>
+A wire connecting a <link linkend="org.osgi.resource.Capability">Capability</link> to a <link linkend="org.osgi.resource.Requirement">Requirement</link>.
+ 
+ </para>
+      <para>
+ Instances of this type must be <emphasis>effectively immutable</emphasis>. That is, for a
+ given instance of this interface, the methods defined by this interface must
+ always return the same result.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.resource.Wire.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to compare against this <code>Wire</code>.</para>
+         </formalpara>
+         <para role="description">
+Compares this <code>Wire</code> to another <code>Wire</code>.
+ 
+ </para>
+         <para>
+ This <code>Wire</code> is equal to another <code>Wire</code> if they have the same
+ capability, requirement, provider and requirer.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>Wire</code> is equal to the other object;
+         <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getCapability()"
+               role="method"
+               xml:id="org.osgi.resource.Wire.getCapability--">
+         <title>public Capability getCapability()</title>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Capability">Capability</link> for this wire.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.resource.Capability">Capability</link> for this wire.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProvider()"
+               role="method"
+               xml:id="org.osgi.resource.Wire.getProvider--">
+         <title>public Resource getProvider()</title>
+         <para role="description">
+Returns the resource providing the <link linkend="org.osgi.resource.Wire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The returned resource may differ from the resource referenced by the
+ <link linkend="org.osgi.resource.Wire.getCapability--">capability</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource providing the capability.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirement()"
+               role="method"
+               xml:id="org.osgi.resource.Wire.getRequirement--">
+         <title>public Requirement getRequirement()</title>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Requirement">Requirement</link> for this wire.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.resource.Requirement">Requirement</link> for this wire.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirer()"
+               role="method"
+               xml:id="org.osgi.resource.Wire.getRequirer--">
+         <title>public Resource getRequirer()</title>
+         <para role="description">
+Returns the resource who <link linkend="org.osgi.resource.Wire.getRequirement--">requires</link> the
+ <link linkend="org.osgi.resource.Wire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The returned resource may differ from the resource referenced by the
+ <link linkend="org.osgi.resource.Wire.getRequirement--">requirement</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource who requires the capability.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.resource.Wire.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hashCode of this <code>Wire</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The hashCode of this <code>Wire</code>.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Wiring" role="class" xml:id="org.osgi.resource.Wiring">
+      <title>public interface Wiring</title>
+      <para>
+A wiring for a resource. A wiring is associated with a resource and
+ represents the dependencies with other wirings.
+ 
+ </para>
+      <para>
+ Instances of this type must be <emphasis>effectively immutable</emphasis>. That is, for a
+ given instance of this interface, the methods defined by this interface must
+ always return the same result.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="getProvidedResourceWires(String)"
+               role="method"
+               xml:id="org.osgi.resource.Wiring.getProvidedResourceWires-String-">
+         <title>public List&lt;Wire&gt; getProvidedResourceWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities for which to return
+        wires or <code>null</code> to return the wires for the capabilities in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Wire">Wire</link>s to the provided <link linkend="org.osgi.resource.Capability">capabilities</link>
+ of this wiring.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Wire">Wire</link>s for the
+         <link linkend="org.osgi.resource.Capability">capabilities</link> of this wiring, or an empty list
+         if this wiring has no capabilities in the specified namespace.
+         For a given namespace, the list contains the wires in the order
+         the capabilities were specified in the manifests of the
+         <link linkend="org.osgi.resource.Wiring.getResource--">resource</link> and the attached fragment
+         resources of this wiring. There is no ordering defined between
+         capabilities in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequiredResourceWires(String)"
+               role="method"
+               xml:id="org.osgi.resource.Wiring.getRequiredResourceWires-String-">
+         <title>public List&lt;Wire&gt; getRequiredResourceWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements for which to return
+        wires or <code>null</code> to return the wires for the requirements in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Wire">Wire</link>s to the <link linkend="org.osgi.resource.Requirement">requirements</link> in use
+ by this wiring.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Wire">Wire</link>s for the
+         <link linkend="org.osgi.resource.Requirement">requirements</link> of this wiring, or an empty list
+         if this wiring has no requirements in the specified namespace.
+         For a given namespace, the list contains the wires in the order
+         the requirements were specified in the manifests of the
+         <link linkend="org.osgi.resource.Wiring.getResource--">resource</link> and the attached fragment
+         resources of this wiring. There is no ordering defined between
+         requirements in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.resource.Wiring.getResource--">
+         <title>public Resource getResource()</title>
+         <para role="description">
+Returns the resource associated with this wiring.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource associated with this wiring.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResourceCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.resource.Wiring.getResourceCapabilities-String-">
+         <title>public List&lt;Capability&gt; getResourceCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities to return or
+        <code>null</code> to return the capabilities from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities provided by this wiring.
+ 
+ </para>
+         <para>
+ Only capabilities considered by the resolver are returned. For example,
+ capabilities with <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ 
+ </para>
+         <para>
+ A capability may not be required by any wiring and thus there may be no
+ <link linkend="org.osgi.resource.Wiring.getProvidedResourceWires-String-">wires</link> for the capability.
+ 
+ </para>
+         <para>
+ A wiring for a non-fragment resource provides a subset of the declared
+ capabilities from the resource and all attached fragment
+ resources<superscript>†</superscript>. Not all declared capabilities may be
+ provided since some may be discarded. For example, if a package is
+ declared to be both exported and imported, only one is selected and the
+ other is discarded.
+ </para>
+         <para>
+ A wiring for a fragment resource with a symbolic name must provide
+ exactly one <code>osgi.identity</code> capability.
+ </para>
+         <para>
+ † The <code>osgi.identity</code> capability provided by attached
+ fragment resource must not be included in the capabilities of the host
+ wiring.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Capability">Capability</link>s, or an
+         empty list if this wiring provides no capabilities in the
+         specified namespace. For a given namespace, the list contains the
+         capabilities in the order the capabilities were specified in the
+         manifests of the <link linkend="org.osgi.resource.Wiring.getResource--">resource</link> and the attached
+         fragment resources<superscript>†</superscript> of this wiring. There is no
+         ordering defined between capabilities in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResourceRequirements(String)"
+               role="method"
+               xml:id="org.osgi.resource.Wiring.getResourceRequirements-String-">
+         <title>public List&lt;Requirement&gt; getResourceRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements to return or
+            <code>null</code> to return the requirements from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements of this wiring.
+ </para>
+         <para>
+ Only requirements considered by the resolver are returned. For example,
+ requirements with <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ </para>
+         <para>
+ A wiring for a non-fragment resource has a subset of the declared
+ requirements from the resource and all attached fragment resources. Not
+ all declared requirements may be present since some may be discarded. For
+ example, if a package is declared to be both exported and imported, only
+ one is selected and the other is discarded.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Requirement">Requirement</link>s, or an
+         empty list if this wiring uses no requirements in the specified
+         namespace. For a given namespace, the list contains the
+         requirements in the order the requirements were specified in the
+         manifests of the <link linkend="org.osgi.resource.Wiring.getResource--">resource</link> and the attached
+         fragment resources of this wiring. There is no ordering defined
+         between requirements in different namespaces.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>
