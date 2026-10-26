@@ -1,0 +1,1815 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.wiring"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.wiring">
+   <title>org.osgi.framework.wiring</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.wiring-version">Version 1.2</releaseinfo>
+      <edition xml:id="org.osgi.framework.wiring-version.number">1.2</edition>
+   </info>
+   <para>
+Framework Wiring Package Version 1.2.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. For example:
+ 
+ </para>
+   <programlisting> Import-Package: org.osgi.framework.wiring; version="[1.2,2.0)"</programlisting>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleCapability">
+                  <code>BundleCapability</code>
+               </link> - 
+A capability that has been declared from a <link linkend="org.osgi.framework.wiring.BundleRevision">bundle
+ revision</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRequirement">
+                  <code>BundleRequirement</code>
+               </link> - 
+A requirement that has been declared from a <link linkend="org.osgi.framework.wiring.BundleRevision">bundle
+ revision</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision">
+                  <code>BundleRevision</code>
+               </link> - 
+Bundle Revision.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevisions">
+                  <code>BundleRevisions</code>
+               </link> - 
+The <link linkend="org.osgi.framework.wiring.BundleRevision">bundle revisions</link> of a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWire">
+                  <code>BundleWire</code>
+               </link> - 
+A wire connecting a <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> to a <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring">
+                  <code>BundleWiring</code>
+               </link> - 
+A wiring for a bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.wiring.FrameworkWiring">
+                  <code>FrameworkWiring</code>
+               </link> - 
+Query and modify wiring information for the framework.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleCapability"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleCapability">
+      <title>public interface BundleCapability<?line-break?> extends Capability</title>
+      <para>
+A capability that has been declared from a <link linkend="org.osgi.framework.wiring.BundleRevision">bundle
+ revision</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getAttributes()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleCapability.getAttributes--">
+         <title>public Map&lt;String, Object&gt; getAttributes()</title>
+         <para role="description">
+Returns the attributes of this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of attribute names to attribute values for
+         this capability, or an empty map if this capability has no
+         attributes.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getDirectives()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleCapability.getDirectives--">
+         <title>public Map&lt;String, String&gt; getDirectives()</title>
+         <para role="description">
+Returns the directives of this capability.
+ 
+ </para>
+         <para>
+ All capability directives not specified by the
+ <link linkend="org.osgi.framework.namespace.AbstractWiringNamespace">wiring namespaces</link> have no specified
+ semantics and are considered extra user defined information.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of directive names to directive values for
+         this capability, or an empty map if this capability has no
+         directives.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getNamespace()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleCapability.getNamespace--">
+         <title>public String getNamespace()</title>
+         <para role="description">
+Returns the namespace of this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The namespace of this capability.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleCapability.getResource--">
+         <title>public BundleRevision getResource()</title>
+         <para role="description">
+Returns the resource declaring this capability.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleCapability.getRevision--">getRevision()</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource declaring this capability.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRevision()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleCapability.getRevision--">
+         <title>public BundleRevision getRevision()</title>
+         <para role="description">
+Returns the bundle revision declaring this capability.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle revision declaring this capability.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleRequirement"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleRequirement">
+      <title>public interface BundleRequirement<?line-break?> extends Requirement</title>
+      <para>
+A requirement that has been declared from a <link linkend="org.osgi.framework.wiring.BundleRevision">bundle
+ revision</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getAttributes()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.getAttributes--">
+         <title>public Map&lt;String, Object&gt; getAttributes()</title>
+         <para role="description">
+Returns the attributes of this requirement.
+ 
+ </para>
+         <para>
+ Requirement attributes have no specified semantics and are considered
+ extra user defined information.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of attribute names to attribute values for
+         this requirement, or an empty map if this requirement has no
+         attributes.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getDirectives()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.getDirectives--">
+         <title>public Map&lt;String, String&gt; getDirectives()</title>
+         <para role="description">
+Returns the directives of this requirement.
+ 
+ </para>
+         <para>
+ All requirement directives not specified by the
+ <link linkend="org.osgi.framework.namespace.AbstractWiringNamespace">wiring namespaces</link> have no specified
+ semantics and are considered extra user defined information.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable map of directive names to directive values for
+         this requirement, or an empty map if this requirement has no
+         directives.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getNamespace()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.getNamespace--">
+         <title>public String getNamespace()</title>
+         <para role="description">
+Returns the namespace of this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The namespace of this requirement.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.getResource--">
+         <title>public BundleRevision getResource()</title>
+         <para role="description">
+Returns the resource declaring this requirement.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleRequirement.getRevision--">getRevision()</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource declaring this requirement. This can be <code>null</code>
+         if this requirement is synthesized.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRevision()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.getRevision--">
+         <title>public BundleRevision getRevision()</title>
+         <para role="description">
+Returns the bundle revision declaring this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle revision declaring this requirement.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="matches(BundleCapability)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRequirement.matches-BundleCapability-">
+         <title>public boolean matches(BundleCapability capability)</title>
+         <formalpara role="parameter">
+            <title>capability</title>
+            <para>The capability to match to this requirement.</para>
+         </formalpara>
+         <para role="description">
+Returns whether the specified capability matches this requirement.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified capability has the same
+         <link linkend="org.osgi.framework.wiring.BundleRequirement.getNamespace--">namespace</link> as this requirement and the
+         filter for this requirement matches the
+         <link linkend="org.osgi.framework.wiring.BundleCapability.getAttributes--">attributes of the
+         specified capability</link>; <code>false</code> otherwise.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleRevision"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleRevision">
+      <title>public interface BundleRevision<?line-break?> extends BundleReference, Resource</title>
+      <para>
+Bundle Revision. When a bundle is installed and each time a bundle is
+ updated, a new bundle revision of the bundle is created. Since a bundle
+ update can change the entries in a bundle, different bundle wirings for the
+ same bundle can be associated with different bundle revisions.
+ 
+ </para>
+      <para>
+ For a bundle that has not been uninstalled, the most recent bundle revision
+ is defined to be the current bundle revision. A bundle in the UNINSTALLED
+ state does not have a current revision. The current bundle revision for a
+ bundle can be obtained by calling <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt</link>
+ (BundleRevision.class). Since a bundle in the UNINSTALLED state does not have
+ a current revision, adapting such a bundle returns <code>null</code>.
+ 
+ </para>
+      <para>
+ The framework defines namespaces for <link linkend="org.osgi.framework.namespace.PackageNamespace">package</link>,
+ <link linkend="org.osgi.framework.namespace.BundleNamespace">bundle</link> and <link linkend="org.osgi.framework.namespace.HostNamespace">host</link> capabilities
+ and requirements. These namespaces are defined only to express wiring
+ information by the framework. They must not be used in
+ <link linkend="org.osgi.framework.Constants.PROVIDE_CAPABILITY">Provide-Capability</link> and
+ <link linkend="org.osgi.framework.Constants.REQUIRE_CAPABILITY">Require-Capability</link> manifest headers.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="BUNDLE_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleRevision.BUNDLE_NAMESPACE">
+         <title>public static final String BUNDLE_NAMESPACE = "osgi.wiring.bundle"</title>
+         <para>
+Namespace for bundle capabilities and requirements.
+ 
+ </para>
+         <para>
+ The bundle symbolic name of the bundle is stored in the capability
+ attribute of the same name as this namespace (osgi.wiring.bundle). The
+ other directives and attributes of the bundle, from the
+ <link linkend="org.osgi.framework.Constants.BUNDLE_SYMBOLICNAME">Bundle-SymbolicName</link> manifest
+ header, can be found in the capability's
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getDirectives--">directives</link> and
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getAttributes--">attributes</link>. The
+ <link linkend="org.osgi.framework.Constants.BUNDLE_VERSION_ATTRIBUTE">bundle-version</link> capability
+ attribute must contain the <link linkend="org.osgi.framework.Version">Version</link> of the bundle from the
+ <link linkend="org.osgi.framework.Constants.BUNDLE_VERSION">Bundle-Version</link> manifest header if one is
+ specified or <link linkend="org.osgi.framework.Version.emptyVersion">Version.emptyVersion</link> if not specified.
+ 
+ </para>
+         <para>
+ A non-fragment revision
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredCapabilities-String-">declares</link> exactly
+ one<superscript>†</superscript> bundle capability (that is, the bundle can be
+ required by another bundle). A fragment revision must not declare a
+ bundle capability.
+ 
+ </para>
+         <para>
+ A bundle wiring for a non-fragment revision
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getCapabilities-String-">provides</link> exactly
+ one<superscript>†</superscript> bundle capability (that is, the bundle can be
+ required by another bundle) and
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">requires</link> zero or more
+ bundle capabilities (that is, requires other bundles).
+ 
+ </para>
+         <para>
+ † A bundle with no bundle symbolic name (that is, a bundle with
+ <link linkend="org.osgi.framework.Constants.BUNDLE_MANIFESTVERSION">Bundle-ManifestVersion</link>
+ &lt; 2) must not provide a bundle capability.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.namespace.BundleNamespace">BundleNamespace</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HOST_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleRevision.HOST_NAMESPACE">
+         <title>public static final String HOST_NAMESPACE = "osgi.wiring.host"</title>
+         <para>
+Namespace for host capabilities and requirements.
+ 
+ </para>
+         <para>
+ The bundle symbolic name of the bundle is stored in the capability
+ attribute of the same name as this namespace (osgi.wiring.host). The
+ other directives and attributes of the bundle, from the
+ <link linkend="org.osgi.framework.Constants.BUNDLE_SYMBOLICNAME">Bundle-SymbolicName</link> manifest
+ header, can be found in the capability's
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getDirectives--">directives</link> and
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getAttributes--">attributes</link>. The
+ <link linkend="org.osgi.framework.Constants.BUNDLE_VERSION_ATTRIBUTE">bundle-version</link> capability
+ attribute must contain the <link linkend="org.osgi.framework.Version">Version</link> of the bundle from the
+ <link linkend="org.osgi.framework.Constants.BUNDLE_VERSION">Bundle-Version</link> manifest header if one is
+ specified or <link linkend="org.osgi.framework.Version.emptyVersion">Version.emptyVersion</link> if not specified.
+ 
+ </para>
+         <para>
+ A non-fragment revision
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredCapabilities-String-">declares</link> zero or
+ one<superscript>†</superscript> host capability if the bundle
+ <link linkend="org.osgi.framework.Constants.FRAGMENT_ATTACHMENT_DIRECTIVE">allows fragments to be
+ attached</link>. A fragment revision must
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredRequirements-String-">declare</link> exactly
+ one host requirement.
+ 
+ </para>
+         <para>
+ A bundle wiring for a non-fragment revision
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getCapabilities-String-">provides</link> zero or
+ one<superscript>†</superscript> host capability if the bundle
+ <link linkend="org.osgi.framework.Constants.FRAGMENT_ATTACHMENT_DIRECTIVE">allows fragments to be
+ attached</link>. A bundle wiring for a fragment revision
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">requires</link> a host capability
+ for each host to which it is attached.
+ 
+ </para>
+         <para>
+ † A bundle with no bundle symbolic name (that is, a bundle with
+ <link linkend="org.osgi.framework.Constants.BUNDLE_MANIFESTVERSION">Bundle-ManifestVersion</link>
+ &lt; 2) must not provide a host capability.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.namespace.HostNamespace">HostNamespace</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PACKAGE_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleRevision.PACKAGE_NAMESPACE">
+         <title>public static final String PACKAGE_NAMESPACE = "osgi.wiring.package"</title>
+         <para>
+Namespace for package capabilities and requirements.
+ 
+ </para>
+         <para>
+ The name of the package is stored in the capability attribute of the same
+ name as this namespace (osgi.wiring.package). The other directives and
+ attributes of the package, from the <link linkend="org.osgi.framework.Constants.EXPORT_PACKAGE">Export-Package</link> manifest header, can be found in the capability's
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getDirectives--">directives</link> and
+ <link linkend="org.osgi.framework.wiring.BundleCapability.getAttributes--">attributes</link>. The
+ <link linkend="org.osgi.framework.Constants.VERSION_ATTRIBUTE">version</link> capability attribute must
+ contain the <link linkend="org.osgi.framework.Version">Version</link> of the package if one is specified or
+ <link linkend="org.osgi.framework.Version.emptyVersion">Version.emptyVersion</link> if not specified. The
+ <link linkend="org.osgi.framework.Constants.BUNDLE_SYMBOLICNAME_ATTRIBUTE">bundle-symbolic-name</link>
+ capability attribute must contain the
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getSymbolicName--">symbolic name</link> of the provider if
+ one is specified. The <link linkend="org.osgi.framework.Constants.BUNDLE_VERSION_ATTRIBUTE">bundle-version</link> capability attribute must contain the
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getVersion--">version</link> of the provider if one is
+ specified or <link linkend="org.osgi.framework.Version.emptyVersion">Version.emptyVersion</link> if not specified.
+ 
+ </para>
+         <para>
+ The package capabilities provided by the system bundle, that is the
+ bundle with id zero, must include the package specified by the
+ <link linkend="org.osgi.framework.Constants.FRAMEWORK_SYSTEMPACKAGES">Constants.FRAMEWORK_SYSTEMPACKAGES</link> and
+ <link linkend="org.osgi.framework.Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA">Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA</link> framework properties as
+ well as any other package exported by the framework implementation.
+ 
+ </para>
+         <para>
+ A bundle revision <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredCapabilities-String-">declares</link> zero or more package capabilities (this is, exported packages)
+ and <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredRequirements-String-">declares</link> zero
+ or more package requirements.
+ </para>
+         <para>
+ A bundle wiring <link linkend="org.osgi.framework.wiring.BundleWiring.getCapabilities-String-">provides</link>
+ zero or more resolved package capabilities (that is, exported packages)
+ and <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">requires</link> zero or more
+ resolved package requirements (that is, imported packages). The number of
+ package wires required by a bundle wiring may change as the bundle wiring
+ may dynamically import additional packages.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.namespace.PackageNamespace">PackageNamespace</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="TYPE_FRAGMENT"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleRevision.TYPE_FRAGMENT">
+         <title>public static final int TYPE_FRAGMENT = 1</title>
+         <para>
+Bundle revision type indicating the bundle revision is a fragment.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision.getTypes--">getTypes()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getCapabilities-String-">
+         <title>public List&lt;Capability&gt; getCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared capabilities to return or
+        <code>null</code> to return the declared capabilities from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities declared by this resource.
+ 
+ </para>
+         <para>
+ This method returns the same value as
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredCapabilities-String-">getDeclaredCapabilities(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared <link linkend="org.osgi.resource.Capability">Capability</link>s
+         from the specified namespace. The returned list will be empty if
+         this resource declares no capabilities in the specified
+         namespace.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getDeclaredCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getDeclaredCapabilities-String-">
+         <title>public List&lt;BundleCapability&gt; getDeclaredCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared capabilities to return or
+        <code>null</code> to return the declared capabilities from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities declared by this bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared
+         <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link>s from the specified namespace. The
+         returned list will be empty if this bundle revision declares no
+         capabilities in the specified namespace. The list contains the
+         declared capabilities in the order they are specified in the
+         manifest.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDeclaredRequirements(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getDeclaredRequirements-String-">
+         <title>public List&lt;BundleRequirement&gt; getDeclaredRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared requirements to return or
+        <code>null</code> to return the declared requirements from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements declared by this bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared
+         <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link>s from the specified namespace. The
+         returned list will be empty if this bundle revision declares no
+         requirements in the specified namespace. The list contains the
+         declared requirements in the order they are specified in the
+         manifest.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirements(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getRequirements-String-">
+         <title>public List&lt;Requirement&gt; getRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the declared requirements to return or
+        <code>null</code> to return the declared requirements from all
+        namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements declared by this bundle resource.
+ 
+ </para>
+         <para>
+ This method returns the same value as
+ <link linkend="org.osgi.framework.wiring.BundleRevision.getDeclaredRequirements-String-">getDeclaredRequirements(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list containing the declared <link linkend="org.osgi.resource.Requirement">Requirement</link>
+         s from the specified namespace. The returned list will be empty
+         if this resource declares no requirements in the specified
+         namespace.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getSymbolicName()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getSymbolicName--">
+         <title>public String getSymbolicName()</title>
+         <para role="description">
+Returns the symbolic name for this bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The symbolic name for this bundle revision.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getSymbolicName--">Bundle.getSymbolicName()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTypes()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getTypes--">
+         <title>public int getTypes()</title>
+         <para role="description">
+Returns the special types of this bundle revision. The bundle revision
+ type values are:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.framework.wiring.BundleRevision.TYPE_FRAGMENT">TYPE_FRAGMENT</link>
+               </para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ 
+ A bundle revision may be more than one type at a time. A type code is
+ used to identify the bundle revision type for future extendability.
+ 
+ </para>
+         <para>
+ If this bundle revision is not one or more of the defined types then 0 is
+ returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The special types of this bundle revision. The type values are
+         ORed together.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getVersion()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getVersion--">
+         <title>public Version getVersion()</title>
+         <para role="description">
+Returns the version for this bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The version for this bundle revision, or
+         <link linkend="org.osgi.framework.Version.emptyVersion">Version.emptyVersion</link> if this bundle revision has no
+         version information.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getVersion--">Bundle.getVersion()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getWiring()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevision.getWiring--">
+         <title>public BundleWiring getWiring()</title>
+         <para role="description">
+Returns the bundle wiring which is using this bundle revision.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle wiring which is using this bundle revision or
+         <code>null</code> if no bundle wiring is using this bundle revision.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">BundleWiring.getRevision()</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleRevisions"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleRevisions">
+      <title>public interface BundleRevisions<?line-break?> extends BundleReference</title>
+      <para>
+The <link linkend="org.osgi.framework.wiring.BundleRevision">bundle revisions</link> of a bundle. When a bundle is
+ installed and each time a bundle is updated, a new bundle revision of the
+ bundle is created. For a bundle that has not been uninstalled, the most
+ recent bundle revision is defined to be the current bundle revision. A bundle
+ in the UNINSTALLED state does not have a current revision. An in use bundle
+ revision is associated with an <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>
+         <link linkend="org.osgi.framework.wiring.BundleWiring">BundleWiring</link>. The current bundle revision, if there is one, and all
+ in use bundle revisions are returned.
+ 
+ </para>
+      <para>
+ The bundle revisions for a bundle can be obtained by calling
+ <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt</link>(<link linkend="org.osgi.framework.wiring.BundleRevisions">BundleRevisions</link>.class).
+ <link linkend="org.osgi.framework.wiring.BundleRevisions.getRevisions--">getRevisions()</link> on the bundle.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getRevisions()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleRevisions.getRevisions--">
+         <title>public List&lt;BundleRevision&gt; getRevisions()</title>
+         <para role="description">
+Return the bundle revisions for the <link linkend="org.osgi.framework.BundleReference.getBundle--">referenced</link> bundle.
+ 
+ </para>
+         <para>
+ The result is a list containing the current bundle revision, if there is
+ one, and all in use bundle revisions. The list may also contain
+ intermediate bundle revisions which are not in use.
+ 
+ </para>
+         <para>
+ The list is ordered in reverse chronological order such that the first
+ item is the most recent bundle revision and last item is the oldest
+ bundle revision.
+ 
+ </para>
+         <para>
+ Generally the list will have at least one bundle revision for the bundle:
+ the current bundle revision. However, for an uninstalled bundle with no
+ in use bundle revisions, the list may be empty.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.framework.wiring.BundleRevision">BundleRevision</link>s for
+         the referenced bundle.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleWire"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleWire">
+      <title>public interface BundleWire<?line-break?> extends Wire</title>
+      <para>
+A wire connecting a <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> to a <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getCapability()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getCapability--">
+         <title>public BundleCapability getCapability()</title>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> for this wire.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> for this wire.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getProvider()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getProvider--">
+         <title>public BundleRevision getProvider()</title>
+         <para role="description">
+Returns the resource providing the <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The returned resource may differ from the resource referenced by the
+ <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWire.getProviderWiring--">getProviderWiring()</link>.
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">getRevision()</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource providing the capability.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getProviderWiring()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getProviderWiring--">
+         <title>public BundleWiring getProviderWiring()</title>
+         <para role="description">
+Returns the bundle wiring <link linkend="org.osgi.framework.wiring.BundleWiring.getProvidedWires-String-">providing</link> the <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The bundle revision referenced by the returned bundle wiring may differ
+ from the bundle revision referenced by the <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle wiring providing the capability. If the bundle wiring
+         providing the capability is not <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in
+         use</link>, <code>null</code> will be returned.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirement()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getRequirement--">
+         <title>public BundleRequirement getRequirement()</title>
+         <para role="description">
+Return the <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link> for this wire.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link> for this wire.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRequirer()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getRequirer--">
+         <title>public BundleRevision getRequirer()</title>
+         <para role="description">
+Returns the resource who <link linkend="org.osgi.framework.wiring.BundleWire.getRequirement--">requires</link> the
+ <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The returned resource may differ from the resource referenced by the
+ <link linkend="org.osgi.framework.wiring.BundleWire.getRequirement--">requirement</link>.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWire.getRequirerWiring--">getRequirerWiring()</link>.
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">getRevision()</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource who requires the capability.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRequirerWiring()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWire.getRequirerWiring--">
+         <title>public BundleWiring getRequirerWiring()</title>
+         <para role="description">
+Returns the bundle wiring who
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">requires</link> the
+ <link linkend="org.osgi.framework.wiring.BundleWire.getCapability--">capability</link>.
+ 
+ </para>
+         <para>
+ The bundle revision referenced by the returned bundle wiring may differ
+ from the bundle revision referenced by the <link linkend="org.osgi.framework.wiring.BundleWire.getRequirement--">requirement</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle wiring whose requirement is wired to the capability.
+         If the bundle wiring requiring the capability is not
+         <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> will be
+         returned.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleWiring"
+            role="class"
+            xml:id="org.osgi.framework.wiring.BundleWiring">
+      <title>public interface BundleWiring<?line-break?> extends BundleReference, Wiring</title>
+      <para>
+A wiring for a bundle. Each time a bundle is resolved, a new bundle wiring
+ for the bundle is created. A bundle wiring is associated with a bundle
+ revision and represents the dependencies with other bundle wirings.
+ 
+ </para>
+      <para>
+ The bundle wiring for a bundle is the <link linkend="org.osgi.framework.wiring.BundleWiring.isCurrent--">current</link> bundle
+ wiring if it is the most recent bundle wiring for the current bundle
+ revision. A bundle wiring is <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link> if it is the current
+ bundle wiring or if some other in use bundle wiring is dependent upon it. For
+ example, another bundle wiring is wired to a capability provided by the
+ bundle wiring. An in use bundle wiring for a non-fragment bundle has a class
+ loader. All bundles with non-current, in use bundle wirings are considered
+ removal pending. Once a bundle wiring is no longer in use, it is considered
+ stale and is discarded by the framework.
+ 
+ </para>
+      <para>
+ The current bundle wiring for a bundle can be obtained by calling
+ <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt</link>(BundleWiring.class). A bundle in the
+ INSTALLED or UNINSTALLED state does not have a current wiring, adapting such
+ a bundle returns <code>null</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="FINDENTRIES_RECURSE"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleWiring.FINDENTRIES_RECURSE">
+         <title>public static final int FINDENTRIES_RECURSE = 1</title>
+         <para>
+The find entries operation must recurse into subdirectories.
+ 
+ </para>
+         <para>
+ This bit may be set when calling
+ <link linkend="org.osgi.framework.wiring.BundleWiring.findEntries-String-String-int-">findEntries(String, String, int)</link> to specify the result must
+ include the matching entries from the specified path and its
+ subdirectories. If this bit is not set, then the result must only include
+ matching entries from the specified path.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.findEntries-String-String-int-">findEntries(String, String, int)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="LISTRESOURCES_LOCAL"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleWiring.LISTRESOURCES_LOCAL">
+         <title>public static final int LISTRESOURCES_LOCAL = 2</title>
+         <para>
+The list resource names operation must limit the result to the names of
+ matching resources contained in this bundle wiring's
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle revision</link> and its attached fragment
+ revisions. The result must not include resource names for resources in
+ <link linkend="org.osgi.framework.namespace.PackageNamespace">package</link> names which are
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">imported</link> by this wiring.
+ 
+ </para>
+         <para>
+ This bit may be set when calling
+ <link linkend="org.osgi.framework.wiring.BundleWiring.listResources-String-String-int-">listResources(String, String, int)</link> to specify the result must
+ only include the names of matching resources contained in this bundle
+ wiring's bundle revision and its attached fragment revisions. If this bit
+ is not set, then the result must include the names of matching resources
+ reachable from this bundle wiring's class loader which may include the
+ names of matching resources contained in imported packages and required
+ bundles.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.listResources-String-String-int-">listResources(String, String, int)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="LISTRESOURCES_RECURSE"
+               role="field"
+               xml:id="org.osgi.framework.wiring.BundleWiring.LISTRESOURCES_RECURSE">
+         <title>public static final int LISTRESOURCES_RECURSE = 1</title>
+         <para>
+The list resource names operation must recurse into subdirectories.
+ 
+ </para>
+         <para>
+ This bit may be set when calling
+ <link linkend="org.osgi.framework.wiring.BundleWiring.listResources-String-String-int-">listResources(String, String, int)</link> to specify the result must
+ include the names of matching resources from the specified path and its
+ subdirectories. If this bit is not set, then the result must only include
+ names of matching resources from the specified path.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleWiring.listResources-String-String-int-">listResources(String, String, int)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="findEntries(String,String,int)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.findEntries-String-String-int-">
+         <title>public List&lt;URL&gt; findEntries(String path, String filePattern, int options)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The path name in which to look. The path is always relative
+        to the root of this bundle wiring and may begin with
+        "/". A path value of "/" indicates the root of
+        this bundle wiring.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>filePattern</title>
+            <para>The file name pattern for selecting entries in the
+        specified path. The pattern is only matched against the last
+        element of the entry path. If the entry is a directory then the
+        trailing "/" is not used for pattern matching. Substring
+        matching is supported, as specified in the Filter specification,
+        using the wildcard character ("*"). If <code>null</code> is
+        specified, this is equivalent to "*" and matches all
+        files.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>The options for listing resource names. See
+        <link linkend="org.osgi.framework.wiring.BundleWiring.FINDENTRIES_RECURSE">FINDENTRIES_RECURSE</link>. The method must ignore unrecognized
+        options.</para>
+         </formalpara>
+         <para role="description">
+Returns entries in this bundle wiring's <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle
+ revision</link> and its attached fragment revisions. This bundle wiring's class
+ loader is not used to search for entries. Only the contents of this
+ bundle wiring's bundle revision and its attached fragment revisions are
+ searched for the specified entries.
+ 
+ </para>
+         <para>
+ This method takes into account that the "contents" of this
+ bundle wiring can have attached fragments. This "bundle space"
+ is not a namespace with unique members; the same entry name can be
+ present multiple times. This method therefore returns a list of URL
+ objects. These URLs can come from different JARs but have the same path
+ name. This method can either return only entries in the specified path or
+ recurse into subdirectories returning entries in the directory tree
+ beginning at the specified path.
+ 
+ </para>
+         <para>
+ URLs for directory entries must have their path end with "/".
+ </para>
+         <para>
+ Note: Jar and zip files are not required to include directory entries.
+ URLs to directory entries will not be returned if the bundle contents do
+ not contain directory entries.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable list of URL objects for each matching entry, or
+         an empty list if no matching entry could be found, if this bundle
+         wiring is for a fragment revision or if the caller does not have
+         the appropriate <code>AdminPermission[bundle,RESOURCE]</code> and the
+         Java Runtime Environment supports permissions. The list is
+         ordered such that entries from the <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle
+         revision</link> are returned first followed by the entries from
+         attached fragment revisions in attachment order. If this bundle
+         wiring is not <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> must be
+         returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.findEntries-String-String-boolean-">Bundle.findEntries(String, String, boolean)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getCapabilities-String-">
+         <title>public List&lt;BundleCapability&gt; getCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities to return or
+        <code>null</code> to return the capabilities from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities provided by this bundle wiring.
+ 
+ </para>
+         <para>
+ Only capabilities considered by the resolver are returned. For example,
+ capabilities with <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ 
+ </para>
+         <para>
+ A capability may not be required by any bundle wiring and thus there may
+ be no <link linkend="org.osgi.framework.wiring.BundleWiring.getProvidedWires-String-">wires</link> for the capability.
+ 
+ </para>
+         <para>
+ A bundle wiring for a non-fragment revision provides a subset of the
+ declared capabilities from the bundle revision and all attached fragment
+ revisions<superscript>†</superscript>. Not all declared capabilities may be
+ provided since some may be discarded. For example, if a package is
+ declared to be both exported and imported, only one is selected and the
+ other is discarded.
+ </para>
+         <para>
+ A bundle wiring for a fragment revision with a symbolic name must provide
+ exactly one <link linkend="org.osgi.framework.namespace.IdentityNamespace">identity</link> capability.
+ </para>
+         <para>
+ † The <link linkend="org.osgi.framework.namespace.IdentityNamespace">identity</link> capability provided by
+ attached fragment revisions must not be included in the capabilities of
+ the host bundle wiring.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link>s, or
+         an empty list if this bundle wiring provides no capabilities in
+         the specified namespace. If this bundle wiring is not
+         <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> will be returned. For a
+         given namespace, the list contains the capabilities in the order
+         the capabilities were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle revision</link> and the attached
+         fragments<superscript>†</superscript> of this bundle wiring. There is no
+         ordering defined between capabilities in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getClassLoader()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getClassLoader--">
+         <title>public ClassLoader getClassLoader()</title>
+         <para role="description">
+Returns the class loader for this bundle wiring. Since a bundle refresh
+ creates a new bundle wiring for a bundle, different bundle wirings for
+ the same bundle will have different class loaders.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The class loader for this bundle wiring. If this bundle wiring is
+         not <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link> or this bundle wiring is for a
+         fragment revision, <code>null</code> will be returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>RuntimePermission("getClassLoader")</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProvidedResourceWires(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getProvidedResourceWires-String-">
+         <title>public List&lt;Wire&gt; getProvidedResourceWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities for which to return
+        wires or <code>null</code> to return the wires for the capabilities in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Wire">Wire</link>s to the provided <link linkend="org.osgi.resource.Capability">capabilities</link>
+ of this wiring.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWiring.getProvidedWires-String-">getProvidedWires(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Wire">Wire</link>s for the
+         <link linkend="org.osgi.resource.Capability">capabilities</link> of this wiring, or an empty list
+         if this wiring has no capabilities in the specified namespace.
+         For a given namespace, the list contains the wires in the order
+         the capabilities were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getResource--">resource</link> and the attached fragment
+         resources of this wiring. There is no ordering defined between
+         capabilities in different namespaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getProvidedWires(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getProvidedWires-String-">
+         <title>public List&lt;BundleWire&gt; getProvidedWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities for which to return
+        wires or <code>null</code> to return the wires for the capabilities in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.wiring.BundleWire">BundleWire</link>s to the provided <link linkend="org.osgi.framework.wiring.BundleCapability">capabilities</link> of this bundle wiring.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.framework.wiring.BundleWire">BundleWire</link>s for the
+         <link linkend="org.osgi.framework.wiring.BundleCapability">capabilities</link> of this bundle wiring, or
+         an empty list if this bundle wiring has no capabilities in the
+         specified namespace. If this bundle wiring is not
+         <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> will be returned. For a
+         given namespace, the list contains the wires in the order the
+         capabilities were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle revision</link> and the attached fragments
+         of this bundle wiring. There is no ordering defined between
+         capabilities in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequiredResourceWires(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getRequiredResourceWires-String-">
+         <title>public List&lt;Wire&gt; getRequiredResourceWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements for which to return
+        wires or <code>null</code> to return the wires for the requirements in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.resource.Wire">Wire</link>s to the <link linkend="org.osgi.resource.Requirement">requirements</link> in use
+ by this wiring.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">getRequiredWires(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Wire">Wire</link>s for the
+         <link linkend="org.osgi.resource.Requirement">requirements</link> of this wiring, or an empty list
+         if this wiring has no requirements in the specified namespace.
+         For a given namespace, the list contains the wires in the order
+         the requirements were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getResource--">resource</link> and the attached fragment
+         resources of this wiring. There is no ordering defined between
+         requirements in different namespaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRequiredWires(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getRequiredWires-String-">
+         <title>public List&lt;BundleWire&gt; getRequiredWires(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements for which to return
+        wires or <code>null</code> to return the wires for the requirements in
+        all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.wiring.BundleWire">BundleWire</link>s to the <link linkend="org.osgi.framework.wiring.BundleRequirement">requirements</link> in use by this bundle wiring.
+ 
+ </para>
+         <para>
+ This method may return different results if this bundle wiring
+ establishes additional wires to more requirements. For example,
+ dynamically importing a package will establish a new wire to the
+ dynamically imported package.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.framework.wiring.BundleWire">BundleWire</link>s for the
+         <link linkend="org.osgi.framework.wiring.BundleRequirement">requirements</link> of this bundle wiring, or
+         an empty list if this bundle wiring has no requirements in the
+         specified namespace. If this bundle wiring is not
+         <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> will be returned. For a
+         given namespace, the list contains the wires in the order the
+         requirements were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle revision</link> and the attached fragments
+         of this bundle wiring followed by dynamically established wires,
+         if any, in the order they were established. There is no ordering
+         defined between requirements in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRequirements(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getRequirements-String-">
+         <title>public List&lt;BundleRequirement&gt; getRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements to return or
+            <code>null</code> to return the requirements from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements of this bundle wiring.
+ </para>
+         <para>
+ Only requirements considered by the resolver are returned. For example,
+ requirements with <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ </para>
+         <para>
+ A bundle wiring for a non-fragment revision has a subset of the declared
+ requirements from the bundle revision and all attached fragment
+ revisions. Not all declared requirements may be present since some may be
+ discarded. For example, if a package is declared to be both exported and
+ imported, only one is selected and the other is discarded.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.framework.wiring.BundleRequirement">BundleRequirement</link>s,
+         or an empty list if this bundle wiring uses no requirements in
+         the specified namespace. If this bundle wiring is not
+         <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> will be returned. For a
+         given namespace, the list contains the requirements in the order
+         the requirements were specified in the manifests of the
+         <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">bundle revision</link> and the attached fragments
+         of this bundle wiring. There is no ordering defined between
+         requirements in different namespaces.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResource()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getResource--">
+         <title>public BundleRevision getResource()</title>
+         <para role="description">
+Returns the resource associated with this wiring.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWiring.getRevision--">getRevision()</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource associated with this wiring.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getResourceCapabilities(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getResourceCapabilities-String-">
+         <title>public List&lt;Capability&gt; getResourceCapabilities(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the capabilities to return or
+        <code>null</code> to return the capabilities from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the capabilities provided by this wiring.
+ 
+ </para>
+         <para>
+ Only capabilities considered by the resolver are returned. For example,
+ capabilities with <link linkend="org.osgi.resource.Namespace.CAPABILITY_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ 
+ </para>
+         <para>
+ A capability may not be required by any wiring and thus there may be no
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getProvidedResourceWires-String-">wires</link> for the capability.
+ 
+ </para>
+         <para>
+ A wiring for a non-fragment resource provides a subset of the declared
+ capabilities from the resource and all attached fragment
+ resources<superscript>†</superscript>. Not all declared capabilities may be
+ provided since some may be discarded. For example, if a package is
+ declared to be both exported and imported, only one is selected and the
+ other is discarded.
+ </para>
+         <para>
+ A wiring for a fragment resource with a symbolic name must provide
+ exactly one <code>osgi.identity</code> capability.
+ </para>
+         <para>
+ † The <code>osgi.identity</code> capability provided by attached
+ fragment resource must not be included in the capabilities of the host
+ wiring.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWiring.getCapabilities-String-">getCapabilities(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Capability">Capability</link>s, or an
+         empty list if this wiring provides no capabilities in the
+         specified namespace. For a given namespace, the list contains the
+         capabilities in the order the capabilities were specified in the
+         manifests of the <link linkend="org.osgi.framework.wiring.BundleWiring.getResource--">resource</link> and the attached
+         fragment resources<superscript>†</superscript> of this wiring. There is no
+         ordering defined between capabilities in different namespaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getResourceRequirements(String)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getResourceRequirements-String-">
+         <title>public List&lt;Requirement&gt; getResourceRequirements(String namespace)</title>
+         <formalpara role="parameter">
+            <title>namespace</title>
+            <para>The namespace of the requirements to return or
+        <code>null</code> to return the requirements from all namespaces.</para>
+         </formalpara>
+         <para role="description">
+Returns the requirements of this wiring.
+ 
+ </para>
+         <para>
+ Only requirements considered by the resolver are returned. For example,
+ requirements with <link linkend="org.osgi.resource.Namespace.REQUIREMENT_EFFECTIVE_DIRECTIVE">effective</link> directive not equal to <link linkend="org.osgi.resource.Namespace.EFFECTIVE_RESOLVE">resolve</link> are not returned.
+ 
+ </para>
+         <para>
+ A wiring for a non-fragment resource has a subset of the declared
+ requirements from the resource and all attached fragment resources. Not
+ all declared requirements may be present since some may be discarded. For
+ example, if a package is declared to be optionally imported and is not
+ actually imported, the requirement must be discarded.
+ 
+ </para>
+         <para>
+ This method returns the same value as <link linkend="org.osgi.framework.wiring.BundleWiring.getRequirements-String-">getRequirements(String)</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list containing a snapshot of the <link linkend="org.osgi.resource.Requirement">Requirement</link>s, or an
+         empty list if this wiring uses no requirements in the specified
+         namespace. For a given namespace, the list contains the
+         requirements in the order the requirements were specified in the
+         manifests of the <link linkend="org.osgi.framework.wiring.BundleWiring.getResource--">resource</link> and the attached
+         fragment resources of this wiring. There is no ordering defined
+         between requirements in different namespaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRevision()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.getRevision--">
+         <title>public BundleRevision getRevision()</title>
+         <para role="description">
+Returns the bundle revision for the bundle in this bundle wiring. Since a
+ bundle update can change the entries in a bundle, different bundle
+ wirings for the same bundle can have different bundle revisions.
+ 
+ </para>
+         <para>
+ The bundle object <link linkend="org.osgi.framework.BundleReference.getBundle--">referenced</link> by the
+ returned <code>BundleRevision</code> may return different information than the
+ returned <code>BundleRevision</code> since the returned <code>BundleRevision</code>
+ may refer to an older revision of the bundle.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle revision for this bundle wiring.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.wiring.BundleRevision.getWiring--">BundleRevision.getWiring()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="isCurrent()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.isCurrent--">
+         <title>public boolean isCurrent()</title>
+         <para role="description">
+Returns <code>true</code> if this bundle wiring is the current bundle wiring.
+ The bundle wiring for a bundle is the current bundle wiring if it is the
+ most recent bundle wiring for the current bundle revision. All bundles
+ with non-current, in use bundle wirings are considered
+ <link linkend="org.osgi.framework.wiring.FrameworkWiring.getRemovalPendingBundles--">removal pending</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this bundle wiring is the current bundle wiring;
+         <code>false</code> otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isInUse()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.isInUse--">
+         <title>public boolean isInUse()</title>
+         <para role="description">
+Returns <code>true</code> if this bundle wiring is in use. A bundle wiring is
+ in use if it is the <link linkend="org.osgi.framework.wiring.BundleWiring.isCurrent--">current</link> wiring or if some other
+ in use bundle wiring is dependent upon it. Once a bundle wiring is no
+ longer in use, it is considered stale and is discarded by the framework.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this bundle wiring is in use; <code>false</code>
+         otherwise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="listResources(String,String,int)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.BundleWiring.listResources-String-String-int-">
+         <title>public Collection&lt;String&gt; listResources(String path, String filePattern, int options)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The path name in which to look. The path is always relative
+        to the root of this bundle wiring's class loader and may begin
+        with "/". A path value of "/" indicates the
+        root of this bundle wiring's class loader.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>filePattern</title>
+            <para>The file name pattern for selecting resource names in
+        the specified path. The pattern is only matched against the last
+        element of the resource path. If the resource is a directory then
+        the trailing "/" is not used for pattern matching.
+        Substring matching is supported, as specified in the Filter
+        specification, using the wildcard character ("*"). If
+        <code>null</code> is specified, this is equivalent to "*" and
+        matches all files.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>The options for listing resource names. See
+        <link linkend="org.osgi.framework.wiring.BundleWiring.LISTRESOURCES_LOCAL">LISTRESOURCES_LOCAL</link> and <link linkend="org.osgi.framework.wiring.BundleWiring.LISTRESOURCES_RECURSE">LISTRESOURCES_RECURSE</link>.
+        This method must ignore unrecognized options.</para>
+         </formalpara>
+         <para role="description">
+Returns the names of resources visible to this bundle wiring's
+ <link linkend="org.osgi.framework.wiring.BundleWiring.getClassLoader--">class loader</link>. The returned names can be used to
+ access the resources via this bundle wiring's class loader.
+ 
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Only the resource names for resources in bundle wirings will be
+ returned. The names of resources visible to a bundle wiring's parent
+ class loader, such as the bootstrap class loader, must not be included in
+ the result.</para>
+            </listitem>
+            <listitem>
+               <para>Only established wires will be examined for resources. This method
+ must not cause new wires for dynamic imports to be established.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An unmodifiable collection of resource names for each matching
+         resource, or an empty collection if no matching resource could be
+         found, if this bundle wiring is for a fragment revision or if the
+         caller does not have the appropriate
+         <code>AdminPermission[bundle,RESOURCE]</code> and the Java Runtime
+         Environment supports permissions. The collection is unordered and
+         must contain no duplicate resource names. If this bundle wiring
+         is not <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link>, <code>null</code> must be returned.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FrameworkWiring"
+            role="class"
+            xml:id="org.osgi.framework.wiring.FrameworkWiring">
+      <title>public interface FrameworkWiring<?line-break?> extends BundleReference</title>
+      <para>
+Query and modify wiring information for the framework. The framework wiring
+ object for the framework can be obtained by calling
+ <link linkend="org.osgi.framework.Bundle.adapt-Class-">bundle.adapt(FrameworkWiring.class)</link> on the system
+ bundle. Only the system bundle can be adapted to a FrameworkWiring object.
+ 
+ </para>
+      <para>
+ The system bundle associated with this FrameworkWiring object can be obtained
+ by calling <link linkend="org.osgi.framework.BundleReference.getBundle--">BundleReference.getBundle()</link>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="findProviders(Requirement)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.FrameworkWiring.findProviders-Requirement-">
+         <title>public Collection&lt;BundleCapability&gt; findProviders(Requirement requirement)</title>
+         <formalpara role="parameter">
+            <title>requirement</title>
+            <para>The requirement to find matching bundle capabilities.
+        Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Find bundle capabilities that match the given requirement.
+ 
+ </para>
+         <para>
+ The returned collection contains <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> objects where
+ the revision must be the <link linkend="org.osgi.framework.wiring.BundleCapability.getRevision--">declaring
+ revision</link> of the capability and the revision must either be the current
+ bundle revision or an <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link> bundle
+ revision.
+ 
+ </para>
+         <para>
+ Each returned capability must match the given requirement. This means
+ that the filter in the requirement must match as well as any namespace
+ specific directives. For example, the mandatory attributes for the
+ osgi.wiring.package namespace.
+ 
+ </para>
+         <para>
+ The returned collection has not been filtered to remove capabilities that
+ are non-effective, substituted or for which the providing bundle does not
+ have permission to provide. No resolve hooks are called to filter
+ matching capabilities.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A collection of <link linkend="org.osgi.framework.wiring.BundleCapability">BundleCapability</link> objects that match the
+         specified requirement.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDependencyClosure(Collection)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.FrameworkWiring.getDependencyClosure-Collection-">
+         <title>public Collection&lt;Bundle&gt; getDependencyClosure(Collection&lt;Bundle&gt; bundles)</title>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>The initial bundles for which to generate the dependency
+        closure.</para>
+         </formalpara>
+         <para role="description">
+Returns the dependency closure for the specified bundles.
+ 
+ </para>
+         <para>
+ A graph of bundles is computed starting with the specified bundles. The
+ graph is expanded by adding any bundle that is either wired to a package
+ that is currently exported by a bundle in the graph or requires a bundle
+ in the graph. The graph is fully constructed when there is no bundle
+ outside the graph that is wired to a bundle in the graph. The graph may
+ contain <code>UNINSTALLED</code> bundles that are
+ <link linkend="org.osgi.framework.wiring.FrameworkWiring.getRemovalPendingBundles--">removal pending</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A collection containing a snapshot of the dependency closure of
+         the specified bundles, or an empty collection if there were no
+         specified bundles.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified <code>Bundle</code>s were
+         not created by the same framework instance associated with this
+         FrameworkWiring.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRemovalPendingBundles()"
+               role="method"
+               xml:id="org.osgi.framework.wiring.FrameworkWiring.getRemovalPendingBundles--">
+         <title>public Collection&lt;Bundle&gt; getRemovalPendingBundles()</title>
+         <para role="description">
+Returns the bundles that have <link linkend="org.osgi.framework.wiring.BundleWiring.isCurrent--">non-current</link>, <link linkend="org.osgi.framework.wiring.BundleWiring.isInUse--">in use</link> bundle wirings. This
+ is typically the bundles which have been updated or uninstalled since the
+ last call to <link linkend="org.osgi.framework.wiring.FrameworkWiring.refreshBundles-Collection-FrameworkListener...-">refreshBundles(Collection, FrameworkListener...)</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A collection containing a snapshot of the <code>Bundle</code>s which
+         have non-current, in use <code>BundleWiring</code>s, or an empty
+         collection if there are no such bundles.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="refreshBundles(Collection,FrameworkListener...)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.FrameworkWiring.refreshBundles-Collection-FrameworkListener...-">
+         <title>public void refreshBundles(Collection&lt;Bundle&gt; bundles, FrameworkListener... listeners)</title>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>The bundles to be refreshed, or <code>null</code> to refresh
+        the <link linkend="org.osgi.framework.wiring.FrameworkWiring.getRemovalPendingBundles--">removal pending</link> bundles.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>Zero or more listeners to be notified when the bundle
+        refresh has been completed. The specified listeners do not need to
+        be otherwise registered with the framework. If a specified
+        listener is already registered with the framework, it will be
+        notified twice.</para>
+         </formalpara>
+         <para role="description">
+Refreshes the specified bundles. This forces the update (replacement) or
+ removal of packages exported by the specified bundles.
+ 
+ </para>
+         <para>
+ The technique by which the framework refreshes bundles may vary among
+ different framework implementations. A permissible implementation is to
+ stop and restart the framework.
+ 
+ </para>
+         <para>
+ This method returns to the caller immediately and then performs the
+ following steps on a separate thread:
+ 
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>Compute the <link linkend="org.osgi.framework.wiring.FrameworkWiring.getDependencyClosure-Collection-">dependency
+ closure</link> of the specified bundles. If no bundles are specified, compute
+ the dependency closure of the <link linkend="org.osgi.framework.wiring.FrameworkWiring.getRemovalPendingBundles--">removal
+ pending</link> bundles.</para>
+            </listitem>
+            <listitem>
+               <para>Each bundle in the dependency closure that is in the <code>ACTIVE</code>
+ state will be stopped as described in the <code>Bundle.stop</code> method.</para>
+            </listitem>
+            <listitem>
+               <para>Each bundle in the dependency closure that is in the <code>RESOLVED</code>
+ state is unresolved and thus moved to the <code>INSTALLED</code> state. The
+ effect of this step is that bundles in the dependency closure are no
+ longer <code>RESOLVED</code>.</para>
+            </listitem>
+            <listitem>
+               <para>Each bundle in the dependency closure that is in the
+ <code>UNINSTALLED</code> state is removed from the dependency closure and is
+ now completely removed from the Framework.</para>
+            </listitem>
+            <listitem>
+               <para>Each bundle in the dependency closure that was in the <code>ACTIVE</code>
+ state prior to Step 2 is started as described in the <code>Bundle.start</code>
+ method, causing all bundles required for the restart to be resolved. It
+ is possible that, as a result of the previous steps, packages that were
+ previously exported no longer are. Therefore, some bundles may be
+ unresolvable until bundles satisfying the dependencies have been
+ installed in the Framework.</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ For any exceptions that are thrown during any of these steps, a framework
+ event of type <code>FrameworkEvent.ERROR</code> is fired containing the
+ exception. The source bundle for these events should be the specific
+ bundle to which the exception is related. If no specific bundle can be
+ associated with the exception then the System Bundle must be used as the
+ source bundle for the event. All framework events fired by this method
+ are also delivered to the specified <code>FrameworkListener</code>s in the
+ order they are specified.
+ 
+ </para>
+         <para>
+ When this process completes after the bundles are refreshed, the
+ Framework will fire a Framework event of type
+ <code>FrameworkEvent.PACKAGES_REFRESHED</code> to announce it has completed
+ the bundle refresh. The specified <code>FrameworkListener</code>s are notified
+ in the order specified. Each specified <code>FrameworkListener</code> will be
+ called with a Framework event of type
+ <code>FrameworkEvent.PACKAGES_REFRESHED</code>.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified <code>Bundle</code>s were
+         not created by the same framework instance associated with this
+         FrameworkWiring.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AdminPermission[System Bundle,RESOLVE]</code> and the Java
+         runtime environment supports permissions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolveBundles(Collection)"
+               role="method"
+               xml:id="org.osgi.framework.wiring.FrameworkWiring.resolveBundles-Collection-">
+         <title>public boolean resolveBundles(Collection&lt;Bundle&gt; bundles)</title>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>The bundles to resolve or <code>null</code> to resolve all
+        unresolved bundles installed in the Framework.</para>
+         </formalpara>
+         <para role="description">
+Resolves the specified bundles. The Framework must attempt to resolve the
+ specified bundles that are unresolved. Additional bundles that are not
+ included in the specified bundles may be resolved as a result of calling
+ this method. A permissible implementation of this method is to attempt to
+ resolve all unresolved bundles installed in the framework.
+ 
+ </para>
+         <para>
+ If no bundles are specified, then the Framework will attempt to resolve
+ all unresolved bundles. This method must not cause any bundle to be
+ refreshed, stopped, or started. This method will not return until the
+ operation has completed.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if all specified bundles are resolved; <code>false</code>
+         otherwise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified <code>Bundle</code>s were
+         not created by the same framework instance associated with this
+         FrameworkWiring.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AdminPermission[System Bundle,RESOLVE]</code> and the Java
+         runtime environment supports permissions.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

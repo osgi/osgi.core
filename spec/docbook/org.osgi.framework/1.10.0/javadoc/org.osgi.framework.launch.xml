@@ -1,0 +1,811 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.launch"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.launch">
+   <title>org.osgi.framework.launch</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.launch-version">Version 1.2</releaseinfo>
+      <edition xml:id="org.osgi.framework.launch-version.number">1.2</edition>
+   </info>
+   <para>
+Framework Launch Package Version 1.2.
+
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.launch; version="[1.2,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.launch.Framework">
+                  <code>Framework</code>
+               </link> - 
+A Framework instance.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.launch.FrameworkFactory">
+                  <code>FrameworkFactory</code>
+               </link> - 
+A factory for creating <link linkend="org.osgi.framework.launch.Framework">Framework</link> instances.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Framework"
+            role="class"
+            xml:id="org.osgi.framework.launch.Framework">
+      <title>public interface Framework<?line-break?> extends Bundle</title>
+      <para>
+A Framework instance. A Framework is also known as a System Bundle.
+ 
+ </para>
+      <para>
+ Framework instances are created using a <link linkend="org.osgi.framework.launch.FrameworkFactory">FrameworkFactory</link>. The methods
+ of this interface can be used to manage and control the created framework
+ instance.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="adapt(Class)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.adapt-Class-">
+         <title>public A adapt(Class&lt;A&gt; type)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;A&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;A&gt;</title>
+            <para>The type to which this Framework is to be adapted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>Class object for the type to which this Framework is to be
+        adapted.</para>
+         </formalpara>
+         <para role="description">
+Adapt this Framework to the specified type.
+ 
+ </para>
+         <para>
+ Adapting this Framework to the specified type may require certain checks,
+ including security checks, to succeed. If a check does not succeed, then
+ this Framework cannot be adapted and <code>null</code> is returned. If this
+ Framework is not <link linkend="org.osgi.framework.launch.Framework.init--">initialized</link>, then <code>null</code> is
+ returned if the specified type is one of the OSGi defined types to which
+ a system bundle can be adapted.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The object, of the specified type, to which this Framework has
+         been adapted or <code>null</code> if this Framework cannot be adapted</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="findEntries(String,String,boolean)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.findEntries-String-String-boolean-">
+         <title>public Enumeration&lt;URL&gt; findEntries(String path, String filePattern, boolean recurse)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>Ignored.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>filePattern</title>
+            <para>Ignored.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>recurse</title>
+            <para>Ignored.</para>
+         </formalpara>
+         <para role="description">
+Returns <code>null</code> as a framework implementation does not have a proper
+ bundle from which to return entries.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>null</code> as a framework implementation does not have a proper
+         bundle from which to return entries.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getBundleId()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getBundleId--">
+         <title>public long getBundleId()</title>
+         <para role="description">
+Returns the Framework unique identifier. This Framework is assigned the
+ unique identifier zero (0) since this Framework is also a System Bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>0.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getBundleId--">Bundle.getBundleId()</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getEntry(String)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getEntry-String-">
+         <title>public URL getEntry(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>Ignored.</para>
+         </formalpara>
+         <para role="description">
+Returns <code>null</code> as a framework implementation does not have a proper
+ bundle from which to return an entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>null</code> as a framework implementation does not have a proper
+         bundle from which to return an entry.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getEntryPaths(String)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getEntryPaths-String-">
+         <title>public Enumeration&lt;String&gt; getEntryPaths(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>Ignored.</para>
+         </formalpara>
+         <para role="description">
+Returns <code>null</code> as a framework implementation does not have a proper
+ bundle from which to return entry paths.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>null</code> as a framework implementation does not have a proper
+         bundle from which to return entry paths.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getLastModified()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getLastModified--">
+         <title>public long getLastModified()</title>
+         <para role="description">
+Returns the time when the set of bundles in this framework was last
+ modified. The set of bundles is considered to be modified when a bundle
+ is installed, updated or uninstalled.
+ 
+ </para>
+         <para>
+ The time value is the number of milliseconds since January 1, 1970,
+ 00:00:00 UTC.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The time when the set of bundles in this framework was last
+         modified.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getLocation()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getLocation--">
+         <title>public String getLocation()</title>
+         <para role="description">
+Returns the Framework location identifier. This Framework is assigned the
+ unique location "<code>System Bundle</code>" since this Framework is
+ also a System Bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The string "<code>System Bundle</code>".</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,METADATA]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getLocation--">Bundle.getLocation()</link>, <link linkend="org.osgi.framework.Constants.SYSTEM_BUNDLE_LOCATION">Constants.SYSTEM_BUNDLE_LOCATION</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getSymbolicName()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.getSymbolicName--">
+         <title>public String getSymbolicName()</title>
+         <para role="description">
+Returns the symbolic name of this Framework. The symbolic name is unique
+ for the implementation of the framework. However, the symbolic name
+ "<code>system.bundle</code>" must be recognized as an alias to the
+ implementation-defined symbolic name since this Framework is also a
+ System Bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The symbolic name of this Framework.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getSymbolicName--">Bundle.getSymbolicName()</link>, <link linkend="org.osgi.framework.Constants.SYSTEM_BUNDLE_SYMBOLICNAME">Constants.SYSTEM_BUNDLE_SYMBOLICNAME</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="init()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.init--">
+         <title>public void init() throws BundleException</title>
+         <para role="description">
+Initialize this Framework.
+ </para>
+         <para>
+ This method performs the same function as calling
+ <link linkend="org.osgi.framework.launch.Framework.init-FrameworkListener...-">init(FrameworkListener...)</link> with no framework listeners.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If this Framework could not be initialized.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the Java Runtime Environment supports
+         permissions and the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code> or if there is a security
+         manager already installed and the
+         <link linkend="org.osgi.framework.Constants.FRAMEWORK_SECURITY">Constants.FRAMEWORK_SECURITY</link> configuration property is
+         set.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.launch.Framework.init-FrameworkListener...-">init(FrameworkListener...)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="init(FrameworkListener...)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.init-FrameworkListener...-">
+         <title>public void init(FrameworkListener... listeners) throws BundleException</title>
+         <formalpara role="parameter">
+            <title>listeners</title>
+            <para>Zero or more listeners to be notified when framework
+        events occur while initializing the framework. The specified
+        listeners do not need to be otherwise registered with the
+        framework. If a specified listener is registered with the
+        framework, it will be notified twice for each framework event.</para>
+         </formalpara>
+         <para role="description">
+Initialize this Framework. After calling this method, this Framework
+ must:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Have generated a new <link linkend="org.osgi.framework.Constants.FRAMEWORK_UUID">framework UUID</link>.
+ </para>
+            </listitem>
+            <listitem>
+               <para>Be in the <link linkend="org.osgi.framework.Bundle.STARTING">STARTING</link> state.</para>
+            </listitem>
+            <listitem>
+               <para>Have a valid Bundle Context.</para>
+            </listitem>
+            <listitem>
+               <para>Be at start level 0.</para>
+            </listitem>
+            <listitem>
+               <para>Have event handling enabled.</para>
+            </listitem>
+            <listitem>
+               <para>Have reified Bundle objects for all installed bundles.</para>
+            </listitem>
+            <listitem>
+               <para>Have registered any framework services. For example,
+ <code>ConditionalPermissionAdmin</code>.</para>
+            </listitem>
+            <listitem>
+               <para>Be <link linkend="org.osgi.framework.launch.Framework.adapt-Class-">adaptable</link> to the OSGi defined types to which
+ a system bundle can be adapted.</para>
+            </listitem>
+            <listitem>
+               <para>Have called the <code>start</code> method of the extension bundle
+ activator for all resolved extension bundles.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ This Framework will not actually be started until <link linkend="org.osgi.framework.launch.Framework.start--">start</link>
+ is called.
+ 
+ </para>
+         <para>
+ This method does nothing if called when this Framework is in the
+ <link linkend="org.osgi.framework.Bundle.STARTING">STARTING</link>, <link linkend="org.osgi.framework.Bundle.ACTIVE">ACTIVE</link> or <link linkend="org.osgi.framework.Bundle.STOPPING">STOPPING</link> states.
+ 
+ </para>
+         <para>
+ All framework events fired by this method are also delivered to the
+ specified FrameworkListeners in the order they are specified before
+ returning from this method. After returning from this method the
+ specified listeners are no longer notified of framework events.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If this Framework could not be initialized.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the Java Runtime Environment supports
+         permissions and the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code> or if there is a security
+         manager already installed and the
+         <link linkend="org.osgi.framework.Constants.FRAMEWORK_SECURITY">Constants.FRAMEWORK_SECURITY</link> configuration property is
+         set.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="start()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.start--">
+         <title>public void start() throws BundleException</title>
+         <para role="description">
+Start this Framework.
+ 
+ </para>
+         <para>
+ The following steps are taken to start this Framework:
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>If this Framework is not in the <link linkend="org.osgi.framework.Bundle.STARTING">STARTING</link> state,
+ <link linkend="org.osgi.framework.launch.Framework.init--">initialize</link> this Framework.</para>
+            </listitem>
+            <listitem>
+               <para>All installed bundles must be started in accordance with each
+ bundle's persistent <emphasis>autostart setting</emphasis>. This means some bundles
+ will not be started, some will be started with <emphasis>eager activation</emphasis>
+ and some will be started with their <emphasis>declared activation</emphasis> policy.
+ The start level of this Framework is moved to the start level specified
+ by the <link linkend="org.osgi.framework.Constants.FRAMEWORK_BEGINNING_STARTLEVEL">beginning start
+ level</link> framework property, as described in the <emphasis>Start Level
+ Specification</emphasis>. If this framework property is not specified, then the
+ start level of this Framework is moved to start level one (1). Any
+ exceptions that occur during bundle starting must be wrapped in a
+ <link linkend="org.osgi.framework.BundleException">BundleException</link> and then published as a framework event of type
+ <link linkend="org.osgi.framework.FrameworkEvent.ERROR">FrameworkEvent.ERROR</link>
+               </para>
+            </listitem>
+            <listitem>
+               <para>This Framework's state is set to <link linkend="org.osgi.framework.Bundle.ACTIVE">ACTIVE</link>.</para>
+            </listitem>
+            <listitem>
+               <para>A framework event of type <link linkend="org.osgi.framework.FrameworkEvent.STARTED">FrameworkEvent.STARTED</link> is fired</para>
+            </listitem>
+         </orderedlist>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If this Framework could not be started.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>Start Level Specification</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="start(int)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.start-int-">
+         <title>public void start(int options) throws BundleException</title>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>Ignored. There are no start options for the Framework.</para>
+         </formalpara>
+         <para role="description">
+Start this Framework.
+ 
+ </para>
+         <para>
+ Calling this method is the same as calling <link linkend="org.osgi.framework.launch.Framework.start--">start()</link>. There are no
+ start options for the Framework.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If this Framework could not be started.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.launch.Framework.start--">start()</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="stop()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.stop--">
+         <title>public void stop() throws BundleException</title>
+         <para role="description">
+Stop this Framework.
+ 
+ </para>
+         <para>
+ The method returns immediately to the caller after initiating the
+ following steps to be taken on another thread.
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>This Framework's state is set to <link linkend="org.osgi.framework.Bundle.STOPPING">STOPPING</link>.</para>
+            </listitem>
+            <listitem>
+               <para>All installed bundles must be stopped without changing each bundle's
+ persistent <emphasis>autostart setting</emphasis>. The start level of this Framework is
+ moved to start level zero (0), as described in the <emphasis>Start Level
+ Specification</emphasis>. Any exceptions that occur during bundle stopping must
+ be wrapped in a <link linkend="org.osgi.framework.BundleException">BundleException</link> and then published as a framework
+ event of type <link linkend="org.osgi.framework.FrameworkEvent.ERROR">FrameworkEvent.ERROR</link>
+               </para>
+            </listitem>
+            <listitem>
+               <para>Unregister all services registered by this Framework.</para>
+            </listitem>
+            <listitem>
+               <para>Event handling is disabled.</para>
+            </listitem>
+            <listitem>
+               <para>This Framework's state is set to <link linkend="org.osgi.framework.Bundle.RESOLVED">RESOLVED</link>.</para>
+            </listitem>
+            <listitem>
+               <para>All resources held by this Framework are released. This includes
+ threads, bundle class loaders, open files, etc.</para>
+            </listitem>
+            <listitem>
+               <para>Notify all threads that are waiting at <link linkend="org.osgi.framework.launch.Framework.waitForStop-long-">waitForStop</link> that the stop operation has completed.</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ After being stopped, this Framework may be discarded, initialized or
+ started.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If stopping this Framework could not be
+         initiated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>Start Level Specification</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="stop(int)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.stop-int-">
+         <title>public void stop(int options) throws BundleException</title>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>Ignored. There are no stop options for the Framework.</para>
+         </formalpara>
+         <para role="description">
+Stop this Framework.
+ 
+ </para>
+         <para>
+ Calling this method is the same as calling <link linkend="org.osgi.framework.launch.Framework.stop--">stop()</link>. There are no
+ stop options for the Framework.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If stopping this Framework could not be
+         initiated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,EXECUTE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.launch.Framework.stop--">stop()</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="uninstall()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.uninstall--">
+         <title>public void uninstall() throws BundleException</title>
+         <para role="description">
+The Framework cannot be uninstalled.
+ 
+ </para>
+         <para>
+ This method always throws a BundleException.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– This Framework cannot be uninstalled.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,LIFECYCLE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="update()"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.update--">
+         <title>public void update() throws BundleException</title>
+         <para role="description">
+Stop and restart this Framework.
+ 
+ </para>
+         <para>
+ The method returns immediately to the caller after initiating the
+ following steps to be taken on another thread.
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>Perform the steps in the <link linkend="org.osgi.framework.launch.Framework.stop--">stop()</link> method to stop this
+ Framework.</para>
+            </listitem>
+            <listitem>
+               <para>Perform the steps in the <link linkend="org.osgi.framework.launch.Framework.start--">start()</link> method to start this
+ Framework.</para>
+            </listitem>
+         </orderedlist>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If stopping and restarting this Framework could
+         not be initiated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,LIFECYCLE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="update(InputStream)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.update-InputStream-">
+         <title>public void update(InputStream in) throws BundleException</title>
+         <formalpara role="parameter">
+            <title>in</title>
+            <para>Any provided InputStream is immediately closed before returning
+        from this method and otherwise ignored.</para>
+         </formalpara>
+         <para role="description">
+Stop and restart this Framework.
+ 
+ </para>
+         <para>
+ Calling this method is the same as calling <link linkend="org.osgi.framework.launch.Framework.update--">update()</link> except that
+ any provided InputStream is immediately closed.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If stopping and restarting this Framework could
+         not be initiated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have the appropriate
+         <code>AdminPermission[this,LIFECYCLE]</code>, and the Java Runtime
+         Environment supports permissions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="waitForStop(long)"
+               role="method"
+               xml:id="org.osgi.framework.launch.Framework.waitForStop-long-">
+         <title>public FrameworkEvent waitForStop(long timeout) throws InterruptedException</title>
+         <formalpara role="parameter">
+            <title>timeout</title>
+            <para>Maximum number of milliseconds to wait until this
+            Framework has completely stopped. A value of zero will wait
+            indefinitely.</para>
+         </formalpara>
+         <para role="description">
+Wait until this Framework has completely stopped. The <code>stop</code> and
+ <code>update</code> methods on a Framework performs an asynchronous stop of
+ the Framework. This method can be used to wait until the asynchronous
+ stop of this Framework has completed. This method will only wait if
+ called when this Framework is in the <link linkend="org.osgi.framework.Bundle.STARTING">STARTING</link>, <link linkend="org.osgi.framework.Bundle.ACTIVE">ACTIVE</link>,
+ or <link linkend="org.osgi.framework.Bundle.STOPPING">STOPPING</link> states. Otherwise it will return immediately.
+ </para>
+         <para>
+ A Framework Event is returned to indicate why this Framework has stopped.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Framework Event indicating the reason this method returned. The
+         following <code>FrameworkEvent</code> types may be returned by this
+         method.
+         <itemizedlist>
+                  <listitem>
+                     <para>
+                        <link linkend="org.osgi.framework.FrameworkEvent.STOPPED">STOPPED</link> - This Framework has
+         been stopped.</para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <link linkend="org.osgi.framework.FrameworkEvent.STOPPED_UPDATE">STOPPED_UPDATE</link> - This
+         Framework has been updated which has shutdown and will now
+         restart.</para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <link linkend="org.osgi.framework.FrameworkEvent.STOPPED_SYSTEM_REFRESHED">STOPPED_SYSTEM_REFRESHED</link> - The Framework has been stopped
+         because of a refresh operation on the system bundle. A new class
+         loader must be used to restart the Framework.</para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <link linkend="org.osgi.framework.FrameworkEvent.ERROR">ERROR</link> - The Framework
+         encountered an error while shutting down or an error has occurred
+         which forced the framework to shutdown.</para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <link linkend="org.osgi.framework.FrameworkEvent.WAIT_TIMEDOUT">WAIT_TIMEDOUT</link> - This
+         method has timed out and returned before this Framework has
+         stopped.</para>
+                  </listitem>
+               </itemizedlist>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InterruptedException</code>– If another thread interrupted the current
+             thread before or while the current thread was waiting for
+             this Framework to completely stop. The <emphasis>interrupted
+             status</emphasis> of the current thread is cleared when this
+             exception is thrown.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the value of timeout is negative.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FrameworkFactory"
+            role="class"
+            xml:id="org.osgi.framework.launch.FrameworkFactory">
+      <title>public interface FrameworkFactory</title>
+      <para>
+A factory for creating <link linkend="org.osgi.framework.launch.Framework">Framework</link> instances.
+ 
+ </para>
+      <para>
+ A framework implementation jar must contain the following resource:
+ 
+ </para>
+      <programlisting> /META-INF/services/org.osgi.framework.launch.FrameworkFactory</programlisting>
+      <para>
+ 
+ This UTF-8 encoded resource must contain the name of the framework
+ implementation's FrameworkFactory implementation class. Space and tab
+ characters, including blank lines, in the resource must be ignored. The
+ number sign (<code>'#'</code> \u0023) and all characters following it on each
+ line are a comment and must be ignored.
+ 
+ </para>
+      <para>
+ Launchers can find the name of the FrameworkFactory implementation class in
+ the resource and then load and construct a FrameworkFactory object for the
+ framework implementation. The FrameworkFactory implementation class must have
+ a public, no-argument constructor. Java™ SE 6 introduced the
+ <code>ServiceLoader</code> class which can create a FrameworkFactory instance from
+ the resource.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="newFramework(Map)"
+               role="method"
+               xml:id="org.osgi.framework.launch.FrameworkFactory.newFramework-Map-">
+         <title>public Framework newFramework(Map&lt;String, String&gt; configuration)</title>
+         <formalpara role="parameter">
+            <title>configuration</title>
+            <para>The framework properties to configure the new
+        framework instance. If framework properties are not provided by
+        the configuration argument, the created framework instance must
+        use some reasonable default configuration appropriate for the
+        current VM. For example, the system packages for the current
+        execution environment should be properly exported. The specified
+        configuration argument may be <code>null</code>. The created framework
+        instance must copy any information needed from the specified
+        configuration argument since the configuration argument can be
+        changed after the framework instance has been created.</para>
+         </formalpara>
+         <para role="description">
+Create a new <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new, configured <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance. The framework
+         instance must be in the <link linkend="org.osgi.framework.Bundle.INSTALLED">Bundle.INSTALLED</link> state.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>AllPermission</code>, and the Java Runtime Environment supports
+         permissions.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

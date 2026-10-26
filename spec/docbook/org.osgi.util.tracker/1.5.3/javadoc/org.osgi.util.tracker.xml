@@ -1,0 +1,1319 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.util.tracker"
+         version="5"
+         role="package"
+         xml:id="org.osgi.util.tracker">
+   <title>org.osgi.util.tracker</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.util.tracker-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.util.tracker-version.number">1.5</edition>
+   </info>
+   <para>
+Tracker Package Version 1.5.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.tracker; version="[1.5,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.tracker.BundleTracker">
+                  <code>BundleTracker</code>
+               </link> - 
+The <code>BundleTracker</code> class simplifies tracking bundles much like the
+ <code>ServiceTracker</code> simplifies tracking services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.tracker.BundleTrackerCustomizer">
+                  <code>BundleTrackerCustomizer</code>
+               </link> - 
+The <code>BundleTrackerCustomizer</code> interface allows a <code>BundleTracker</code>
+ to customize the <code>Bundle</code>s that are tracked.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTracker">
+                  <code>ServiceTracker</code>
+               </link> - 
+The <code>ServiceTracker</code> class simplifies using services from the
+ Framework's service registry.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTrackerCustomizer">
+                  <code>ServiceTrackerCustomizer</code>
+               </link> - 
+The <code>ServiceTrackerCustomizer</code> interface allows a
+ <code>ServiceTracker</code> to customize the service objects that are tracked.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BundleTracker"
+            role="class"
+            xml:id="org.osgi.util.tracker.BundleTracker">
+      <title>public class BundleTracker&lt;T&gt;<?line-break?> implements BundleTrackerCustomizer&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the tracked object.</para>
+      </formalpara>
+      <para>
+The <code>BundleTracker</code> class simplifies tracking bundles much like the
+ <code>ServiceTracker</code> simplifies tracking services.
+ </para>
+      <para>
+ A <code>BundleTracker</code> is constructed with state criteria and a
+ <code>BundleTrackerCustomizer</code> object. A <code>BundleTracker</code> can use the
+ <code>BundleTrackerCustomizer</code> to select which bundles are tracked and to
+ create a customized object to be tracked with the bundle. The
+ <code>BundleTracker</code> can then be opened to begin tracking all bundles whose
+ state matches the specified state criteria.
+ </para>
+      <para>
+ The <code>getBundles</code> method can be called to get the <code>Bundle</code> objects
+ of the bundles being tracked. The <code>getObject</code> method can be called to
+ get the customized object for a tracked bundle.
+ </para>
+      <para>
+ The <code>BundleTracker</code> class is thread-safe. It does not call a
+ <code>BundleTrackerCustomizer</code> while holding any locks.
+ <code>BundleTrackerCustomizer</code> implementations must also be thread-safe.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="context"
+               role="field"
+               xml:id="org.osgi.util.tracker.BundleTracker.context">
+         <title>protected final BundleContext context</title>
+         <para>
+The Bundle Context used by this <code>BundleTracker</code>.
+   </para>
+      </section>
+      <section xreflabel="BundleTracker(BundleContext,int,BundleTrackerCustomizer)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.BundleTracker-BundleContext-int-BundleTrackerCustomizer-">
+         <title>public  BundleTracker(BundleContext context, int stateMask, BundleTrackerCustomizer&lt;T&gt; customizer)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The <code>BundleContext</code> against which the tracking is
+        done.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>stateMask</title>
+            <para>The bit mask of the <code>OR</code>ing of the bundle states
+        to be tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>customizer</title>
+            <para>The customizer object to call when bundles are added,
+        modified, or removed in this <code>BundleTracker</code>. If customizer
+        is <code>null</code>, then this <code>BundleTracker</code> will be used as
+        the <code>BundleTrackerCustomizer</code> and this <code>BundleTracker</code>
+        will call the <code>BundleTrackerCustomizer</code> methods on itself.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>BundleTracker</code> for bundles whose state is present in the
+ specified state mask.
+ 
+ </para>
+         <para>
+ Bundles whose state is present on the specified state mask will be
+ tracked by this <code>BundleTracker</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Bundle.getState--">Bundle.getState()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="addingBundle(Bundle,BundleEvent)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.addingBundle-Bundle-BundleEvent-">
+         <title>public T addingBundle(Bundle bundle, BundleEvent event)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> being added to this
+        <code>BundleTracker</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>BundleTrackerCustomizer.addingBundle</code> method.
+ 
+ </para>
+         <para>
+ This method is only called when this <code>BundleTracker</code> has been
+ constructed with a <code>null BundleTrackerCustomizer</code> argument.
+ 
+ </para>
+         <para>
+ This implementation simply returns the specified <code>Bundle</code>.
+ 
+ </para>
+         <para>
+ This method can be overridden in a subclass to customize the object to be
+ tracked for the bundle being added.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The specified bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.BundleTrackerCustomizer.addingBundle-Bundle-BundleEvent-">BundleTrackerCustomizer.addingBundle(Bundle, BundleEvent)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="close()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.close--">
+         <title>public void close()</title>
+         <para role="description">
+Close this <code>BundleTracker</code>.
+ 
+ </para>
+         <para>
+ This method should be called when this <code>BundleTracker</code> should end
+ the tracking of bundles.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.BundleTracker.getBundles--">getBundles()</link> to get the list of
+ tracked bundles to remove.</para>
+      </section>
+      <section xreflabel="getBundles()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.getBundles--">
+         <title>public Bundle[] getBundles()</title>
+         <para role="description">
+Return an array of <code>Bundle</code>s for all bundles being tracked by this
+ <code>BundleTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of <code>Bundle</code>s or <code>null</code> if no bundles are
+         being tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getObject(Bundle)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.getObject-Bundle-">
+         <title>public T getObject(Bundle bundle)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> being tracked.</para>
+         </formalpara>
+         <para role="description">
+Returns the customized object for the specified <code>Bundle</code> if the
+ specified bundle is being tracked by this <code>BundleTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The customized object for the specified <code>Bundle</code> or
+         <code>null</code> if the specified <code>Bundle</code> is not being
+         tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTracked()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.getTracked--">
+         <title>public Map&lt;Bundle, T&gt; getTracked()</title>
+         <para role="description">
+Return a <code>Map</code> with the <code>Bundle</code>s and customized objects for
+ all bundles being tracked by this <code>BundleTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Map</code> with the <code>Bundle</code>s and customized objects for
+         all services being tracked by this <code>BundleTracker</code>. If no
+         bundles are being tracked, then the returned map is empty.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTrackingCount()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.getTrackingCount--">
+         <title>public int getTrackingCount()</title>
+         <para role="description">
+Returns the tracking count for this <code>BundleTracker</code>.
+ 
+ The tracking count is initialized to 0 when this <code>BundleTracker</code> is
+ opened. Every time a bundle is added, modified or removed from this
+ <code>BundleTracker</code> the tracking count is incremented.
+ 
+ </para>
+         <para>
+ The tracking count can be used to determine if this <code>BundleTracker</code>
+ has added, modified or removed a bundle by comparing a tracking count
+ value previously collected with the current tracking count value. If the
+ value has not changed, then no bundle has been added, modified or removed
+ from this <code>BundleTracker</code> since the previous tracking count was
+ collected.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The tracking count for this <code>BundleTracker</code> or -1 if this
+         <code>BundleTracker</code> is not open.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isEmpty()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.isEmpty--">
+         <title>public boolean isEmpty()</title>
+         <para role="description">
+Return if this <code>BundleTracker</code> is empty.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>BundleTracker</code> is not tracking any
+         bundles.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="modifiedBundle(Bundle,BundleEvent,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.modifiedBundle-Bundle-BundleEvent-T-">
+         <title>public void modifiedBundle(Bundle bundle, BundleEvent event, T object)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> whose state has been modified.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>object</title>
+            <para>The customized object for the specified Bundle.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>BundleTrackerCustomizer.modifiedBundle</code> method.
+ 
+ </para>
+         <para>
+ This method is only called when this <code>BundleTracker</code> has been
+ constructed with a <code>null BundleTrackerCustomizer</code> argument.
+ 
+ </para>
+         <para>
+ This implementation does nothing.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.BundleTrackerCustomizer.modifiedBundle-Bundle-BundleEvent-T-">BundleTrackerCustomizer.modifiedBundle(Bundle, BundleEvent, Object)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="open()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.open--">
+         <title>public void open()</title>
+         <para role="description">
+Open this <code>BundleTracker</code> and begin tracking bundles.
+ 
+ </para>
+         <para>
+ Bundle which match the state criteria specified when this
+ <code>BundleTracker</code> was created are now tracked by this
+ <code>BundleTracker</code>.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the <code>BundleContext</code> with
+         which this <code>BundleTracker</code> was created is no longer valid.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller and this class do not
+         have the appropriate
+         <code>AdminPermission[context bundle,LISTENER]</code>, and the Java
+         Runtime Environment supports permissions.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="remove(Bundle)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.remove-Bundle-">
+         <title>public void remove(Bundle bundle)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> to be removed.</para>
+         </formalpara>
+         <para role="description">
+Remove a bundle from this <code>BundleTracker</code>.
+ 
+ The specified bundle will be removed from this <code>BundleTracker</code> . If
+ the specified bundle was being tracked then the
+ <code>BundleTrackerCustomizer.removedBundle</code> method will be called for
+ that bundle.
+   </para>
+      </section>
+      <section xreflabel="removedBundle(Bundle,BundleEvent,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.removedBundle-Bundle-BundleEvent-T-">
+         <title>public void removedBundle(Bundle bundle, BundleEvent event, T object)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> being removed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>object</title>
+            <para>The customized object for the specified bundle.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>BundleTrackerCustomizer.removedBundle</code> method.
+ 
+ </para>
+         <para>
+ This method is only called when this <code>BundleTracker</code> has been
+ constructed with a <code>null BundleTrackerCustomizer</code> argument.
+ 
+ </para>
+         <para>
+ This implementation does nothing.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.BundleTrackerCustomizer.removedBundle-Bundle-BundleEvent-T-">BundleTrackerCustomizer.removedBundle(Bundle, BundleEvent, Object)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="size()"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTracker.size--">
+         <title>public int size()</title>
+         <para role="description">
+Return the number of bundles being tracked by this <code>BundleTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The number of bundles being tracked.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BundleTrackerCustomizer"
+            role="class"
+            xml:id="org.osgi.util.tracker.BundleTrackerCustomizer">
+      <title>public interface BundleTrackerCustomizer&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the tracked object.</para>
+      </formalpara>
+      <para>
+The <code>BundleTrackerCustomizer</code> interface allows a <code>BundleTracker</code>
+ to customize the <code>Bundle</code>s that are tracked. A
+ <code>BundleTrackerCustomizer</code> is called when a bundle is being added to a
+ <code>BundleTracker</code>. The <code>BundleTrackerCustomizer</code> can then return an
+ object for the tracked bundle. A <code>BundleTrackerCustomizer</code> is also
+ called when a tracked bundle is modified or has been removed from a
+ <code>BundleTracker</code>.
+ 
+ </para>
+      <para>
+ The methods in this interface may be called as the result of a
+ <code>BundleEvent</code> being received by a <code>BundleTracker</code>. Since
+ <code>BundleEvent</code>s are received synchronously by the <code>BundleTracker</code>,
+ it is highly recommended that implementations of these methods do not alter
+ bundle states while being synchronized on any object.
+ 
+ </para>
+      <para>
+ The <code>BundleTracker</code> class is thread-safe. It does not call a
+ <code>BundleTrackerCustomizer</code> while holding any locks.
+ <code>BundleTrackerCustomizer</code> implementations must also be thread-safe.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="addingBundle(Bundle,BundleEvent)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTrackerCustomizer.addingBundle-Bundle-BundleEvent-">
+         <title>public T addingBundle(Bundle bundle, BundleEvent event)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> being added to the <code>BundleTracker</code>
+        .</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <para role="description">
+A bundle is being added to the <code>BundleTracker</code>.
+ 
+ </para>
+         <para>
+ This method is called before a bundle which matched the search parameters
+ of the <code>BundleTracker</code> is added to the <code>BundleTracker</code>. This
+ method should return the object to be tracked for the specified
+ <code>Bundle</code>. The returned object is stored in the
+ <code>BundleTracker</code> and is available from the
+ <link linkend="org.osgi.util.tracker.BundleTracker.getObject-Bundle-">getObject</link> method.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The object to be tracked for the specified <code>Bundle</code> object
+         or <code>null</code> if the specified <code>Bundle</code> object should not
+         be tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="modifiedBundle(Bundle,BundleEvent,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTrackerCustomizer.modifiedBundle-Bundle-BundleEvent-T-">
+         <title>public void modifiedBundle(Bundle bundle, BundleEvent event, T object)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> whose state has been modified.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>object</title>
+            <para>The tracked object for the specified bundle.</para>
+         </formalpara>
+         <para role="description">
+A bundle tracked by the <code>BundleTracker</code> has been modified.
+ 
+ </para>
+         <para>
+ This method is called when a bundle being tracked by the
+ <code>BundleTracker</code> has had its state modified.</para>
+      </section>
+      <section xreflabel="removedBundle(Bundle,BundleEvent,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.BundleTrackerCustomizer.removedBundle-Bundle-BundleEvent-T-">
+         <title>public void removedBundle(Bundle bundle, BundleEvent event, T object)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The <code>Bundle</code> that has been removed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The bundle event which caused this customizer method to be
+        called or <code>null</code> if there is no bundle event associated with
+        the call to this method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>object</title>
+            <para>The tracked object for the specified bundle.</para>
+         </formalpara>
+         <para role="description">
+A bundle tracked by the <code>BundleTracker</code> has been removed.
+ 
+ </para>
+         <para>
+ This method is called after a bundle is no longer being tracked by the
+ <code>BundleTracker</code>.</para>
+      </section>
+   </section>
+   <section xreflabel="ServiceTracker"
+            role="class"
+            xml:id="org.osgi.util.tracker.ServiceTracker">
+      <title>public class ServiceTracker&lt;S, T&gt;<?line-break?> implements ServiceTrackerCustomizer&lt;S, T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>The type of the service being tracked.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the tracked object.</para>
+      </formalpara>
+      <para>
+The <code>ServiceTracker</code> class simplifies using services from the
+ Framework's service registry.
+ </para>
+      <para>
+ A <code>ServiceTracker</code> object is constructed with search criteria and a
+ <code>ServiceTrackerCustomizer</code> object. A <code>ServiceTracker</code> can use a
+ <code>ServiceTrackerCustomizer</code> to customize the service objects to be
+ tracked. The <code>ServiceTracker</code> can then be opened to begin tracking all
+ services in the Framework's service registry that match the specified search
+ criteria. The <code>ServiceTracker</code> correctly handles all of the details of
+ listening to <code>ServiceEvent</code>s and getting and ungetting services.
+ </para>
+      <para>
+ The <code>getServiceReferences</code> method can be called to get references to
+ the services being tracked. The <code>getService</code> and <code>getServices</code>
+ methods can be called to get the service objects for the tracked service.
+ </para>
+      <para>
+ The <code>ServiceTracker</code> class is thread-safe. It does not call a
+ <code>ServiceTrackerCustomizer</code> while holding any locks.
+ <code>ServiceTrackerCustomizer</code> implementations must also be thread-safe.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="context"
+               role="field"
+               xml:id="org.osgi.util.tracker.ServiceTracker.context">
+         <title>protected final BundleContext context</title>
+         <para>
+The Bundle Context used by this <code>ServiceTracker</code>.
+   </para>
+      </section>
+      <section xreflabel="filter"
+               role="field"
+               xml:id="org.osgi.util.tracker.ServiceTracker.filter">
+         <title>protected final Filter filter</title>
+         <para>
+The Filter used by this <code>ServiceTracker</code> which specifies the search
+ criteria for the services to track.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ServiceTracker(BundleContext,ServiceReference,ServiceTrackerCustomizer)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.ServiceTracker-BundleContext-ServiceReference-ServiceTrackerCustomizer-">
+         <title>public  ServiceTracker(BundleContext context, ServiceReference&lt;S&gt; reference, ServiceTrackerCustomizer&lt;S, T&gt; customizer)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The <code>BundleContext</code> against which the tracking is
+        done.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The <code>ServiceReference</code> for the service to be
+        tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>customizer</title>
+            <para>The customizer object to call when services are added,
+        modified, or removed in this <code>ServiceTracker</code>. If customizer
+        is <code>null</code>, then this <code>ServiceTracker</code> will be used as
+        the <code>ServiceTrackerCustomizer</code> and this
+        <code>ServiceTracker</code> will call the
+        <code>ServiceTrackerCustomizer</code> methods on itself.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ServiceTracker</code> on the specified <code>ServiceReference</code>
+ .
+ 
+ </para>
+         <para>
+ The service referenced by the specified <code>ServiceReference</code> will be
+ tracked by this <code>ServiceTracker</code>.</para>
+      </section>
+      <section xreflabel="ServiceTracker(BundleContext,String,ServiceTrackerCustomizer)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.ServiceTracker-BundleContext-String-ServiceTrackerCustomizer-">
+         <title>public  ServiceTracker(BundleContext context, String clazz, ServiceTrackerCustomizer&lt;S, T&gt; customizer)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The <code>BundleContext</code> against which the tracking is
+        done.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>clazz</title>
+            <para>The class name of the services to be tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>customizer</title>
+            <para>The customizer object to call when services are added,
+        modified, or removed in this <code>ServiceTracker</code>. If customizer
+        is <code>null</code>, then this <code>ServiceTracker</code> will be used as
+        the <code>ServiceTrackerCustomizer</code> and this
+        <code>ServiceTracker</code> will call the
+        <code>ServiceTrackerCustomizer</code> methods on itself.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ServiceTracker</code> on the specified class name.
+ 
+ </para>
+         <para>
+ Services registered under the specified class name will be tracked by
+ this <code>ServiceTracker</code>.</para>
+      </section>
+      <section xreflabel="ServiceTracker(BundleContext,Filter,ServiceTrackerCustomizer)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.ServiceTracker-BundleContext-Filter-ServiceTrackerCustomizer-">
+         <title>public  ServiceTracker(BundleContext context, Filter filter, ServiceTrackerCustomizer&lt;S, T&gt; customizer)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The <code>BundleContext</code> against which the tracking is
+        done.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>The <code>Filter</code> to select the services to be tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>customizer</title>
+            <para>The customizer object to call when services are added,
+        modified, or removed in this <code>ServiceTracker</code>. If customizer
+        is null, then this <code>ServiceTracker</code> will be used as the
+        <code>ServiceTrackerCustomizer</code> and this <code>ServiceTracker</code>
+        will call the <code>ServiceTrackerCustomizer</code> methods on itself.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ServiceTracker</code> on the specified <code>Filter</code> object.
+ 
+ </para>
+         <para>
+ Services which match the specified <code>Filter</code> object will be tracked
+ by this <code>ServiceTracker</code>.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ServiceTracker(BundleContext,Class,ServiceTrackerCustomizer)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.ServiceTracker-BundleContext-Class-ServiceTrackerCustomizer-">
+         <title>public  ServiceTracker(BundleContext context, Class&lt;S&gt; clazz, ServiceTrackerCustomizer&lt;S, T&gt; customizer)</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The <code>BundleContext</code> against which the tracking is
+        done.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>clazz</title>
+            <para>The class of the services to be tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>customizer</title>
+            <para>The customizer object to call when services are added,
+        modified, or removed in this <code>ServiceTracker</code>. If customizer
+        is <code>null</code>, then this <code>ServiceTracker</code> will be used as
+        the <code>ServiceTrackerCustomizer</code> and this
+        <code>ServiceTracker</code> will call the
+        <code>ServiceTrackerCustomizer</code> methods on itself.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ServiceTracker</code> on the specified class.
+ 
+ </para>
+         <para>
+ Services registered under the name of the specified class will be tracked
+ by this <code>ServiceTracker</code>.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addingService(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.addingService-ServiceReference-">
+         <title>public T addingService(ServiceReference&lt;S&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the service being added to this
+            <code>ServiceTracker</code>.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>ServiceTrackerCustomizer.addingService</code> method.
+ </para>
+         <para>
+ This method is only called when this <code>ServiceTracker</code> has been
+ constructed with a <code>null ServiceTrackerCustomizer</code> argument.
+ </para>
+         <para>
+ This implementation returns the result of calling <code>getService</code>, on
+ the <code>BundleContext</code> with which this <code>ServiceTracker</code> was
+ created, passing the specified <code>ServiceReference</code>.
+ </para>
+         <para>
+ This method can be overridden in a subclass to customize the service
+ object to be tracked for the service being added. In that case, take care
+ not to rely on the default implementation of
+ <link linkend="org.osgi.util.tracker.ServiceTracker.removedService-ServiceReference-T-">removedService</link> to unget
+ the service.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service object to be tracked for the service added to this
+         <code>ServiceTracker</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTrackerCustomizer.addingService-ServiceReference-">ServiceTrackerCustomizer.addingService(ServiceReference)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="close()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.close--">
+         <title>public void close()</title>
+         <para role="description">
+Close this <code>ServiceTracker</code>.
+ 
+ </para>
+         <para>
+ This method should be called when this <code>ServiceTracker</code> should end
+ the tracking of services.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.ServiceTracker.getServiceReferences--">getServiceReferences()</link> to get the list
+ of tracked services to remove.</para>
+      </section>
+      <section xreflabel="getService(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getService-ServiceReference-">
+         <title>public T getService(ServiceReference&lt;S&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the desired service.</para>
+         </formalpara>
+         <para role="description">
+Returns the service object for the specified <code>ServiceReference</code> if
+ the specified referenced service is being tracked by this
+ <code>ServiceTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object or <code>null</code> if the service referenced by the
+         specified <code>ServiceReference</code> is not being tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getService()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getService--">
+         <title>public T getService()</title>
+         <para role="description">
+Returns a service object for one of the services being tracked by this
+ <code>ServiceTracker</code>.
+ 
+ </para>
+         <para>
+ If any services are being tracked, this implementation returns the result
+ of calling <code>getService(getServiceReference())</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object or <code>null</code> if no services are being
+         tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReference()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getServiceReference--">
+         <title>public ServiceReference&lt;S&gt; getServiceReference()</title>
+         <para role="description">
+Returns a <code>ServiceReference</code> for one of the services being tracked
+ by this <code>ServiceTracker</code>.
+ 
+ </para>
+         <para>
+ If multiple services are being tracked, the service with the highest
+ ranking (as specified in its <code>service.ranking</code> property) is
+ returned. If there is a tie in ranking, the service with the lowest
+ service id (as specified in its <code>service.id</code> property); that is,
+ the service that was registered first is returned. This is the same
+ algorithm used by <code>BundleContext.getServiceReference</code>.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.ServiceTracker.getServiceReferences--">getServiceReferences()</link> to get the list
+ of references for the tracked services.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>ServiceReference</code> or <code>null</code> if no services are
+         being tracked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReferences()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getServiceReferences--">
+         <title>public ServiceReference&lt;S&gt;[] getServiceReferences()</title>
+         <para role="description">
+Return an array of <code>ServiceReference</code>s for all services being
+ tracked by this <code>ServiceTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Array of <code>ServiceReference</code>s or <code>null</code> if no services
+         are being tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServices()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getServices--">
+         <title>public Object[] getServices()</title>
+         <para role="description">
+Return an array of service objects for all services being tracked by this
+ <code>ServiceTracker</code>.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.ServiceTracker.getServiceReferences--">getServiceReferences()</link> to get the list
+ of references for the tracked services and then calls
+ <link linkend="org.osgi.util.tracker.ServiceTracker.getService-ServiceReference-">getService(ServiceReference)</link> for each reference to get the
+ tracked service object.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of service objects or <code>null</code> if no services are
+         being tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServices(T[])"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getServices-T---">
+         <title>public T[] getServices(T[] array)</title>
+         <formalpara role="parameter">
+            <title>array</title>
+            <para>An array into which the tracked service objects will be
+        stored, if the array is large enough.</para>
+         </formalpara>
+         <para role="description">
+Return an array of service objects for all services being tracked by this
+ <code>ServiceTracker</code>. The runtime type of the returned array is that of
+ the specified array.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.ServiceTracker.getServiceReferences--">getServiceReferences()</link> to get the list
+ of references for the tracked services and then calls
+ <link linkend="org.osgi.util.tracker.ServiceTracker.getService-ServiceReference-">getService(ServiceReference)</link> for each reference to get the
+ tracked service object.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of service objects being tracked. If the specified array
+         is large enough to hold the result, then the specified array is
+         returned. If the specified array is longer then necessary to hold
+         the result, the array element after the last service object is
+         set to <code>null</code>. If the specified array is not large enough
+         to hold the result, a new array is created and returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTracked()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getTracked--">
+         <title>public SortedMap&lt;ServiceReference&lt;S&gt;, T&gt; getTracked()</title>
+         <para role="description">
+Return a <code>SortedMap</code> of the <code>ServiceReference</code>s and service
+ objects for all services being tracked by this <code>ServiceTracker</code>.
+ The map is sorted in reverse natural order of <code>ServiceReference</code>.
+ That is, the first entry is the service with the highest ranking and the
+ lowest service id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>SortedMap</code> with the <code>ServiceReference</code>s and
+         service objects for all services being tracked by this
+         <code>ServiceTracker</code>. If no services are being tracked, then
+         the returned map is empty.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTrackingCount()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.getTrackingCount--">
+         <title>public int getTrackingCount()</title>
+         <para role="description">
+Returns the tracking count for this <code>ServiceTracker</code>.
+ 
+ The tracking count is initialized to 0 when this <code>ServiceTracker</code>
+ is opened. Every time a service is added, modified or removed from this
+ <code>ServiceTracker</code>, the tracking count is incremented.
+ 
+ </para>
+         <para>
+ The tracking count can be used to determine if this
+ <code>ServiceTracker</code> has added, modified or removed a service by
+ comparing a tracking count value previously collected with the current
+ tracking count value. If the value has not changed, then no service has
+ been added, modified or removed from this <code>ServiceTracker</code> since
+ the previous tracking count was collected.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The tracking count for this <code>ServiceTracker</code> or -1 if this
+         <code>ServiceTracker</code> is not open.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isEmpty()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.isEmpty--">
+         <title>public boolean isEmpty()</title>
+         <para role="description">
+Return if this <code>ServiceTracker</code> is empty.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this <code>ServiceTracker</code> is not tracking any
+         services.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="modifiedService(ServiceReference,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.modifiedService-ServiceReference-T-">
+         <title>public void modifiedService(ServiceReference&lt;S&gt; reference, T service)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to modified service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>The service object for the modified service.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>ServiceTrackerCustomizer.modifiedService</code> method.
+ 
+ </para>
+         <para>
+ This method is only called when this <code>ServiceTracker</code> has been
+ constructed with a <code>null ServiceTrackerCustomizer</code> argument.
+ 
+ </para>
+         <para>
+ This implementation does nothing.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTrackerCustomizer.modifiedService-ServiceReference-T-">ServiceTrackerCustomizer.modifiedService(ServiceReference, Object)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="open()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.open--">
+         <title>public void open()</title>
+         <para role="description">
+Open this <code>ServiceTracker</code> and begin tracking services.
+ 
+ </para>
+         <para>
+ This implementation calls <code>open(false)</code>.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the <code>BundleContext</code> with
+         which this <code>ServiceTracker</code> was created is no longer valid.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTracker.open-boolean-">open(boolean)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="open(boolean)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.open-boolean-">
+         <title>public void open(boolean trackAllServices)</title>
+         <formalpara role="parameter">
+            <title>trackAllServices</title>
+            <para>If <code>true</code>, then this <code>ServiceTracker</code>
+        will track all matching services regardless of class loader
+        accessibility. If <code>false</code>, then this <code>ServiceTracker</code>
+        will only track matching services which are class loader
+        accessible to the bundle whose <code>BundleContext</code> is used by
+        this <code>ServiceTracker</code>.</para>
+         </formalpara>
+         <para role="description">
+Open this <code>ServiceTracker</code> and begin tracking services.
+ 
+ </para>
+         <para>
+ Services which match the search criteria specified when this
+ <code>ServiceTracker</code> was created are now tracked by this
+ <code>ServiceTracker</code>.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the <code>BundleContext</code> with
+         which this <code>ServiceTracker</code> was created is no longer valid.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="remove(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.remove-ServiceReference-">
+         <title>public void remove(ServiceReference&lt;S&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the service to be removed.</para>
+         </formalpara>
+         <para role="description">
+Remove a service from this <code>ServiceTracker</code>.
+ 
+ The specified service will be removed from this <code>ServiceTracker</code>.
+ If the specified service was being tracked then the
+ <code>ServiceTrackerCustomizer.removedService</code> method will be called for
+ that service.
+   </para>
+      </section>
+      <section xreflabel="removedService(ServiceReference,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.removedService-ServiceReference-T-">
+         <title>public void removedService(ServiceReference&lt;S&gt; reference, T service)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to removed service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>The service object for the removed service.</para>
+         </formalpara>
+         <para role="description">
+Default implementation of the
+ <code>ServiceTrackerCustomizer.removedService</code> method.
+ </para>
+         <para>
+ This method is only called when this <code>ServiceTracker</code> has been
+ constructed with a <code>null ServiceTrackerCustomizer</code> argument.
+ </para>
+         <para>
+ This implementation calls <code>ungetService</code>, on the
+ <code>BundleContext</code> with which this <code>ServiceTracker</code> was created,
+ passing the specified <code>ServiceReference</code>.
+ </para>
+         <para>
+ This method can be overridden in a subclass. If the default
+ implementation of <link linkend="org.osgi.util.tracker.ServiceTracker.addingService-ServiceReference-">addingService</link>
+ method was used, this method must unget the service.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.tracker.ServiceTrackerCustomizer.removedService-ServiceReference-T-">ServiceTrackerCustomizer.removedService(ServiceReference, Object)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="size()"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.size--">
+         <title>public int size()</title>
+         <para role="description">
+Return the number of services being tracked by this
+ <code>ServiceTracker</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The number of services being tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="waitForService(long)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTracker.waitForService-long-">
+         <title>public T waitForService(long timeout) throws InterruptedException</title>
+         <formalpara role="parameter">
+            <title>timeout</title>
+            <para>The time interval in milliseconds to wait. If zero, the
+        method will wait indefinitely.</para>
+         </formalpara>
+         <para role="description">
+Wait for at least one service to be tracked by this
+ <code>ServiceTracker</code>. This method will also return when this
+ <code>ServiceTracker</code> is closed.
+ 
+ </para>
+         <para>
+ It is strongly recommended that <code>waitForService</code> is not used during
+ the calling of the <code>BundleActivator</code> methods.
+ <code>BundleActivator</code> methods are expected to complete in a short
+ period of time.
+ 
+ </para>
+         <para>
+ This implementation calls <link linkend="org.osgi.util.tracker.ServiceTracker.getService--">getService()</link> to determine if a service
+ is being tracked.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the result of <link linkend="org.osgi.util.tracker.ServiceTracker.getService--">getService()</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InterruptedException</code>– If another thread has interrupted the
+         current thread.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the value of timeout is negative.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceTrackerCustomizer"
+            role="class"
+            xml:id="org.osgi.util.tracker.ServiceTrackerCustomizer">
+      <title>public interface ServiceTrackerCustomizer&lt;S, T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>The type of the service being tracked.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the tracked object.</para>
+      </formalpara>
+      <para>
+The <code>ServiceTrackerCustomizer</code> interface allows a
+ <code>ServiceTracker</code> to customize the service objects that are tracked. A
+ <code>ServiceTrackerCustomizer</code> is called when a service is being added to a
+ <code>ServiceTracker</code>. The <code>ServiceTrackerCustomizer</code> can then return
+ an object for the tracked service. A <code>ServiceTrackerCustomizer</code> is also
+ called when a tracked service is modified or has been removed from a
+ <code>ServiceTracker</code>.
+ 
+ </para>
+      <para>
+ The methods in this interface may be called as the result of a
+ <code>ServiceEvent</code> being received by a <code>ServiceTracker</code>. Since
+ <code>ServiceEvent</code>s are synchronously delivered by the Framework, it is
+ highly recommended that implementations of these methods do not register (
+ <code>BundleContext.registerService</code>), modify (
+ <code>ServiceRegistration.setProperties</code>) or unregister (
+ <code>ServiceRegistration.unregister</code>) a service while being synchronized on
+ any object.
+ 
+ </para>
+      <para>
+ The <code>ServiceTracker</code> class is thread-safe. It does not call a
+ <code>ServiceTrackerCustomizer</code> while holding any locks.
+ <code>ServiceTrackerCustomizer</code> implementations must also be thread-safe.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="addingService(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTrackerCustomizer.addingService-ServiceReference-">
+         <title>public T addingService(ServiceReference&lt;S&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the service being added to the
+        <code>ServiceTracker</code>.</para>
+         </formalpara>
+         <para role="description">
+A service is being added to the <code>ServiceTracker</code>.
+ 
+ </para>
+         <para>
+ This method is called before a service which matched the search
+ parameters of the <code>ServiceTracker</code> is added to the
+ <code>ServiceTracker</code>. This method should return the service object to
+ be tracked for the specified <code>ServiceReference</code>. The returned
+ service object is stored in the <code>ServiceTracker</code> and is available
+ from the <code>getService</code> and <code>getServices</code> methods.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service object to be tracked for the specified referenced
+         service or <code>null</code> if the specified referenced service
+         should not be tracked.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="modifiedService(ServiceReference,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTrackerCustomizer.modifiedService-ServiceReference-T-">
+         <title>public void modifiedService(ServiceReference&lt;S&gt; reference, T service)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the service that has been modified.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>The service object for the specified referenced service.</para>
+         </formalpara>
+         <para role="description">
+A service tracked by the <code>ServiceTracker</code> has been modified.
+ 
+ </para>
+         <para>
+ This method is called when a service being tracked by the
+ <code>ServiceTracker</code> has had it properties modified.</para>
+      </section>
+      <section xreflabel="removedService(ServiceReference,T)"
+               role="method"
+               xml:id="org.osgi.util.tracker.ServiceTrackerCustomizer.removedService-ServiceReference-T-">
+         <title>public void removedService(ServiceReference&lt;S&gt; reference, T service)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the service that has been removed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>The service object for the specified referenced service.</para>
+         </formalpara>
+         <para role="description">
+A service tracked by the <code>ServiceTracker</code> has been removed.
+ 
+ </para>
+         <para>
+ This method is called after a service is no longer being tracked by the
+ <code>ServiceTracker</code>.</para>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,608 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.framework.connect"
+         version="5"
+         role="package"
+         xml:id="org.osgi.framework.connect">
+   <title>org.osgi.framework.connect</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.framework.connect-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.framework.connect-version.number">1.0</edition>
+   </info>
+   <para>
+Framework Connect Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.framework.connect; version="[1.0,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.ConnectContent">
+                  <code>ConnectContent</code>
+               </link> - 
+A <code>ConnectContent</code> provides a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance access to the
+ content of a <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.ConnectContent.ConnectEntry">
+                  <code>ConnectContent.ConnectEntry</code>
+               </link> - 
+Represents the entry of a <code>ConnectContent</code>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.ConnectFrameworkFactory">
+                  <code>ConnectFrameworkFactory</code>
+               </link> - 
+A factory for creating <link linkend="org.osgi.framework.launch.Framework">Framework</link> instances.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.ConnectModule">
+                  <code>ConnectModule</code>
+               </link> - 
+A <code>ConnectModule</code> is used by a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance to access the
+ content of the connected bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.FrameworkUtilHelper">
+                  <code>FrameworkUtilHelper</code>
+               </link> - 
+A helper for the <link linkend="org.osgi.framework.FrameworkUtil">FrameworkUtil</link> class.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.framework.connect.ModuleConnector">
+                  <code>ModuleConnector</code>
+               </link> - 
+A <code>ModuleConnector</code> provides connections to instances of
+ <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> that are used by a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance to
+ connect installed bundles locations with content provided by the
+ <code>ModuleConnector</code>.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ConnectContent"
+            role="class"
+            xml:id="org.osgi.framework.connect.ConnectContent">
+      <title>public interface ConnectContent</title>
+      <para>
+A <code>ConnectContent</code> provides a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance access to the
+ content of a <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link>.
+ </para>
+      <para>
+ A framework may <link linkend="org.osgi.framework.connect.ConnectContent.open--">open</link> and <link linkend="org.osgi.framework.connect.ConnectContent.close--">close</link> the content
+ for a <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> multiple times while the <code>ConnectContent</code>
+ is in use by the framework. The framework must close the
+ <code>ConnectContent</code> once the <code>ConnectContent</code> is no longer used as
+ the content of a current bundle revision or an in use bundle revision.
+ </para>
+      <para>
+ An entry in a <code>ConnectContent</code> is identified by a path name that is a
+ solidus (<code>'/' /</code>) separated path. A <code>ConnectContent</code>
+ may treat directories as entries. A directory entry path name will end with a
+ solidus. A directory entry may be located using a path name that omits the
+ trailing solidus.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.framework.wiring.BundleRevisions">BundleRevisions</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="TAG_OSGI_CONNECT"
+               role="field"
+               xml:id="org.osgi.framework.connect.ConnectContent.TAG_OSGI_CONNECT">
+         <title>public static final String TAG_OSGI_CONNECT = "osgi.connect"</title>
+         <para>
+The <code>osgi.identity</code>
+            <link linkend="org.osgi.framework.namespace.IdentityNamespace.CAPABILITY_TAGS_ATTRIBUTE">tags</link> attribute value
+ used by the framework to tag connect bundle revisions.
+   </para>
+      </section>
+      <section xreflabel="close()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.close--">
+         <title>public void close() throws IOException</title>
+         <para role="description">
+Closes this <code>ConnectContent</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurred closing this
+             <code>ConnectContent</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getClassLoader()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.getClassLoader--">
+         <title>public Optional&lt;ClassLoader&gt; getClassLoader()</title>
+         <para role="description">
+Returns a class loader for this <code>ConnectContent</code>.
+ </para>
+         <para>
+ This method is called by the framework for <link linkend="org.osgi.framework.Bundle.RESOLVED">resolved</link> bundles only and will be called at most once while a bundle is
+ resolved. If a bundle associated with a <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> is
+ refreshed and resolved again, the framework will ask the
+ <code>ConnectContent</code> for the class loader again. This allows for a
+ <code>ConnectContent</code> to reuse or create a new class loader each time
+ the bundle revision is resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing the class loader for this
+         <code>ConnectContent</code>, or an empty <code>Optional</code> if framework
+         should handle creating a class loader for the bundle revision
+         associated with this <code>ConnectContent</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this <code>ConnectContent</code> has been
+             closed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getEntries()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.getEntries--">
+         <title>public Iterable&lt;String&gt; getEntries() throws IOException</title>
+         <para role="description">
+Returns the entry names available in this <code>ConnectContent</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Iterable</code> which can supply the available entry names.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurs reading this
+             <code>ConnectContent</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this <code>ConnectContent</code> has been
+             closed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getEntry(String)"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.getEntry-String-">
+         <title>public Optional&lt;ConnectContent.ConnectEntry&gt; getEntry(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The path name of the entry.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.connect.ConnectContent.ConnectEntry">ConnectEntry</link> for the specified path name in this
+ content.
+ </para>
+         <para>
+ The empty value is returned if an entry with the
+ specified path name does not exist. The path must not start with a
+ "/" and is relative to the root of this content. A connect
+ entry for a directory will have a path name that ends with a slash ('/').</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing the <link linkend="org.osgi.framework.connect.ConnectContent.ConnectEntry">ConnectEntry</link> for the
+         specified path, or an empty <code>Optional</code> if no entry for
+         specified path can be found.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this <code>ConnectContent</code> has been
+             closed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getHeaders()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.getHeaders--">
+         <title>public Optional&lt;Map&lt;String, String&gt;&gt; getHeaders()</title>
+         <para role="description">
+Returns the Manifest headers and values of this <code>ConnectContent</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing the Manifest headers and values
+         for this <code>ConnectContent</code>, or an empty <code>Optional</code> if
+         the framework should handle parsing the Manifest of the content
+         itself.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this <code>ConnectContent</code> has been
+             closed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="open()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.open--">
+         <title>public void open() throws IOException</title>
+         <para role="description">
+Opens this <code>ConnectContent</code>.
+ </para>
+         <para>
+ The framework will open the content when it needs to access the content
+ for a bundle revision associated with this <code>ConnectContent</code>. The
+ framework may defer calling this method until requests to access the
+ bundle revision content are made.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurred opening this
+             <code>ConnectContent</code>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConnectContent.ConnectEntry"
+            role="class"
+            xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry">
+      <title>public static interface ConnectContent.ConnectEntry</title>
+      <para>
+Represents the entry of a <code>ConnectContent</code>.
+   </para>
+      <section xreflabel="getBytes()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry.getBytes--">
+         <title>public byte[] getBytes() throws IOException</title>
+         <para role="description">
+Returns the content of this entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The content of this entry.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurs reading the content.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getContentLength()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry.getContentLength--">
+         <title>public long getContentLength()</title>
+         <para role="description">
+Returns the content length of this entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The content length of the entry, or <code>-1</code> if the content
+         length is not known.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getInputStream()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry.getInputStream--">
+         <title>public InputStream getInputStream() throws IOException</title>
+         <para role="description">
+Returns an input stream for the content of this entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An input stream for the content of this entry.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurs reading the content.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLastModified()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry.getLastModified--">
+         <title>public long getLastModified()</title>
+         <para role="description">
+Returns the last modification time of this entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The last modification time of this entry measured in
+         milliseconds since the epoch (00:00:00 GMT, January 1, 1970).</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectContent.ConnectEntry.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Returns the path name of this entry.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The path name of this entry.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConnectFrameworkFactory"
+            role="class"
+            xml:id="org.osgi.framework.connect.ConnectFrameworkFactory">
+      <title>public interface ConnectFrameworkFactory</title>
+      <para>
+A factory for creating <link linkend="org.osgi.framework.launch.Framework">Framework</link> instances.
+ </para>
+      <para>
+ If a framework supports <link linkend="org.osgi.framework.connect.ModuleConnector">ModuleConnector</link>, then the implementation jar
+ must contain the following resource:
+ 
+ </para>
+      <programlisting> /META-INF/services/org.osgi.framework.connect.ConnectFrameworkFactory</programlisting>
+      <para>
+ 
+ This UTF-8 encoded resource must contain the name of the framework
+ implementation's ConnectFrameworkFactory implementation class. Space and tab
+ characters, including blank lines, in the resource must be ignored. The
+ number sign (<code>'#'</code> \u0023) and all characters following it on each
+ line are a comment and must be ignored.
+ </para>
+      <para>
+ Launchers can find the name of the ConnectFrameworkFactory implementation
+ class in the resource and then load and construct a ConnectFrameworkFactory
+ object for the framework implementation. The ConnectFrameworkFactory
+ implementation class must have a public, no-argument constructor. Java™
+ SE 6 introduced the <code>ServiceLoader</code> class which can create a
+ ConnectFrameworkFactory instance from the resource.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="newFramework(Map,ModuleConnector)"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectFrameworkFactory.newFramework-Map-ModuleConnector-">
+         <title>public Framework newFramework(Map&lt;String, String&gt; configuration, ModuleConnector moduleConnector)</title>
+         <formalpara role="parameter">
+            <title>configuration</title>
+            <para>The framework properties to configure the new
+            framework instance. If framework properties are not provided
+            by the configuration argument, the created framework instance
+            must use some reasonable default configuration appropriate for
+            the current VM. For example, the system packages for the
+            current execution environment should be properly exported. The
+            specified configuration argument may be <code>null</code>. The
+            created framework instance must copy any information needed
+            from the specified configuration argument since the
+            configuration argument can be changed after the framework
+            instance has been created.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>moduleConnector</title>
+            <para>The module connector that the new framework
+            instance will use. The specified module connector argument may
+            be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Create a new <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance using the specified
+ <link linkend="org.osgi.framework.connect.ModuleConnector">module connector</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new, configured <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance. The framework
+         instance must be in the <link linkend="org.osgi.framework.Bundle.INSTALLED">Bundle.INSTALLED</link> state.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+             <code>AllPermission</code>, and the Java Runtime Environment
+             supports permissions.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.connect.ModuleConnector">ModuleConnector</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConnectModule"
+            role="class"
+            xml:id="org.osgi.framework.connect.ConnectModule">
+      <title>public interface ConnectModule</title>
+      <para>
+A <code>ConnectModule</code> is used by a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance to access the
+ content of the connected bundle.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="getContent()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ConnectModule.getContent--">
+         <title>public ConnectContent getContent() throws IOException</title>
+         <para role="description">
+Returns the current content of this connect module.
+ </para>
+         <para>
+ The framework must call this method when it needs to access the content
+ for the current <link linkend="org.osgi.framework.wiring.BundleRevision">bundle revision</link> of this
+ <code>ConnectModule</code>. The framework may defer opening the returned
+ <link linkend="org.osgi.framework.connect.ConnectContent">ConnectContent</link> until requests to access the bundle revision
+ content are made.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <link linkend="org.osgi.framework.connect.ConnectContent">ConnectContent</link> of this <code>ConnectModule</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If an error occurred getting the content.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.connect.ModuleConnector.connect-String-">ModuleConnector.connect(String)</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FrameworkUtilHelper"
+            role="class"
+            xml:id="org.osgi.framework.connect.FrameworkUtilHelper">
+      <title>public interface FrameworkUtilHelper</title>
+      <para>
+A helper for the <link linkend="org.osgi.framework.FrameworkUtil">FrameworkUtil</link> class.
+ </para>
+      <para>
+ This helper provides alternative implementations for methods on
+ <link linkend="org.osgi.framework.FrameworkUtil">FrameworkUtil</link>.</para>
+      <section xreflabel="getBundle(Class)"
+               role="method"
+               xml:id="org.osgi.framework.connect.FrameworkUtilHelper.getBundle-Class-">
+         <title>public Optional&lt;Bundle&gt; getBundle(Class&lt;?&gt; classFromBundle)</title>
+         <formalpara role="parameter">
+            <title>classFromBundle</title>
+            <para>A class associated with a bundle.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.Bundle">Bundle</link> associated with the specified class.
+ </para>
+         <para>
+ This helper method is called by <link linkend="org.osgi.framework.FrameworkUtil.getBundle-Class-">FrameworkUtil.getBundle(Class)</link> if
+ the standard implementation of <link linkend="org.osgi.framework.FrameworkUtil">FrameworkUtil</link> is unable to find
+ the bundle.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing the <link linkend="org.osgi.framework.Bundle">Bundle</link> for the
+         specified class, or an empty <code>Optional</code> if the specified
+         class is not from a bundle.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ModuleConnector"
+            role="class"
+            xml:id="org.osgi.framework.connect.ModuleConnector">
+      <title>public interface ModuleConnector</title>
+      <para>
+A <code>ModuleConnector</code> provides connections to instances of
+ <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> that are used by a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance to
+ connect installed bundles locations with content provided by the
+ <code>ModuleConnector</code>.
+ </para>
+      <para>
+ This allows a <code>ModuleConnector</code> to provide content and classes for a
+ connected bundle installed in the <code>Framework</code>. A
+ <code>ModuleConnector</code> is provided when
+ <link linkend="org.osgi.framework.connect.ConnectFrameworkFactory.newFramework-Map-ModuleConnector-">creating</link> a
+ framework instance. Because a <code>ModuleConnector</code> instance can
+ participate in the initialization of the <code>Framework</code> and the life cycle
+ of a <code>Framework</code> instance the <code>ModuleConnector</code> instance should
+ only be used with a single <code>Framework</code> instance at a time.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="connect(String)"
+               role="method"
+               xml:id="org.osgi.framework.connect.ModuleConnector.connect-String-">
+         <title>public Optional&lt;ConnectModule&gt; connect(String location) throws BundleException</title>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>The bundle location used to install a bundle.</para>
+         </formalpara>
+         <para role="description">
+Connects a bundle location with a <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link>.
+ </para>
+         <para>
+ When the result is empty, then the framework must handle reading the
+ content of the bundle itself. Otherwise, the returned
+ <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> must be used by the framework to access the content
+ of the bundle.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing the <link linkend="org.osgi.framework.connect.ConnectModule">ConnectModule</link> for the
+         specified bundle location, or an empty <code>Optional</code> if the
+         framework must handle reading the content of the bundle itself.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>BundleException</code>– If the location cannot be handled.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="initialize(File,Map)"
+               role="method"
+               xml:id="org.osgi.framework.connect.ModuleConnector.initialize-File-Map-">
+         <title>public void initialize(File storage, Map&lt;String, String&gt; configuration)</title>
+         <formalpara role="parameter">
+            <title>storage</title>
+            <para>The persistent storage area used by the <link linkend="org.osgi.framework.launch.Framework">Framework</link>
+            or <code>null</code> if the platform does not have file system
+            support.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>configuration</title>
+            <para>An unmodifiable map of framework configuration
+            properties that were used to configure the new framework
+            instance.</para>
+         </formalpara>
+         <para role="description">
+Initializes this <code>ModuleConnector</code> with the
+ <link linkend="org.osgi.framework.Constants.FRAMEWORK_STORAGE">framework persistent storage</link> file and
+ framework properties configured for a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance.
+ </para>
+         <para>
+ This method is called once by a <link linkend="org.osgi.framework.launch.Framework">Framework</link> instance and is called
+ before any other methods on this module connector are called.</para>
+      </section>
+      <section xreflabel="newBundleActivator()"
+               role="method"
+               xml:id="org.osgi.framework.connect.ModuleConnector.newBundleActivator--">
+         <title>public Optional&lt;BundleActivator&gt; newBundleActivator()</title>
+         <para role="description">
+Creates a new activator for this <code>ModuleConnector</code>.
+ </para>
+         <para>
+ This method is called by the framework during framework
+ <link linkend="org.osgi.framework.launch.Framework.init-FrameworkListener...-">initialization</link>. Returning an
+ activator allows this <code>ModuleConnector</code> to participate in the
+ framework life cycle. If an activator is returned:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The framework will call the activator's
+ <link linkend="org.osgi.framework.BundleActivator.start-BundleContext-">start</link> method prior to
+ activating any extension bundles.</para>
+            </listitem>
+            <listitem>
+               <para>The framework will call the activator's
+ <link linkend="org.osgi.framework.BundleActivator.stop-BundleContext-">stop</link> method after
+ deactivating any extension bundles.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>Optional</code> containing a new <link linkend="org.osgi.framework.BundleActivator">BundleActivator</link> for
+         this <code>ModuleConnector</code>, or an empty <code>Optional</code> if no
+         <link linkend="org.osgi.framework.BundleActivator">BundleActivator</link> is necessary.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

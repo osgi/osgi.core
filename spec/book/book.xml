@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book revision="$Id$"
+      version="5.0" xml:id="core.book"
+      xmlns="http://docbook.org/ns/docbook"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:ns5="http://www.w3.org/2000/svg"
+      xmlns:ns4="http://www.w3.org/1998/Math/MathML"
+      xmlns:ns3="http://www.w3.org/1999/xhtml"
+      xmlns:ns="http://docbook.org/ns/docbook">
+  <info>
+    <title>OSGi Core</title>
+
+    <author>
+      <orgname>The OSGi Alliance</orgname>
+    </author>
+
+    <releaseinfo xml:id="core.book-release">Release 8</releaseinfo>
+
+    <pubdate>October 2020</pubdate>
+
+    <copyright>
+      <year>2000, 2020</year>
+
+      <holder>OSGi Alliance</holder>
+    </copyright>
+  </info>
+
+  <xi:include href="license/distribution.feedback.license.2.0.xml"/>
+
+  <xi:include href="license/osgi.specification.license.2.0.xml"/>
+
+  <xi:include href="core/001/introduction.xml"/>
+
+  <xi:include href="chapters/framework.security/framework.security.xml"/>
+
+  <xi:include href="chapters/framework.module/framework.module.xml"/>
+
+  <xi:include href="chapters/framework.lifecycle/framework.lifecycle.xml"/>
+
+  <xi:include href="chapters/framework.service/framework.service.xml"/>
+
+  <xi:include href="chapters/framework.resource/framework.resource.xml"/>
+
+  <xi:include href="chapters/framework.wiring/framework.wiring.xml"/>
+
+  <xi:include href="chapters/framework.namespaces/framework.namespaces.xml"/>
+
+  <xi:include href="chapters/framework.startlevel/framework.startlevel.xml"/>
+
+  <xi:include href="chapters/framework.api/framework.api.xml"/>
+
+  <xi:include href="chapters/service.condpermadmin/service.condpermadmin.xml"/>
+
+  <xi:include href="chapters/service.permissionadmin/service.permissionadmin.xml"/>
+
+  <xi:include href="chapters/service.url/service.url.xml"/>
+
+  <xi:include href="chapters/framework.resolverhooks/framework.resolverhooks.xml"/>
+
+  <xi:include href="chapters/framework.bundlehooks/framework.bundlehooks.xml"/>
+
+  <xi:include href="chapters/framework.servicehooks/framework.servicehooks.xml"/>
+
+  <xi:include href="chapters/framework.weavinghooks/framework.weavinghooks.xml"/>
+
+  <xi:include href="chapters/framework.dto/framework.dto.xml"/>
+
+  <xi:include href="chapters/service.resolver/service.resolver.xml"/>
+
+  <xi:include href="chapters/service.condition/service.condition.xml"/>
+
+  <xi:include href="chapters/framework.connect/framework.connect.xml"/>
+
+  <xi:include href="chapters/service.log/service.log.xml"/>
+
+  <xi:include href="chapters/util.tracker/util.tracker.xml"/>
+</book>

@@ -1,0 +1,327 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.log.admin"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.log.admin">
+   <title>org.osgi.service.log.admin</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.log.admin-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.log.admin-version.number">1.0</edition>
+   </info>
+   <para>
+Log Admin Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.log.admin; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.log.admin; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.log.admin.LoggerAdmin">
+                  <code>LoggerAdmin</code>
+               </link> - 
+LoggerAdmin service for configuring loggers.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.log.admin.LoggerContext">
+                  <code>LoggerContext</code>
+               </link> - 
+Logger Context for a bundle.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="LoggerAdmin"
+            role="class"
+            xml:id="org.osgi.service.log.admin.LoggerAdmin">
+      <title>public interface LoggerAdmin</title>
+      <para>
+LoggerAdmin service for configuring loggers.
+ </para>
+      <para>
+ Each bundle may have its own named <link linkend="org.osgi.service.log.admin.LoggerContext">LoggerContext</link> based upon its
+ bundle symbolic name, bundle version, and bundle location. There is also a
+ root Logger Context from which each named Logger Context inherits. The root
+ Logger Context has no name.
+ </para>
+      <para>
+ When a bundle logs, the logger implementation must locate the Logger Context
+ for the bundle to determine the
+ <link linkend="org.osgi.service.log.admin.LoggerContext.getEffectiveLogLevel-String-">effective log level</link> of the
+ logger name. The <emphasis>best matching name</emphasis> for the Logger Context is the
+ longest name, which has a non-empty Logger Context, according to this syntax:
+ 
+ </para>
+      <programlisting> name ::= symbolic-name ( '|' version ( '|' location )? )?</programlisting>
+      <para>
+ 
+ The version must be formatted canonically, that is, according to the
+ <code>toString()</code> method of the <code>Version</code> class. So the Logger Context
+ for a bundle is searched for using the following names in the given order:
+ 
+ </para>
+      <programlisting> &lt;symbolic-name&gt;|&lt;version&gt;|&lt;location&gt;
+ &lt;symbolic-name&gt;|&lt;version&gt;
+ &lt;symbolic-name&gt;</programlisting>
+      <para>
+ 
+ The search stops at the first <link linkend="org.osgi.service.log.admin.LoggerContext.isEmpty--">non-empty</link>
+ Logger Context. If no non-empty Logger Context is found using the above
+ search order, the Logger Context with the symbolic name of the bundle must be
+ used for the bundle.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="LOG_SERVICE_ID"
+               role="field"
+               xml:id="org.osgi.service.log.admin.LoggerAdmin.LOG_SERVICE_ID">
+         <title>public static final String LOG_SERVICE_ID = "osgi.log.service.id"</title>
+         <para>
+Logger Admin service property to associate the Logger Admin service with
+ a <link linkend="org.osgi.service.log.LoggerFactory">LoggerFactory</link> service.
+ </para>
+         <para>
+ This service property is set to the <code>service.id</code> for the
+ <link linkend="org.osgi.service.log.LoggerFactory">LoggerFactory</link> service administered by this Logger Admin.
+ </para>
+         <para>
+ The value of this service property must be of type <code>Long</code>.</para>
+      </section>
+      <section xreflabel="getLoggerContext(String)"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerAdmin.getLoggerContext-String-">
+         <title>public LoggerContext getLoggerContext(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of the Logger Context. Can be <code>null</code> to
+            specify the root Logger Context.</para>
+         </formalpara>
+         <para role="description">
+Get the Logger Context for the specified name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Logger Context for the specified name. The returned Logger
+         Context may be <link linkend="org.osgi.service.log.admin.LoggerContext.isEmpty--">empty</link>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="LoggerContext"
+            role="class"
+            xml:id="org.osgi.service.log.admin.LoggerContext">
+      <title>public interface LoggerContext</title>
+      <para>
+Logger Context for a bundle.
+ </para>
+      <para>
+ Any change to the configuration of this Logger Context must be effective
+ immediately for all loggers that would rely upon the configuration of this
+ Logger Context.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="LOGGER_CONTEXT_DEFAULT_LOGLEVEL"
+               role="field"
+               xml:id="org.osgi.service.log.admin.LoggerContext.LOGGER_CONTEXT_DEFAULT_LOGLEVEL">
+         <title>public static final String LOGGER_CONTEXT_DEFAULT_LOGLEVEL = "org.osgi.service.log.admin.loglevel"</title>
+         <para>
+Framework launching property specifying the default log level of the root
+ Logger Context.
+ </para>
+         <para>
+ The value of this property must be the name of the one of the
+ <link linkend="org.osgi.service.log.LogLevel">LogLevel</link>s.
+ </para>
+         <para>
+ If not specified, or the specified value is not the name of the one of
+ the <link linkend="org.osgi.service.log.LogLevel">LogLevel</link>s, the default log level of the root Logger Context
+ is <link linkend="org.osgi.service.log.LogLevel.WARN">LogLevel.WARN</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.log.LogLevel">LogLevel</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="LOGGER_CONTEXT_PID"
+               role="field"
+               xml:id="org.osgi.service.log.admin.LoggerContext.LOGGER_CONTEXT_PID">
+         <title>public static final String LOGGER_CONTEXT_PID = "org.osgi.service.log.admin"</title>
+         <para>
+Logger Context PID.
+ </para>
+         <para>
+ If Configuration Admin is present, Logger Context configuration
+ information in Configuration Admin must be used. The name of the Logger
+ Context is mapped to a Configuration Admin targeted PID as follows:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The root Logger Context, which has no name, is mapped to the PID
+ <code>org.osgi.service.log.admin</code>.</para>
+            </listitem>
+            <listitem>
+               <para>A named Logger Context is mapped to a targeted PID by prefixing the
+ Logger Context's name with <code>org.osgi.service.log.admin</code> followed by
+ vertical line (<code>'|'</code> \u007c). For example, the Logger Context
+ named <code>com.foo.bar</code> is mapped to the targeted PID
+ <code>org.osgi.service.log.admin|com.foo.bar</code>.</para>
+            </listitem>
+         </itemizedlist>
+      </section>
+      <section xreflabel="clear()"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.clear--">
+         <title>public void clear()</title>
+         <para role="description">
+Clear the configuration of this Logger Context.
+ </para>
+         <para>
+ The configured log levels will be cleared.</para>
+      </section>
+      <section xreflabel="getEffectiveLogLevel(String)"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.getEffectiveLogLevel-String-">
+         <title>public LogLevel getEffectiveLogLevel(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The logger name.</para>
+         </formalpara>
+         <para role="description">
+Returns the effective log level of the logger name in this Logger
+ Context.
+ </para>
+         <para>
+ The effective log level for a logger name is found by the following
+ steps:
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>If the specified logger name is configured with a log level, return
+ the configured log level.</para>
+            </listitem>
+            <listitem>
+               <para>For each ancestor logger name of the specified logger name, if the
+ ancestor logger name is configured with a log level, return the
+ configured log level.</para>
+            </listitem>
+            <listitem>
+               <para>If this Logger Context is named, return the result of calling this
+ method on the root Logger Context with the specified logger name.</para>
+            </listitem>
+            <listitem>
+               <para>If this Logger Context is the root Logger Context, return the
+ <link linkend="org.osgi.service.log.admin.LoggerContext.LOGGER_CONTEXT_DEFAULT_LOGLEVEL">default log level of the root
+ Logger Context</link>.</para>
+            </listitem>
+         </orderedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The effective log level of the logger name in this Logger
+         Context.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLogLevels()"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.getLogLevels--">
+         <title>public Map&lt;String, LogLevel&gt; getLogLevels()</title>
+         <para role="description">
+Returns the configured log levels for this Logger Context.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The configured log levels for this Logger Context. The keys are
+         the logger names and the values are the log levels. The returned
+         map may be empty if no logger names are configured for this
+         Logger Context. The returned map is the property of the caller
+         who can modify the map and use it as input to
+         <link linkend="org.osgi.service.log.admin.LoggerContext.setLogLevels-Map-">setLogLevels(Map)</link>. The returned map must support all
+         optional Map operations.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Returns the name for this Logger Context.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name for this Logger Context. The root Logger Context has no
+         name and returns <code>null</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isEmpty()"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.isEmpty--">
+         <title>public boolean isEmpty()</title>
+         <para role="description">
+Returns whether the configuration of this Logger Context is empty.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this Logger Context has no configuration. That
+         is, the configured log levels are empty. Otherwise <code>false</code>
+         is returned.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setLogLevels(Map)"
+               role="method"
+               xml:id="org.osgi.service.log.admin.LoggerContext.setLogLevels-Map-">
+         <title>public void setLogLevels(Map&lt;String, LogLevel&gt; logLevels)</title>
+         <formalpara role="parameter">
+            <title>logLevels</title>
+            <para>The log levels to configure for this Logger Context. The
+            keys are the logger names and the values are the log levels.
+            The specified map is the property of the caller and this
+            method must not modify or retain the specified map.</para>
+         </formalpara>
+         <para role="description">
+Configure the log levels for this Logger Context.
+ </para>
+         <para>
+ All previous log levels configured for this Logger Context are cleared
+ and then the log levels in the specified map are configured.
+ </para>
+         <para>
+ The configured log levels for this Logger Context can be set by both this
+ method and by configuration information in Configuration Admin, if
+ Configuration Admin is present. The configured log levels for this Logger
+ Context are based upon the last technique used to update the configured
+ log levels. This method must not modify or set configuration information
+ in Configuration Admin.</para>
+      </section>
+   </section>
+</section>

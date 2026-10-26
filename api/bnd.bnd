@@ -1,0 +1,28 @@
+# The packages of the unpacked API artifacts, one line per artifact as in
+# the monorepo (<project>.*); their versions come from the package-info
+# classes. org.osgi.* would also export osgi.annotation from the class path.
+Export-Package: \
+	org.osgi.dto.*,\
+	org.osgi.framework.*,\
+	org.osgi.resource.*,\
+	org.osgi.service.condition.*,\
+	org.osgi.service.condpermadmin.*,\
+	org.osgi.service.log.*,\
+	org.osgi.service.packageadmin.*,\
+	org.osgi.service.permissionadmin.*,\
+	org.osgi.service.resolver.*,\
+	org.osgi.service.startlevel.*,\
+	org.osgi.service.url.*,\
+	org.osgi.util.tracker.*;-split-package:=first
+Import-Package: *;resolution:=optional
+Bundle-Description: OSGi Core Release ${parsedVersion.majorVersion}, Interfaces and Classes for use in compiling bundles
+
+# Compile against osgi.core, never resolve it in a framework: the
+# framework itself provides these packages.
+Provide-Capability: osgi.unresolvable
+Require-Capability: osgi.unresolvable;filter:="(&(must.not.resolve=*)(!(must.not.resolve=*)))"
+
+# As the monorepo build of Core Release 8: no imports of java.* packages,
+# and the osgi.ee requirement names the smallest compact profile.
+-noimportjava: true
+-eeprofile: auto

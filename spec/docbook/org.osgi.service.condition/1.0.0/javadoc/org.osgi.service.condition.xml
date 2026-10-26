@@ -1,0 +1,115 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.condition"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.condition">
+   <title>org.osgi.service.condition</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.condition-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.condition-version.number">1.0</edition>
+   </info>
+   <para>
+Condition Service Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.condition; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.condition; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.condition.Condition">
+                  <code>Condition</code>
+               </link> - 
+Condition Service interface.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Condition"
+            role="class"
+            xml:id="org.osgi.service.condition.Condition">
+      <title>public interface Condition</title>
+      <para>
+Condition Service interface.
+ </para>
+      <para>
+ In dynamic systems, such as OSGi, one of the more challenging problems can be
+ to define when a system or part of it is ready to do work. The answer can
+ change depending on the individual perspective. The developer of a web server
+ might say, the system is ready when the server starts listening on port 80.
+ An application developer however would define the system as ready when the
+ database connection is up and all servlets are registered. Taking the
+ application developers view, the web server should start listening on port 80
+ when the application is ready and not beforehand.
+ </para>
+      <para>
+ The <code>Condition</code> service interface is a marker interface designed to
+ address this issue. Its role is to provide a dependency that can be tracked.
+ It acts as a defined signal to other services.
+ </para>
+      <para>
+ A <code>Condition</code> service must be registered with the
+ <link linkend="org.osgi.service.condition.Condition.CONDITION_ID">Condition.CONDITION_ID</link> service property.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="CONDITION_ID"
+               role="field"
+               xml:id="org.osgi.service.condition.Condition.CONDITION_ID">
+         <title>public static final String CONDITION_ID = "osgi.condition.id"</title>
+         <para>
+Service property identifying a condition's unique identifier.
+ </para>
+         <para>
+ Since a <code>Condition</code> service can potentially describe more then one
+ condition, the type of this service property is <code>String+</code>.</para>
+      </section>
+      <section xreflabel="CONDITION_ID_TRUE"
+               role="field"
+               xml:id="org.osgi.service.condition.Condition.CONDITION_ID_TRUE">
+         <title>public static final String CONDITION_ID_TRUE = "true"</title>
+         <para>
+The unique identifier for the default True condition.
+ </para>
+         <para>
+ The default True condition is registered by the framework during
+ framework initialization and therefore can always be relied upon.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.condition.Condition.CONDITION_ID">Condition.CONDITION_ID</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.condition.Condition.INSTANCE">
+         <title>public static final Condition INSTANCE</title>
+         <para>
+A condition instance that can be used to register <code>Condition</code>
+ services.
+ </para>
+         <para>
+ This can be helpful to avoid a bundle having to implement this interface
+ to register a <code>Condition</code> service</para>
+      </section>
+   </section>
+</section>
